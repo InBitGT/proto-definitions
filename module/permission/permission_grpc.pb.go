@@ -4,7 +4,7 @@
 // - protoc             v6.33.5
 // source: proto/module/permission/permission.proto
 
-package pb
+package permission
 
 import (
 	context "context"

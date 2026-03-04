@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package permission;
 
-option go_package = "./pb";
+option go_package = "github.com/InBitGT/proto-definitions/module/permission";
 
 service PermissionService {
   rpc CreatePermission(CreatePermissionRequest) returns (CreatePermissionResponse);

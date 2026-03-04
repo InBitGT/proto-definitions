@@ -4,7 +4,7 @@
 // 	protoc        v6.33.5
 // source: proto/module/permission/permission.proto
 
-package pb
+package permission
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -295,7 +295,7 @@ const file_proto_module_permission_permission_proto_rawDesc = "" +
 	"\x06status\x18\x04 \x01(\bR\x06status2\xc8\x01\n" +
 	"\x11PermissionService\x12]\n" +
 	"\x10CreatePermission\x12#.permission.CreatePermissionRequest\x1a$.permission.CreatePermissionResponse\x12T\n" +
-	"\rGetPermission\x12 .permission.GetPermissionRequest\x1a!.permission.GetPermissionResponseB\x06Z\x04./pbb\x06proto3"
+	"\rGetPermission\x12 .permission.GetPermissionRequest\x1a!.permission.GetPermissionResponseB8Z6github.com/InBitGT/proto-definitions/module/permissionb\x06proto3"
 
 var (
 	file_proto_module_permission_permission_proto_rawDescOnce sync.Once
