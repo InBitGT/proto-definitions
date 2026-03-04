@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package permission;
+
+option go_package = "./pb";
+
+service PermissionService {
+  rpc CreatePermission(CreatePermissionRequest) returns (CreatePermissionResponse);
+  rpc GetPermission(GetPermissionRequest) returns (GetPermissionResponse);
+}
+
+message CreatePermissionRequest {
+  string key         = 1;
+  string description = 2;
+  bool   status      = 3;
+}
+
+message CreatePermissionResponse {
+  uint32 id          = 1;
+  string key         = 2;
+  string description = 3;
+  bool   status      = 4;
+  string created_at  = 5;
+}
+
+message GetPermissionRequest {
+  uint32 id = 1;
+}
+
+message GetPermissionResponse {
+  uint32 id          = 1;
+  string key         = 2;
+  string description = 3;
+  bool   status      = 4;
+}
