@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package plan;
+option go_package = "github.com/InBitGT/proto-definitions/payment/plan";
+
+service PlanService {
+  rpc GetPlan    (GetPlanRequest)    returns (PlanResponse) {}
+  rpc CreatePlan (CreatePlanRequest) returns (PlanResponse) {}
+}
+
+message GetPlanRequest {
+  uint64 id = 1;
+}
+
+message CreatePlanRequest {
+  string name        = 1;
+  string price       = 2;
+  string description = 3;
+}
+
+message PlanResponse {
+  uint64 id          = 1;
+  string name        = 2;
+  string price       = 3;
+  string description = 4;
+  bool   status      = 5;
+  string created_at  = 6;
+  string updated_at  = 7;
+}

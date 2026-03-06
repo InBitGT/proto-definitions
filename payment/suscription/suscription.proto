@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package suscription;
+option go_package = "github.com/InBitGT/proto-definitions/payment/suscription";
+
+import "proto/payment/plan/plan.proto";
+
+service SuscriptionService {
+  rpc GetSuscription    (GetSuscriptionRequest)    returns (SuscriptionResponse) {}
+  rpc CreateSuscription (CreateSuscriptionRequest) returns (SuscriptionResponse) {}
+}
+
+message GetSuscriptionRequest {
+  uint64 id = 1;
+}
+
+message CreateSuscriptionRequest {
+  uint64 tenant_id    = 1;
+  uint64 plan_id      = 2;
+  string astarted_at  = 3;
+  string renew_at     = 4;
+  string end_at       = 5;
+}
+
+message SuscriptionResponse {
+  uint64              id          = 1;
+  uint64              tenant_id   = 2;
+  uint64              plan_id     = 3;
+  plan.PlanResponse   plan        = 4;
+  string              astarted_at = 5;
+  string              renew_at    = 6;
+  string              end_at      = 7;
+  bool                status      = 8;
+  string              created_at  = 9;
+  string              updated_at  = 10;
+}
