@@ -7,7 +7,7 @@
 package suscription
 
 import (
-	plan "github.com/InBitGT/proto-definitions/payment/plan"
+	_ "github.com/InBitGT/proto-definitions/payment/plan"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -144,16 +144,7 @@ func (x *CreateSuscriptionRequest) GetEndAt() string {
 
 type SuscriptionResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            uint64                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	TenantId      uint64                 `protobuf:"varint,2,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
-	PlanId        uint64                 `protobuf:"varint,3,opt,name=plan_id,json=planId,proto3" json:"plan_id,omitempty"`
-	Plan          *plan.PlanResponse     `protobuf:"bytes,4,opt,name=plan,proto3" json:"plan,omitempty"`
-	AstartedAt    string                 `protobuf:"bytes,5,opt,name=astarted_at,json=astartedAt,proto3" json:"astarted_at,omitempty"`
-	RenewAt       string                 `protobuf:"bytes,6,opt,name=renew_at,json=renewAt,proto3" json:"renew_at,omitempty"`
-	EndAt         string                 `protobuf:"bytes,7,opt,name=end_at,json=endAt,proto3" json:"end_at,omitempty"`
-	Status        bool                   `protobuf:"varint,8,opt,name=status,proto3" json:"status,omitempty"`
-	CreatedAt     string                 `protobuf:"bytes,9,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt     string                 `protobuf:"bytes,10,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -188,74 +179,11 @@ func (*SuscriptionResponse) Descriptor() ([]byte, []int) {
 	return file_proto_payment_suscription_suscription_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *SuscriptionResponse) GetId() uint64 {
+func (x *SuscriptionResponse) GetSuccess() bool {
 	if x != nil {
-		return x.Id
-	}
-	return 0
-}
-
-func (x *SuscriptionResponse) GetTenantId() uint64 {
-	if x != nil {
-		return x.TenantId
-	}
-	return 0
-}
-
-func (x *SuscriptionResponse) GetPlanId() uint64 {
-	if x != nil {
-		return x.PlanId
-	}
-	return 0
-}
-
-func (x *SuscriptionResponse) GetPlan() *plan.PlanResponse {
-	if x != nil {
-		return x.Plan
-	}
-	return nil
-}
-
-func (x *SuscriptionResponse) GetAstartedAt() string {
-	if x != nil {
-		return x.AstartedAt
-	}
-	return ""
-}
-
-func (x *SuscriptionResponse) GetRenewAt() string {
-	if x != nil {
-		return x.RenewAt
-	}
-	return ""
-}
-
-func (x *SuscriptionResponse) GetEndAt() string {
-	if x != nil {
-		return x.EndAt
-	}
-	return ""
-}
-
-func (x *SuscriptionResponse) GetStatus() bool {
-	if x != nil {
-		return x.Status
+		return x.Success
 	}
 	return false
-}
-
-func (x *SuscriptionResponse) GetCreatedAt() string {
-	if x != nil {
-		return x.CreatedAt
-	}
-	return ""
-}
-
-func (x *SuscriptionResponse) GetUpdatedAt() string {
-	if x != nil {
-		return x.UpdatedAt
-	}
-	return ""
 }
 
 var File_proto_payment_suscription_suscription_proto protoreflect.FileDescriptor
@@ -271,22 +199,9 @@ const file_proto_payment_suscription_suscription_proto_rawDesc = "" +
 	"\vastarted_at\x18\x03 \x01(\tR\n" +
 	"astartedAt\x12\x19\n" +
 	"\brenew_at\x18\x04 \x01(\tR\arenewAt\x12\x15\n" +
-	"\x06end_at\x18\x05 \x01(\tR\x05endAt\"\xac\x02\n" +
-	"\x13SuscriptionResponse\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x1b\n" +
-	"\ttenant_id\x18\x02 \x01(\x04R\btenantId\x12\x17\n" +
-	"\aplan_id\x18\x03 \x01(\x04R\x06planId\x12&\n" +
-	"\x04plan\x18\x04 \x01(\v2\x12.plan.PlanResponseR\x04plan\x12\x1f\n" +
-	"\vastarted_at\x18\x05 \x01(\tR\n" +
-	"astartedAt\x12\x19\n" +
-	"\brenew_at\x18\x06 \x01(\tR\arenewAt\x12\x15\n" +
-	"\x06end_at\x18\a \x01(\tR\x05endAt\x12\x16\n" +
-	"\x06status\x18\b \x01(\bR\x06status\x12\x1d\n" +
-	"\n" +
-	"created_at\x18\t \x01(\tR\tcreatedAt\x12\x1d\n" +
-	"\n" +
-	"updated_at\x18\n" +
-	" \x01(\tR\tupdatedAt2\xce\x01\n" +
+	"\x06end_at\x18\x05 \x01(\tR\x05endAt\"/\n" +
+	"\x13SuscriptionResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess2\xce\x01\n" +
 	"\x12SuscriptionService\x12X\n" +
 	"\x0eGetSuscription\x12\".suscription.GetSuscriptionRequest\x1a .suscription.SuscriptionResponse\"\x00\x12^\n" +
 	"\x11CreateSuscription\x12%.suscription.CreateSuscriptionRequest\x1a .suscription.SuscriptionResponse\"\x00B:Z8github.com/InBitGT/proto-definitions/payment/suscriptionb\x06proto3"
@@ -308,19 +223,17 @@ var file_proto_payment_suscription_suscription_proto_goTypes = []any{
 	(*GetSuscriptionRequest)(nil),    // 0: suscription.GetSuscriptionRequest
 	(*CreateSuscriptionRequest)(nil), // 1: suscription.CreateSuscriptionRequest
 	(*SuscriptionResponse)(nil),      // 2: suscription.SuscriptionResponse
-	(*plan.PlanResponse)(nil),        // 3: plan.PlanResponse
 }
 var file_proto_payment_suscription_suscription_proto_depIdxs = []int32{
-	3, // 0: suscription.SuscriptionResponse.plan:type_name -> plan.PlanResponse
-	0, // 1: suscription.SuscriptionService.GetSuscription:input_type -> suscription.GetSuscriptionRequest
-	1, // 2: suscription.SuscriptionService.CreateSuscription:input_type -> suscription.CreateSuscriptionRequest
-	2, // 3: suscription.SuscriptionService.GetSuscription:output_type -> suscription.SuscriptionResponse
-	2, // 4: suscription.SuscriptionService.CreateSuscription:output_type -> suscription.SuscriptionResponse
-	3, // [3:5] is the sub-list for method output_type
-	1, // [1:3] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0, // 0: suscription.SuscriptionService.GetSuscription:input_type -> suscription.GetSuscriptionRequest
+	1, // 1: suscription.SuscriptionService.CreateSuscription:input_type -> suscription.CreateSuscriptionRequest
+	2, // 2: suscription.SuscriptionService.GetSuscription:output_type -> suscription.SuscriptionResponse
+	2, // 3: suscription.SuscriptionService.CreateSuscription:output_type -> suscription.SuscriptionResponse
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
+	0, // [0:0] is the sub-list for extension type_name
+	0, // [0:0] is the sub-list for extension extendee
+	0, // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_proto_payment_suscription_suscription_proto_init() }

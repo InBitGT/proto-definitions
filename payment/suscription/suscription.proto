@@ -23,14 +23,5 @@ message CreateSuscriptionRequest {
 }
 
 message SuscriptionResponse {
-  uint64              id          = 1;
-  uint64              tenant_id   = 2;
-  uint64              plan_id     = 3;
-  plan.PlanResponse   plan        = 4;
-  string              astarted_at = 5;
-  string              renew_at    = 6;
-  string              end_at      = 7;
-  bool                status      = 8;
-  string              created_at  = 9;
-  string              updated_at  = 10;
+  bool success = 1;
 }
