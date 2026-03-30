@@ -121,7 +121,7 @@ type UserAuthResponse struct {
 	RoleId        uint64                 `protobuf:"varint,8,opt,name=role_id,json=roleId,proto3" json:"role_id,omitempty"`
 	RoleName      string                 `protobuf:"bytes,9,opt,name=role_name,json=roleName,proto3" json:"role_name,omitempty"`
 	IsActive      bool                   `protobuf:"varint,10,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
-	Status        string                 `protobuf:"bytes,11,opt,name=status,proto3" json:"status,omitempty"`
+	Status        bool                   `protobuf:"varint,11,opt,name=status,proto3" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -226,11 +226,11 @@ func (x *UserAuthResponse) GetIsActive() bool {
 	return false
 }
 
-func (x *UserAuthResponse) GetStatus() string {
+func (x *UserAuthResponse) GetStatus() bool {
 	if x != nil {
 		return x.Status
 	}
-	return ""
+	return false
 }
 
 var File_proto_user_users_user_proto protoreflect.FileDescriptor
@@ -255,7 +255,7 @@ const file_proto_user_users_user_proto_rawDesc = "" +
 	"\trole_name\x18\t \x01(\tR\broleName\x12\x1b\n" +
 	"\tis_active\x18\n" +
 	" \x01(\bR\bisActive\x12\x16\n" +
-	"\x06status\x18\v \x01(\tR\x06status2\x95\x01\n" +
+	"\x06status\x18\v \x01(\bR\x06status2\x95\x01\n" +
 	"\vUserService\x12E\n" +
 	"\x0eGetUserByEmail\x12\x1b.user.GetUserByEmailRequest\x1a\x16.user.UserAuthResponse\x12?\n" +
 	"\vGetUserByID\x12\x18.user.GetUserByIDRequest\x1a\x16.user.UserAuthResponseB+Z)github.com/InBitGT/proto-definitions/userb\x06proto3"
