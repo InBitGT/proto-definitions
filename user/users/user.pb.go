@@ -122,6 +122,7 @@ type UserAuthResponse struct {
 	RoleName      string                 `protobuf:"bytes,9,opt,name=role_name,json=roleName,proto3" json:"role_name,omitempty"`
 	IsActive      bool                   `protobuf:"varint,10,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
 	Status        bool                   `protobuf:"varint,11,opt,name=status,proto3" json:"status,omitempty"`
+	TenantName    string                 `protobuf:"bytes,12,opt,name=tenant_name,json=tenantName,proto3" json:"tenant_name,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -233,6 +234,13 @@ func (x *UserAuthResponse) GetStatus() bool {
 	return false
 }
 
+func (x *UserAuthResponse) GetTenantName() string {
+	if x != nil {
+		return x.TenantName
+	}
+	return ""
+}
+
 var File_proto_user_users_user_proto protoreflect.FileDescriptor
 
 const file_proto_user_users_user_proto_rawDesc = "" +
@@ -241,7 +249,7 @@ const file_proto_user_users_user_proto_rawDesc = "" +
 	"\x15GetUserByEmailRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\"$\n" +
 	"\x12GetUserByIDRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x04R\x02id\"\xbd\x02\n" +
+	"\x02id\x18\x01 \x01(\x04R\x02id\"\xde\x02\n" +
 	"\x10UserAuthResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x1b\n" +
 	"\ttenant_id\x18\x02 \x01(\x04R\btenantId\x12\x14\n" +
@@ -255,7 +263,9 @@ const file_proto_user_users_user_proto_rawDesc = "" +
 	"\trole_name\x18\t \x01(\tR\broleName\x12\x1b\n" +
 	"\tis_active\x18\n" +
 	" \x01(\bR\bisActive\x12\x16\n" +
-	"\x06status\x18\v \x01(\bR\x06status2\x95\x01\n" +
+	"\x06status\x18\v \x01(\bR\x06status\x12\x1f\n" +
+	"\vtenant_name\x18\f \x01(\tR\n" +
+	"tenantName2\x95\x01\n" +
 	"\vUserService\x12E\n" +
 	"\x0eGetUserByEmail\x12\x1b.user.GetUserByEmailRequest\x1a\x16.user.UserAuthResponse\x12?\n" +
 	"\vGetUserByID\x12\x18.user.GetUserByIDRequest\x1a\x16.user.UserAuthResponseB+Z)github.com/InBitGT/proto-definitions/userb\x06proto3"

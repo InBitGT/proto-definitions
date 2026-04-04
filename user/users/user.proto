@@ -22,4 +22,5 @@ message UserAuthResponse {
   string role_name     = 9;
   bool   is_active     = 10;
   bool   status        = 11;
+  string tenant_name = 12;
 }
