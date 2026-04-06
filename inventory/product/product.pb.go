@@ -4,7 +4,7 @@
 // 	protoc        v7.34.1
 // source: proto/inventory/product/product.proto
 
-package user
+package product
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -21,27 +21,39 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type GetUserByEmailRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+type CreateProductRequest struct {
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	TenantId           uint64                 `protobuf:"varint,1,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
+	CategoryId         uint64                 `protobuf:"varint,2,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	Name               string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Description        string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	Sku                string                 `protobuf:"bytes,5,opt,name=sku,proto3" json:"sku,omitempty"`
+	Barcode            string                 `protobuf:"bytes,6,opt,name=barcode,proto3" json:"barcode,omitempty"`
+	Brand              string                 `protobuf:"bytes,7,opt,name=brand,proto3" json:"brand,omitempty"`
+	Type               string                 `protobuf:"bytes,8,opt,name=type,proto3" json:"type,omitempty"` // ingredient | menu_item
+	UnitOfMeasure      string                 `protobuf:"bytes,9,opt,name=unit_of_measure,json=unitOfMeasure,proto3" json:"unit_of_measure,omitempty"`
+	AverageCost        float64                `protobuf:"fixed64,10,opt,name=average_cost,json=averageCost,proto3" json:"average_cost,omitempty"`
+	RequiresBatch      bool                   `protobuf:"varint,11,opt,name=requires_batch,json=requiresBatch,proto3" json:"requires_batch,omitempty"`
+	AvailabilityStatus string                 `protobuf:"bytes,12,opt,name=availability_status,json=availabilityStatus,proto3" json:"availability_status,omitempty"`
+	Picture            string                 `protobuf:"bytes,13,opt,name=picture,proto3" json:"picture,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
 }
 
-func (x *GetUserByEmailRequest) Reset() {
-	*x = GetUserByEmailRequest{}
+func (x *CreateProductRequest) Reset() {
+	*x = CreateProductRequest{}
 	mi := &file_proto_inventory_product_product_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetUserByEmailRequest) String() string {
+func (x *CreateProductRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetUserByEmailRequest) ProtoMessage() {}
+func (*CreateProductRequest) ProtoMessage() {}
 
-func (x *GetUserByEmailRequest) ProtoReflect() protoreflect.Message {
+func (x *CreateProductRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_inventory_product_product_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -53,222 +65,402 @@ func (x *GetUserByEmailRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetUserByEmailRequest.ProtoReflect.Descriptor instead.
-func (*GetUserByEmailRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateProductRequest.ProtoReflect.Descriptor instead.
+func (*CreateProductRequest) Descriptor() ([]byte, []int) {
 	return file_proto_inventory_product_product_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *GetUserByEmailRequest) GetEmail() string {
-	if x != nil {
-		return x.Email
-	}
-	return ""
-}
-
-type GetUserByIDRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            uint64                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetUserByIDRequest) Reset() {
-	*x = GetUserByIDRequest{}
-	mi := &file_proto_inventory_product_product_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetUserByIDRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetUserByIDRequest) ProtoMessage() {}
-
-func (x *GetUserByIDRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_inventory_product_product_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetUserByIDRequest.ProtoReflect.Descriptor instead.
-func (*GetUserByIDRequest) Descriptor() ([]byte, []int) {
-	return file_proto_inventory_product_product_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *GetUserByIDRequest) GetId() uint64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
-
-type UserAuthResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            uint64                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	TenantId      uint64                 `protobuf:"varint,2,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
-	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
-	Username      string                 `protobuf:"bytes,4,opt,name=username,proto3" json:"username,omitempty"`
-	PasswordHash  string                 `protobuf:"bytes,5,opt,name=password_hash,json=passwordHash,proto3" json:"password_hash,omitempty"`
-	FirstName     string                 `protobuf:"bytes,6,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
-	LastName      string                 `protobuf:"bytes,7,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
-	RoleId        uint64                 `protobuf:"varint,8,opt,name=role_id,json=roleId,proto3" json:"role_id,omitempty"`
-	RoleName      string                 `protobuf:"bytes,9,opt,name=role_name,json=roleName,proto3" json:"role_name,omitempty"`
-	IsActive      bool                   `protobuf:"varint,10,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
-	Status        bool                   `protobuf:"varint,11,opt,name=status,proto3" json:"status,omitempty"`
-	TenantName    string                 `protobuf:"bytes,12,opt,name=tenant_name,json=tenantName,proto3" json:"tenant_name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *UserAuthResponse) Reset() {
-	*x = UserAuthResponse{}
-	mi := &file_proto_inventory_product_product_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *UserAuthResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UserAuthResponse) ProtoMessage() {}
-
-func (x *UserAuthResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_inventory_product_product_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UserAuthResponse.ProtoReflect.Descriptor instead.
-func (*UserAuthResponse) Descriptor() ([]byte, []int) {
-	return file_proto_inventory_product_product_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *UserAuthResponse) GetId() uint64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
-
-func (x *UserAuthResponse) GetTenantId() uint64 {
+func (x *CreateProductRequest) GetTenantId() uint64 {
 	if x != nil {
 		return x.TenantId
 	}
 	return 0
 }
 
-func (x *UserAuthResponse) GetEmail() string {
+func (x *CreateProductRequest) GetCategoryId() uint64 {
 	if x != nil {
-		return x.Email
-	}
-	return ""
-}
-
-func (x *UserAuthResponse) GetUsername() string {
-	if x != nil {
-		return x.Username
-	}
-	return ""
-}
-
-func (x *UserAuthResponse) GetPasswordHash() string {
-	if x != nil {
-		return x.PasswordHash
-	}
-	return ""
-}
-
-func (x *UserAuthResponse) GetFirstName() string {
-	if x != nil {
-		return x.FirstName
-	}
-	return ""
-}
-
-func (x *UserAuthResponse) GetLastName() string {
-	if x != nil {
-		return x.LastName
-	}
-	return ""
-}
-
-func (x *UserAuthResponse) GetRoleId() uint64 {
-	if x != nil {
-		return x.RoleId
+		return x.CategoryId
 	}
 	return 0
 }
 
-func (x *UserAuthResponse) GetRoleName() string {
+func (x *CreateProductRequest) GetName() string {
 	if x != nil {
-		return x.RoleName
+		return x.Name
 	}
 	return ""
 }
 
-func (x *UserAuthResponse) GetIsActive() bool {
+func (x *CreateProductRequest) GetDescription() string {
 	if x != nil {
-		return x.IsActive
+		return x.Description
+	}
+	return ""
+}
+
+func (x *CreateProductRequest) GetSku() string {
+	if x != nil {
+		return x.Sku
+	}
+	return ""
+}
+
+func (x *CreateProductRequest) GetBarcode() string {
+	if x != nil {
+		return x.Barcode
+	}
+	return ""
+}
+
+func (x *CreateProductRequest) GetBrand() string {
+	if x != nil {
+		return x.Brand
+	}
+	return ""
+}
+
+func (x *CreateProductRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *CreateProductRequest) GetUnitOfMeasure() string {
+	if x != nil {
+		return x.UnitOfMeasure
+	}
+	return ""
+}
+
+func (x *CreateProductRequest) GetAverageCost() float64 {
+	if x != nil {
+		return x.AverageCost
+	}
+	return 0
+}
+
+func (x *CreateProductRequest) GetRequiresBatch() bool {
+	if x != nil {
+		return x.RequiresBatch
 	}
 	return false
 }
 
-func (x *UserAuthResponse) GetStatus() bool {
+func (x *CreateProductRequest) GetAvailabilityStatus() string {
+	if x != nil {
+		return x.AvailabilityStatus
+	}
+	return ""
+}
+
+func (x *CreateProductRequest) GetPicture() string {
+	if x != nil {
+		return x.Picture
+	}
+	return ""
+}
+
+type CreateProductResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	ProductId     uint64                 `protobuf:"varint,2,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateProductResponse) Reset() {
+	*x = CreateProductResponse{}
+	mi := &file_proto_inventory_product_product_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateProductResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateProductResponse) ProtoMessage() {}
+
+func (x *CreateProductResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_inventory_product_product_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateProductResponse.ProtoReflect.Descriptor instead.
+func (*CreateProductResponse) Descriptor() ([]byte, []int) {
+	return file_proto_inventory_product_product_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *CreateProductResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *CreateProductResponse) GetProductId() uint64 {
+	if x != nil {
+		return x.ProductId
+	}
+	return 0
+}
+
+type GetProductByIDRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            uint64                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetProductByIDRequest) Reset() {
+	*x = GetProductByIDRequest{}
+	mi := &file_proto_inventory_product_product_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetProductByIDRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetProductByIDRequest) ProtoMessage() {}
+
+func (x *GetProductByIDRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_inventory_product_product_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetProductByIDRequest.ProtoReflect.Descriptor instead.
+func (*GetProductByIDRequest) Descriptor() ([]byte, []int) {
+	return file_proto_inventory_product_product_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *GetProductByIDRequest) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type ProductResponse struct {
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	Id                 uint64                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	TenantId           uint64                 `protobuf:"varint,2,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
+	CategoryId         uint64                 `protobuf:"varint,3,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	Name               string                 `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
+	Description        string                 `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
+	Sku                string                 `protobuf:"bytes,6,opt,name=sku,proto3" json:"sku,omitempty"`
+	Barcode            string                 `protobuf:"bytes,7,opt,name=barcode,proto3" json:"barcode,omitempty"`
+	Brand              string                 `protobuf:"bytes,8,opt,name=brand,proto3" json:"brand,omitempty"`
+	Type               string                 `protobuf:"bytes,9,opt,name=type,proto3" json:"type,omitempty"`
+	UnitOfMeasure      string                 `protobuf:"bytes,10,opt,name=unit_of_measure,json=unitOfMeasure,proto3" json:"unit_of_measure,omitempty"`
+	AverageCost        float64                `protobuf:"fixed64,11,opt,name=average_cost,json=averageCost,proto3" json:"average_cost,omitempty"`
+	RequiresBatch      bool                   `protobuf:"varint,12,opt,name=requires_batch,json=requiresBatch,proto3" json:"requires_batch,omitempty"`
+	AvailabilityStatus string                 `protobuf:"bytes,13,opt,name=availability_status,json=availabilityStatus,proto3" json:"availability_status,omitempty"`
+	Picture            string                 `protobuf:"bytes,14,opt,name=picture,proto3" json:"picture,omitempty"`
+	Status             bool                   `protobuf:"varint,15,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
+}
+
+func (x *ProductResponse) Reset() {
+	*x = ProductResponse{}
+	mi := &file_proto_inventory_product_product_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ProductResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProductResponse) ProtoMessage() {}
+
+func (x *ProductResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_inventory_product_product_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProductResponse.ProtoReflect.Descriptor instead.
+func (*ProductResponse) Descriptor() ([]byte, []int) {
+	return file_proto_inventory_product_product_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *ProductResponse) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *ProductResponse) GetTenantId() uint64 {
+	if x != nil {
+		return x.TenantId
+	}
+	return 0
+}
+
+func (x *ProductResponse) GetCategoryId() uint64 {
+	if x != nil {
+		return x.CategoryId
+	}
+	return 0
+}
+
+func (x *ProductResponse) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *ProductResponse) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *ProductResponse) GetSku() string {
+	if x != nil {
+		return x.Sku
+	}
+	return ""
+}
+
+func (x *ProductResponse) GetBarcode() string {
+	if x != nil {
+		return x.Barcode
+	}
+	return ""
+}
+
+func (x *ProductResponse) GetBrand() string {
+	if x != nil {
+		return x.Brand
+	}
+	return ""
+}
+
+func (x *ProductResponse) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *ProductResponse) GetUnitOfMeasure() string {
+	if x != nil {
+		return x.UnitOfMeasure
+	}
+	return ""
+}
+
+func (x *ProductResponse) GetAverageCost() float64 {
+	if x != nil {
+		return x.AverageCost
+	}
+	return 0
+}
+
+func (x *ProductResponse) GetRequiresBatch() bool {
+	if x != nil {
+		return x.RequiresBatch
+	}
+	return false
+}
+
+func (x *ProductResponse) GetAvailabilityStatus() string {
+	if x != nil {
+		return x.AvailabilityStatus
+	}
+	return ""
+}
+
+func (x *ProductResponse) GetPicture() string {
+	if x != nil {
+		return x.Picture
+	}
+	return ""
+}
+
+func (x *ProductResponse) GetStatus() bool {
 	if x != nil {
 		return x.Status
 	}
 	return false
 }
 
-func (x *UserAuthResponse) GetTenantName() string {
-	if x != nil {
-		return x.TenantName
-	}
-	return ""
-}
-
 var File_proto_inventory_product_product_proto protoreflect.FileDescriptor
 
 const file_proto_inventory_product_product_proto_rawDesc = "" +
 	"\n" +
-	"%proto/inventory/product/product.proto\x12\x04user\"-\n" +
-	"\x15GetUserByEmailRequest\x12\x14\n" +
-	"\x05email\x18\x01 \x01(\tR\x05email\"$\n" +
-	"\x12GetUserByIDRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x04R\x02id\"\xde\x02\n" +
-	"\x10UserAuthResponse\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x1b\n" +
-	"\ttenant_id\x18\x02 \x01(\x04R\btenantId\x12\x14\n" +
-	"\x05email\x18\x03 \x01(\tR\x05email\x12\x1a\n" +
-	"\busername\x18\x04 \x01(\tR\busername\x12#\n" +
-	"\rpassword_hash\x18\x05 \x01(\tR\fpasswordHash\x12\x1d\n" +
+	"%proto/inventory/product/product.proto\x12\x11inventory.product\"\x9d\x03\n" +
+	"\x14CreateProductRequest\x12\x1b\n" +
+	"\ttenant_id\x18\x01 \x01(\x04R\btenantId\x12\x1f\n" +
+	"\vcategory_id\x18\x02 \x01(\x04R\n" +
+	"categoryId\x12\x12\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\x12 \n" +
+	"\vdescription\x18\x04 \x01(\tR\vdescription\x12\x10\n" +
+	"\x03sku\x18\x05 \x01(\tR\x03sku\x12\x18\n" +
+	"\abarcode\x18\x06 \x01(\tR\abarcode\x12\x14\n" +
+	"\x05brand\x18\a \x01(\tR\x05brand\x12\x12\n" +
+	"\x04type\x18\b \x01(\tR\x04type\x12&\n" +
+	"\x0funit_of_measure\x18\t \x01(\tR\runitOfMeasure\x12!\n" +
+	"\faverage_cost\x18\n" +
+	" \x01(\x01R\vaverageCost\x12%\n" +
+	"\x0erequires_batch\x18\v \x01(\bR\rrequiresBatch\x12/\n" +
+	"\x13availability_status\x18\f \x01(\tR\x12availabilityStatus\x12\x18\n" +
+	"\apicture\x18\r \x01(\tR\apicture\"P\n" +
+	"\x15CreateProductResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x1d\n" +
 	"\n" +
-	"first_name\x18\x06 \x01(\tR\tfirstName\x12\x1b\n" +
-	"\tlast_name\x18\a \x01(\tR\blastName\x12\x17\n" +
-	"\arole_id\x18\b \x01(\x04R\x06roleId\x12\x1b\n" +
-	"\trole_name\x18\t \x01(\tR\broleName\x12\x1b\n" +
-	"\tis_active\x18\n" +
-	" \x01(\bR\bisActive\x12\x16\n" +
-	"\x06status\x18\v \x01(\bR\x06status\x12\x1f\n" +
-	"\vtenant_name\x18\f \x01(\tR\n" +
-	"tenantName2\x95\x01\n" +
-	"\vUserService\x12E\n" +
-	"\x0eGetUserByEmail\x12\x1b.user.GetUserByEmailRequest\x1a\x16.user.UserAuthResponse\x12?\n" +
-	"\vGetUserByID\x12\x18.user.GetUserByIDRequest\x1a\x16.user.UserAuthResponseB+Z)github.com/InBitGT/proto-definitions/userb\x06proto3"
+	"product_id\x18\x02 \x01(\x04R\tproductId\"'\n" +
+	"\x15GetProductByIDRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x04R\x02id\"\xc0\x03\n" +
+	"\x0fProductResponse\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x1b\n" +
+	"\ttenant_id\x18\x02 \x01(\x04R\btenantId\x12\x1f\n" +
+	"\vcategory_id\x18\x03 \x01(\x04R\n" +
+	"categoryId\x12\x12\n" +
+	"\x04name\x18\x04 \x01(\tR\x04name\x12 \n" +
+	"\vdescription\x18\x05 \x01(\tR\vdescription\x12\x10\n" +
+	"\x03sku\x18\x06 \x01(\tR\x03sku\x12\x18\n" +
+	"\abarcode\x18\a \x01(\tR\abarcode\x12\x14\n" +
+	"\x05brand\x18\b \x01(\tR\x05brand\x12\x12\n" +
+	"\x04type\x18\t \x01(\tR\x04type\x12&\n" +
+	"\x0funit_of_measure\x18\n" +
+	" \x01(\tR\runitOfMeasure\x12!\n" +
+	"\faverage_cost\x18\v \x01(\x01R\vaverageCost\x12%\n" +
+	"\x0erequires_batch\x18\f \x01(\bR\rrequiresBatch\x12/\n" +
+	"\x13availability_status\x18\r \x01(\tR\x12availabilityStatus\x12\x18\n" +
+	"\apicture\x18\x0e \x01(\tR\apicture\x12\x16\n" +
+	"\x06status\x18\x0f \x01(\bR\x06status2\xd4\x01\n" +
+	"\x0eProductService\x12b\n" +
+	"\rCreateProduct\x12'.inventory.product.CreateProductRequest\x1a(.inventory.product.CreateProductResponse\x12^\n" +
+	"\x0eGetProductByID\x12(.inventory.product.GetProductByIDRequest\x1a\".inventory.product.ProductResponseB8Z6github.com/InBitGT/proto-definitions/inventory/productb\x06proto3"
 
 var (
 	file_proto_inventory_product_product_proto_rawDescOnce sync.Once
@@ -282,17 +474,18 @@ func file_proto_inventory_product_product_proto_rawDescGZIP() []byte {
 	return file_proto_inventory_product_product_proto_rawDescData
 }
 
-var file_proto_inventory_product_product_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_proto_inventory_product_product_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_proto_inventory_product_product_proto_goTypes = []any{
-	(*GetUserByEmailRequest)(nil), // 0: user.GetUserByEmailRequest
-	(*GetUserByIDRequest)(nil),    // 1: user.GetUserByIDRequest
-	(*UserAuthResponse)(nil),      // 2: user.UserAuthResponse
+	(*CreateProductRequest)(nil),  // 0: inventory.product.CreateProductRequest
+	(*CreateProductResponse)(nil), // 1: inventory.product.CreateProductResponse
+	(*GetProductByIDRequest)(nil), // 2: inventory.product.GetProductByIDRequest
+	(*ProductResponse)(nil),       // 3: inventory.product.ProductResponse
 }
 var file_proto_inventory_product_product_proto_depIdxs = []int32{
-	0, // 0: user.UserService.GetUserByEmail:input_type -> user.GetUserByEmailRequest
-	1, // 1: user.UserService.GetUserByID:input_type -> user.GetUserByIDRequest
-	2, // 2: user.UserService.GetUserByEmail:output_type -> user.UserAuthResponse
-	2, // 3: user.UserService.GetUserByID:output_type -> user.UserAuthResponse
+	0, // 0: inventory.product.ProductService.CreateProduct:input_type -> inventory.product.CreateProductRequest
+	2, // 1: inventory.product.ProductService.GetProductByID:input_type -> inventory.product.GetProductByIDRequest
+	1, // 2: inventory.product.ProductService.CreateProduct:output_type -> inventory.product.CreateProductResponse
+	3, // 3: inventory.product.ProductService.GetProductByID:output_type -> inventory.product.ProductResponse
 	2, // [2:4] is the sub-list for method output_type
 	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -311,7 +504,7 @@ func file_proto_inventory_product_product_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_inventory_product_product_proto_rawDesc), len(file_proto_inventory_product_product_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
