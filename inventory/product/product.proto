@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package inventory.product;
 
-option go_package = "github.com/InBitGT/proto-definitions/inventory/product";
+option go_package = "github.com/InBitGT/proto-definitions/inventory/product;productpb";
 
 service ProductService {
   rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse);
@@ -17,12 +17,16 @@ message CreateProductRequest {
   string sku = 5;
   string barcode = 6;
   string brand = 7;
-  string type = 8; // ingredient | menu_item
+  string type = 8;
   string unit_of_measure = 9;
   double average_cost = 10;
   bool requires_batch = 11;
   string availability_status = 12;
   string picture = 13;
+
+  bool is_modifier = 14;
+  string modifier_group = 15;
+  string modifier_name = 16;
 }
 
 message CreateProductResponse {
@@ -50,4 +54,7 @@ message ProductResponse {
   string availability_status = 13;
   string picture = 14;
   bool status = 15;
+  bool is_modifier = 16;
+  string modifier_group = 17;
+  string modifier_name = 18;
 }

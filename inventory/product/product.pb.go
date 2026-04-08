@@ -4,7 +4,7 @@
 // 	protoc        v7.34.1
 // source: proto/inventory/product/product.proto
 
-package product
+package productpb
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -30,12 +30,15 @@ type CreateProductRequest struct {
 	Sku                string                 `protobuf:"bytes,5,opt,name=sku,proto3" json:"sku,omitempty"`
 	Barcode            string                 `protobuf:"bytes,6,opt,name=barcode,proto3" json:"barcode,omitempty"`
 	Brand              string                 `protobuf:"bytes,7,opt,name=brand,proto3" json:"brand,omitempty"`
-	Type               string                 `protobuf:"bytes,8,opt,name=type,proto3" json:"type,omitempty"` // ingredient | menu_item
+	Type               string                 `protobuf:"bytes,8,opt,name=type,proto3" json:"type,omitempty"`
 	UnitOfMeasure      string                 `protobuf:"bytes,9,opt,name=unit_of_measure,json=unitOfMeasure,proto3" json:"unit_of_measure,omitempty"`
 	AverageCost        float64                `protobuf:"fixed64,10,opt,name=average_cost,json=averageCost,proto3" json:"average_cost,omitempty"`
 	RequiresBatch      bool                   `protobuf:"varint,11,opt,name=requires_batch,json=requiresBatch,proto3" json:"requires_batch,omitempty"`
 	AvailabilityStatus string                 `protobuf:"bytes,12,opt,name=availability_status,json=availabilityStatus,proto3" json:"availability_status,omitempty"`
 	Picture            string                 `protobuf:"bytes,13,opt,name=picture,proto3" json:"picture,omitempty"`
+	IsModifier         bool                   `protobuf:"varint,14,opt,name=is_modifier,json=isModifier,proto3" json:"is_modifier,omitempty"`
+	ModifierGroup      string                 `protobuf:"bytes,15,opt,name=modifier_group,json=modifierGroup,proto3" json:"modifier_group,omitempty"`
+	ModifierName       string                 `protobuf:"bytes,16,opt,name=modifier_name,json=modifierName,proto3" json:"modifier_name,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -161,6 +164,27 @@ func (x *CreateProductRequest) GetPicture() string {
 	return ""
 }
 
+func (x *CreateProductRequest) GetIsModifier() bool {
+	if x != nil {
+		return x.IsModifier
+	}
+	return false
+}
+
+func (x *CreateProductRequest) GetModifierGroup() string {
+	if x != nil {
+		return x.ModifierGroup
+	}
+	return ""
+}
+
+func (x *CreateProductRequest) GetModifierName() string {
+	if x != nil {
+		return x.ModifierName
+	}
+	return ""
+}
+
 type CreateProductResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
@@ -274,6 +298,9 @@ type ProductResponse struct {
 	AvailabilityStatus string                 `protobuf:"bytes,13,opt,name=availability_status,json=availabilityStatus,proto3" json:"availability_status,omitempty"`
 	Picture            string                 `protobuf:"bytes,14,opt,name=picture,proto3" json:"picture,omitempty"`
 	Status             bool                   `protobuf:"varint,15,opt,name=status,proto3" json:"status,omitempty"`
+	IsModifier         bool                   `protobuf:"varint,16,opt,name=is_modifier,json=isModifier,proto3" json:"is_modifier,omitempty"`
+	ModifierGroup      string                 `protobuf:"bytes,17,opt,name=modifier_group,json=modifierGroup,proto3" json:"modifier_group,omitempty"`
+	ModifierName       string                 `protobuf:"bytes,18,opt,name=modifier_name,json=modifierName,proto3" json:"modifier_name,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -413,11 +440,32 @@ func (x *ProductResponse) GetStatus() bool {
 	return false
 }
 
+func (x *ProductResponse) GetIsModifier() bool {
+	if x != nil {
+		return x.IsModifier
+	}
+	return false
+}
+
+func (x *ProductResponse) GetModifierGroup() string {
+	if x != nil {
+		return x.ModifierGroup
+	}
+	return ""
+}
+
+func (x *ProductResponse) GetModifierName() string {
+	if x != nil {
+		return x.ModifierName
+	}
+	return ""
+}
+
 var File_proto_inventory_product_product_proto protoreflect.FileDescriptor
 
 const file_proto_inventory_product_product_proto_rawDesc = "" +
 	"\n" +
-	"%proto/inventory/product/product.proto\x12\x11inventory.product\"\x9d\x03\n" +
+	"%proto/inventory/product/product.proto\x12\x11inventory.product\"\x8a\x04\n" +
 	"\x14CreateProductRequest\x12\x1b\n" +
 	"\ttenant_id\x18\x01 \x01(\x04R\btenantId\x12\x1f\n" +
 	"\vcategory_id\x18\x02 \x01(\x04R\n" +
@@ -433,13 +481,17 @@ const file_proto_inventory_product_product_proto_rawDesc = "" +
 	" \x01(\x01R\vaverageCost\x12%\n" +
 	"\x0erequires_batch\x18\v \x01(\bR\rrequiresBatch\x12/\n" +
 	"\x13availability_status\x18\f \x01(\tR\x12availabilityStatus\x12\x18\n" +
-	"\apicture\x18\r \x01(\tR\apicture\"P\n" +
+	"\apicture\x18\r \x01(\tR\apicture\x12\x1f\n" +
+	"\vis_modifier\x18\x0e \x01(\bR\n" +
+	"isModifier\x12%\n" +
+	"\x0emodifier_group\x18\x0f \x01(\tR\rmodifierGroup\x12#\n" +
+	"\rmodifier_name\x18\x10 \x01(\tR\fmodifierName\"P\n" +
 	"\x15CreateProductResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x1d\n" +
 	"\n" +
 	"product_id\x18\x02 \x01(\x04R\tproductId\"'\n" +
 	"\x15GetProductByIDRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x04R\x02id\"\xc0\x03\n" +
+	"\x02id\x18\x01 \x01(\x04R\x02id\"\xad\x04\n" +
 	"\x0fProductResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x1b\n" +
 	"\ttenant_id\x18\x02 \x01(\x04R\btenantId\x12\x1f\n" +
@@ -457,10 +509,14 @@ const file_proto_inventory_product_product_proto_rawDesc = "" +
 	"\x0erequires_batch\x18\f \x01(\bR\rrequiresBatch\x12/\n" +
 	"\x13availability_status\x18\r \x01(\tR\x12availabilityStatus\x12\x18\n" +
 	"\apicture\x18\x0e \x01(\tR\apicture\x12\x16\n" +
-	"\x06status\x18\x0f \x01(\bR\x06status2\xd4\x01\n" +
+	"\x06status\x18\x0f \x01(\bR\x06status\x12\x1f\n" +
+	"\vis_modifier\x18\x10 \x01(\bR\n" +
+	"isModifier\x12%\n" +
+	"\x0emodifier_group\x18\x11 \x01(\tR\rmodifierGroup\x12#\n" +
+	"\rmodifier_name\x18\x12 \x01(\tR\fmodifierName2\xd4\x01\n" +
 	"\x0eProductService\x12b\n" +
 	"\rCreateProduct\x12'.inventory.product.CreateProductRequest\x1a(.inventory.product.CreateProductResponse\x12^\n" +
-	"\x0eGetProductByID\x12(.inventory.product.GetProductByIDRequest\x1a\".inventory.product.ProductResponseB8Z6github.com/InBitGT/proto-definitions/inventory/productb\x06proto3"
+	"\x0eGetProductByID\x12(.inventory.product.GetProductByIDRequest\x1a\".inventory.product.ProductResponseBBZ@github.com/InBitGT/proto-definitions/inventory/product;productpbb\x06proto3"
 
 var (
 	file_proto_inventory_product_product_proto_rawDescOnce sync.Once
