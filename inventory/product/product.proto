@@ -8,6 +8,7 @@ service ProductService {
   rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse);
   rpc GetProductByID (GetProductByIDRequest) returns (ProductResponse);
   rpc DeactivateProduct (DeactivateProductRequest) returns (DeactivateProductResponse);
+  rpc ListProducts (ListProductsRequest) returns (ListProductsResponse);
 }
 
 message CreateProductRequest {
@@ -46,6 +47,12 @@ message DeactivateProductResponse {
   bool success = 1;
 }
 
+message ListProductsRequest {
+  uint64 tenant_id = 1;
+  string type = 2;
+  bool only_active = 3;
+}
+
 message ProductResponse {
   uint64 id = 1;
   uint64 tenant_id = 2;
@@ -65,4 +72,8 @@ message ProductResponse {
   bool is_modifier = 16;
   string modifier_group = 17;
   string modifier_name = 18;
+}
+
+message ListProductsResponse {
+  repeated ProductResponse products = 1;
 }

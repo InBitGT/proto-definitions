@@ -22,6 +22,7 @@ const (
 	ProductService_CreateProduct_FullMethodName     = "/inventory.product.ProductService/CreateProduct"
 	ProductService_GetProductByID_FullMethodName    = "/inventory.product.ProductService/GetProductByID"
 	ProductService_DeactivateProduct_FullMethodName = "/inventory.product.ProductService/DeactivateProduct"
+	ProductService_ListProducts_FullMethodName      = "/inventory.product.ProductService/ListProducts"
 )
 
 // ProductServiceClient is the client API for ProductService service.
@@ -31,6 +32,7 @@ type ProductServiceClient interface {
 	CreateProduct(ctx context.Context, in *CreateProductRequest, opts ...grpc.CallOption) (*CreateProductResponse, error)
 	GetProductByID(ctx context.Context, in *GetProductByIDRequest, opts ...grpc.CallOption) (*ProductResponse, error)
 	DeactivateProduct(ctx context.Context, in *DeactivateProductRequest, opts ...grpc.CallOption) (*DeactivateProductResponse, error)
+	ListProducts(ctx context.Context, in *ListProductsRequest, opts ...grpc.CallOption) (*ListProductsResponse, error)
 }
 
 type productServiceClient struct {
@@ -71,6 +73,16 @@ func (c *productServiceClient) DeactivateProduct(ctx context.Context, in *Deacti
 	return out, nil
 }
 
+func (c *productServiceClient) ListProducts(ctx context.Context, in *ListProductsRequest, opts ...grpc.CallOption) (*ListProductsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListProductsResponse)
+	err := c.cc.Invoke(ctx, ProductService_ListProducts_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductServiceServer is the server API for ProductService service.
 // All implementations must embed UnimplementedProductServiceServer
 // for forward compatibility.
@@ -78,6 +90,7 @@ type ProductServiceServer interface {
 	CreateProduct(context.Context, *CreateProductRequest) (*CreateProductResponse, error)
 	GetProductByID(context.Context, *GetProductByIDRequest) (*ProductResponse, error)
 	DeactivateProduct(context.Context, *DeactivateProductRequest) (*DeactivateProductResponse, error)
+	ListProducts(context.Context, *ListProductsRequest) (*ListProductsResponse, error)
 	mustEmbedUnimplementedProductServiceServer()
 }
 
@@ -96,6 +109,9 @@ func (UnimplementedProductServiceServer) GetProductByID(context.Context, *GetPro
 }
 func (UnimplementedProductServiceServer) DeactivateProduct(context.Context, *DeactivateProductRequest) (*DeactivateProductResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeactivateProduct not implemented")
+}
+func (UnimplementedProductServiceServer) ListProducts(context.Context, *ListProductsRequest) (*ListProductsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListProducts not implemented")
 }
 func (UnimplementedProductServiceServer) mustEmbedUnimplementedProductServiceServer() {}
 func (UnimplementedProductServiceServer) testEmbeddedByValue()                        {}
@@ -172,6 +188,24 @@ func _ProductService_DeactivateProduct_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProductService_ListProducts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListProductsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServiceServer).ListProducts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProductService_ListProducts_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServiceServer).ListProducts(ctx, req.(*ListProductsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProductService_ServiceDesc is the grpc.ServiceDesc for ProductService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -190,6 +224,10 @@ var ProductService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeactivateProduct",
 			Handler:    _ProductService_DeactivateProduct_Handler,
+		},
+		{
+			MethodName: "ListProducts",
+			Handler:    _ProductService_ListProducts_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
