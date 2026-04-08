@@ -7,6 +7,7 @@ option go_package = "github.com/InBitGT/proto-definitions/inventory/product;prod
 service ProductService {
   rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse);
   rpc GetProductByID (GetProductByIDRequest) returns (ProductResponse);
+  rpc DeactivateProduct (DeactivateProductRequest) returns (DeactivateProductResponse);
 }
 
 message CreateProductRequest {
@@ -23,7 +24,6 @@ message CreateProductRequest {
   bool requires_batch = 11;
   string availability_status = 12;
   string picture = 13;
-
   bool is_modifier = 14;
   string modifier_group = 15;
   string modifier_name = 16;
@@ -36,6 +36,14 @@ message CreateProductResponse {
 
 message GetProductByIDRequest {
   uint64 id = 1;
+}
+
+message DeactivateProductRequest {
+  uint64 id = 1;
+}
+
+message DeactivateProductResponse {
+  bool success = 1;
 }
 
 message ProductResponse {
