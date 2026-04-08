@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package menu.product_modifier;
+
+option go_package = "github.com/InBitGT/proto-definitions/menu/product_modifier;productmodifierpb";
+
+service ProductModifierService {
+  rpc CreateProductModifier (CreateProductModifierRequest) returns (CreateProductModifierResponse);
+}
+
+message CreateProductModifierRequest {
+  uint64 modifier_product_id = 1;
+  double quantity = 2;
+  int32 min_selection = 3;
+  int32 max_selection = 4;
+  double price_adjustment = 5;
+  bool is_default = 6;
+}
+
+message CreateProductModifierResponse {
+  bool success = 1;
+  uint64 product_modifier_id = 2;
+}
