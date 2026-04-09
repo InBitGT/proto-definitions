@@ -4,7 +4,7 @@
 // 	protoc        v7.34.1
 // source: proto/user/users/user.proto
 
-package user
+package users
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -123,6 +123,7 @@ type UserAuthResponse struct {
 	IsActive      bool                   `protobuf:"varint,10,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
 	Status        bool                   `protobuf:"varint,11,opt,name=status,proto3" json:"status,omitempty"`
 	TenantName    string                 `protobuf:"bytes,12,opt,name=tenant_name,json=tenantName,proto3" json:"tenant_name,omitempty"`
+	BranchId      uint64                 `protobuf:"varint,13,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -241,6 +242,13 @@ func (x *UserAuthResponse) GetTenantName() string {
 	return ""
 }
 
+func (x *UserAuthResponse) GetBranchId() uint64 {
+	if x != nil {
+		return x.BranchId
+	}
+	return 0
+}
+
 var File_proto_user_users_user_proto protoreflect.FileDescriptor
 
 const file_proto_user_users_user_proto_rawDesc = "" +
@@ -249,7 +257,7 @@ const file_proto_user_users_user_proto_rawDesc = "" +
 	"\x15GetUserByEmailRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\"$\n" +
 	"\x12GetUserByIDRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x04R\x02id\"\xde\x02\n" +
+	"\x02id\x18\x01 \x01(\x04R\x02id\"\xfb\x02\n" +
 	"\x10UserAuthResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x1b\n" +
 	"\ttenant_id\x18\x02 \x01(\x04R\btenantId\x12\x14\n" +
@@ -265,10 +273,11 @@ const file_proto_user_users_user_proto_rawDesc = "" +
 	" \x01(\bR\bisActive\x12\x16\n" +
 	"\x06status\x18\v \x01(\bR\x06status\x12\x1f\n" +
 	"\vtenant_name\x18\f \x01(\tR\n" +
-	"tenantName2\x95\x01\n" +
+	"tenantName\x12\x1b\n" +
+	"\tbranch_id\x18\r \x01(\x04R\bbranchId2\x95\x01\n" +
 	"\vUserService\x12E\n" +
 	"\x0eGetUserByEmail\x12\x1b.user.GetUserByEmailRequest\x1a\x16.user.UserAuthResponse\x12?\n" +
-	"\vGetUserByID\x12\x18.user.GetUserByIDRequest\x1a\x16.user.UserAuthResponseB+Z)github.com/InBitGT/proto-definitions/userb\x06proto3"
+	"\vGetUserByID\x12\x18.user.GetUserByIDRequest\x1a\x16.user.UserAuthResponseB1Z/github.com/InBitGT/proto-definitions/user/usersb\x06proto3"
 
 var (
 	file_proto_user_users_user_proto_rawDescOnce sync.Once
