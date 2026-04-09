@@ -6,6 +6,7 @@ option go_package = "github.com/InBitGT/proto-definitions/menu/product_modifier;
 
 service ProductModifierService {
   rpc CreateProductModifier (CreateProductModifierRequest) returns (CreateProductModifierResponse);
+  rpc GetProductModifierByProductID (GetProductModifierByProductIDRequest) returns (GetProductModifierByProductIDResponse);
 }
 
 message CreateProductModifierRequest {
@@ -20,4 +21,19 @@ message CreateProductModifierRequest {
 message CreateProductModifierResponse {
   bool success = 1;
   uint64 product_modifier_id = 2;
+}
+
+message GetProductModifierByProductIDRequest {
+  uint64 modifier_product_id = 1;
+}
+
+message GetProductModifierByProductIDResponse {
+  bool success = 1;
+  uint64 product_modifier_id = 2;
+  uint64 modifier_product_id = 3;
+  double quantity = 4;
+  int32 min_selection = 5;
+  int32 max_selection = 6;
+  double price_adjustment = 7;
+  bool is_default = 8;
 }

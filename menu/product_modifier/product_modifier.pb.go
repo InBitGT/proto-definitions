@@ -157,6 +157,150 @@ func (x *CreateProductModifierResponse) GetProductModifierId() uint64 {
 	return 0
 }
 
+type GetProductModifierByProductIDRequest struct {
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	ModifierProductId uint64                 `protobuf:"varint,1,opt,name=modifier_product_id,json=modifierProductId,proto3" json:"modifier_product_id,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *GetProductModifierByProductIDRequest) Reset() {
+	*x = GetProductModifierByProductIDRequest{}
+	mi := &file_proto_menu_product_modifier_product_modifier_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetProductModifierByProductIDRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetProductModifierByProductIDRequest) ProtoMessage() {}
+
+func (x *GetProductModifierByProductIDRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_menu_product_modifier_product_modifier_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetProductModifierByProductIDRequest.ProtoReflect.Descriptor instead.
+func (*GetProductModifierByProductIDRequest) Descriptor() ([]byte, []int) {
+	return file_proto_menu_product_modifier_product_modifier_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *GetProductModifierByProductIDRequest) GetModifierProductId() uint64 {
+	if x != nil {
+		return x.ModifierProductId
+	}
+	return 0
+}
+
+type GetProductModifierByProductIDResponse struct {
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	Success           bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	ProductModifierId uint64                 `protobuf:"varint,2,opt,name=product_modifier_id,json=productModifierId,proto3" json:"product_modifier_id,omitempty"`
+	ModifierProductId uint64                 `protobuf:"varint,3,opt,name=modifier_product_id,json=modifierProductId,proto3" json:"modifier_product_id,omitempty"`
+	Quantity          float64                `protobuf:"fixed64,4,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	MinSelection      int32                  `protobuf:"varint,5,opt,name=min_selection,json=minSelection,proto3" json:"min_selection,omitempty"`
+	MaxSelection      int32                  `protobuf:"varint,6,opt,name=max_selection,json=maxSelection,proto3" json:"max_selection,omitempty"`
+	PriceAdjustment   float64                `protobuf:"fixed64,7,opt,name=price_adjustment,json=priceAdjustment,proto3" json:"price_adjustment,omitempty"`
+	IsDefault         bool                   `protobuf:"varint,8,opt,name=is_default,json=isDefault,proto3" json:"is_default,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *GetProductModifierByProductIDResponse) Reset() {
+	*x = GetProductModifierByProductIDResponse{}
+	mi := &file_proto_menu_product_modifier_product_modifier_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetProductModifierByProductIDResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetProductModifierByProductIDResponse) ProtoMessage() {}
+
+func (x *GetProductModifierByProductIDResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_menu_product_modifier_product_modifier_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetProductModifierByProductIDResponse.ProtoReflect.Descriptor instead.
+func (*GetProductModifierByProductIDResponse) Descriptor() ([]byte, []int) {
+	return file_proto_menu_product_modifier_product_modifier_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *GetProductModifierByProductIDResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *GetProductModifierByProductIDResponse) GetProductModifierId() uint64 {
+	if x != nil {
+		return x.ProductModifierId
+	}
+	return 0
+}
+
+func (x *GetProductModifierByProductIDResponse) GetModifierProductId() uint64 {
+	if x != nil {
+		return x.ModifierProductId
+	}
+	return 0
+}
+
+func (x *GetProductModifierByProductIDResponse) GetQuantity() float64 {
+	if x != nil {
+		return x.Quantity
+	}
+	return 0
+}
+
+func (x *GetProductModifierByProductIDResponse) GetMinSelection() int32 {
+	if x != nil {
+		return x.MinSelection
+	}
+	return 0
+}
+
+func (x *GetProductModifierByProductIDResponse) GetMaxSelection() int32 {
+	if x != nil {
+		return x.MaxSelection
+	}
+	return 0
+}
+
+func (x *GetProductModifierByProductIDResponse) GetPriceAdjustment() float64 {
+	if x != nil {
+		return x.PriceAdjustment
+	}
+	return 0
+}
+
+func (x *GetProductModifierByProductIDResponse) GetIsDefault() bool {
+	if x != nil {
+		return x.IsDefault
+	}
+	return false
+}
+
 var File_proto_menu_product_modifier_product_modifier_proto protoreflect.FileDescriptor
 
 const file_proto_menu_product_modifier_product_modifier_proto_rawDesc = "" +
@@ -172,9 +316,22 @@ const file_proto_menu_product_modifier_product_modifier_proto_rawDesc = "" +
 	"is_default\x18\x06 \x01(\bR\tisDefault\"i\n" +
 	"\x1dCreateProductModifierResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12.\n" +
-	"\x13product_modifier_id\x18\x02 \x01(\x04R\x11productModifierId2\x9d\x01\n" +
+	"\x13product_modifier_id\x18\x02 \x01(\x04R\x11productModifierId\"V\n" +
+	"$GetProductModifierByProductIDRequest\x12.\n" +
+	"\x13modifier_product_id\x18\x01 \x01(\x04R\x11modifierProductId\"\xd1\x02\n" +
+	"%GetProductModifierByProductIDResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12.\n" +
+	"\x13product_modifier_id\x18\x02 \x01(\x04R\x11productModifierId\x12.\n" +
+	"\x13modifier_product_id\x18\x03 \x01(\x04R\x11modifierProductId\x12\x1a\n" +
+	"\bquantity\x18\x04 \x01(\x01R\bquantity\x12#\n" +
+	"\rmin_selection\x18\x05 \x01(\x05R\fminSelection\x12#\n" +
+	"\rmax_selection\x18\x06 \x01(\x05R\fmaxSelection\x12)\n" +
+	"\x10price_adjustment\x18\a \x01(\x01R\x0fpriceAdjustment\x12\x1d\n" +
+	"\n" +
+	"is_default\x18\b \x01(\bR\tisDefault2\xba\x02\n" +
 	"\x16ProductModifierService\x12\x82\x01\n" +
-	"\x15CreateProductModifier\x123.menu.product_modifier.CreateProductModifierRequest\x1a4.menu.product_modifier.CreateProductModifierResponseBNZLgithub.com/InBitGT/proto-definitions/menu/product_modifier;productmodifierpbb\x06proto3"
+	"\x15CreateProductModifier\x123.menu.product_modifier.CreateProductModifierRequest\x1a4.menu.product_modifier.CreateProductModifierResponse\x12\x9a\x01\n" +
+	"\x1dGetProductModifierByProductID\x12;.menu.product_modifier.GetProductModifierByProductIDRequest\x1a<.menu.product_modifier.GetProductModifierByProductIDResponseBNZLgithub.com/InBitGT/proto-definitions/menu/product_modifier;productmodifierpbb\x06proto3"
 
 var (
 	file_proto_menu_product_modifier_product_modifier_proto_rawDescOnce sync.Once
@@ -188,16 +345,20 @@ func file_proto_menu_product_modifier_product_modifier_proto_rawDescGZIP() []byt
 	return file_proto_menu_product_modifier_product_modifier_proto_rawDescData
 }
 
-var file_proto_menu_product_modifier_product_modifier_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_proto_menu_product_modifier_product_modifier_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_proto_menu_product_modifier_product_modifier_proto_goTypes = []any{
-	(*CreateProductModifierRequest)(nil),  // 0: menu.product_modifier.CreateProductModifierRequest
-	(*CreateProductModifierResponse)(nil), // 1: menu.product_modifier.CreateProductModifierResponse
+	(*CreateProductModifierRequest)(nil),          // 0: menu.product_modifier.CreateProductModifierRequest
+	(*CreateProductModifierResponse)(nil),         // 1: menu.product_modifier.CreateProductModifierResponse
+	(*GetProductModifierByProductIDRequest)(nil),  // 2: menu.product_modifier.GetProductModifierByProductIDRequest
+	(*GetProductModifierByProductIDResponse)(nil), // 3: menu.product_modifier.GetProductModifierByProductIDResponse
 }
 var file_proto_menu_product_modifier_product_modifier_proto_depIdxs = []int32{
 	0, // 0: menu.product_modifier.ProductModifierService.CreateProductModifier:input_type -> menu.product_modifier.CreateProductModifierRequest
-	1, // 1: menu.product_modifier.ProductModifierService.CreateProductModifier:output_type -> menu.product_modifier.CreateProductModifierResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	2, // 1: menu.product_modifier.ProductModifierService.GetProductModifierByProductID:input_type -> menu.product_modifier.GetProductModifierByProductIDRequest
+	1, // 2: menu.product_modifier.ProductModifierService.CreateProductModifier:output_type -> menu.product_modifier.CreateProductModifierResponse
+	3, // 3: menu.product_modifier.ProductModifierService.GetProductModifierByProductID:output_type -> menu.product_modifier.GetProductModifierByProductIDResponse
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -214,7 +375,7 @@ func file_proto_menu_product_modifier_product_modifier_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_menu_product_modifier_product_modifier_proto_rawDesc), len(file_proto_menu_product_modifier_product_modifier_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
