@@ -9,6 +9,7 @@ service ProductService {
   rpc GetProductByID (GetProductByIDRequest) returns (ProductResponse);
   rpc DeactivateProduct (DeactivateProductRequest) returns (DeactivateProductResponse);
   rpc ListProducts (ListProductsRequest) returns (ListProductsResponse);
+  rpc UpdateProduct (UpdateProductRequest) returns (UpdateProductResponse);
 }
 
 message CreateProductRequest {
@@ -51,6 +52,26 @@ message ListProductsRequest {
   uint64 tenant_id = 1;
   string type = 2;
   bool only_active = 3;
+}
+
+message UpdateProductRequest {
+  uint64 id = 1;
+  uint64 category_id = 2;
+  string name = 3;
+  string description = 4;
+  string sku = 5;
+  string barcode = 6;
+  string brand = 7;
+  string type = 8;
+  string unit_of_measure = 9;
+  double average_cost = 10;
+  bool requires_batch = 11;
+  string availability_status = 12;
+  string picture = 13;
+}
+
+message UpdateProductResponse {
+  bool success = 1;
 }
 
 message ProductResponse {
