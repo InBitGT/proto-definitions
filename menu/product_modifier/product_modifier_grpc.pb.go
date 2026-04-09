@@ -19,8 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ProductModifierService_CreateProductModifier_FullMethodName         = "/menu.product_modifier.ProductModifierService/CreateProductModifier"
-	ProductModifierService_GetProductModifierByProductID_FullMethodName = "/menu.product_modifier.ProductModifierService/GetProductModifierByProductID"
+	ProductModifierService_CreateProductModifier_FullMethodName                = "/menu.product_modifier.ProductModifierService/CreateProductModifier"
+	ProductModifierService_GetProductModifierByProductID_FullMethodName        = "/menu.product_modifier.ProductModifierService/GetProductModifierByProductID"
+	ProductModifierService_UpdateProductModifierByProductID_FullMethodName     = "/menu.product_modifier.ProductModifierService/UpdateProductModifierByProductID"
+	ProductModifierService_DeactivateProductModifierByProductID_FullMethodName = "/menu.product_modifier.ProductModifierService/DeactivateProductModifierByProductID"
 )
 
 // ProductModifierServiceClient is the client API for ProductModifierService service.
@@ -29,6 +31,8 @@ const (
 type ProductModifierServiceClient interface {
 	CreateProductModifier(ctx context.Context, in *CreateProductModifierRequest, opts ...grpc.CallOption) (*CreateProductModifierResponse, error)
 	GetProductModifierByProductID(ctx context.Context, in *GetProductModifierByProductIDRequest, opts ...grpc.CallOption) (*GetProductModifierByProductIDResponse, error)
+	UpdateProductModifierByProductID(ctx context.Context, in *UpdateProductModifierByProductIDRequest, opts ...grpc.CallOption) (*UpdateProductModifierByProductIDResponse, error)
+	DeactivateProductModifierByProductID(ctx context.Context, in *DeactivateProductModifierByProductIDRequest, opts ...grpc.CallOption) (*DeactivateProductModifierByProductIDResponse, error)
 }
 
 type productModifierServiceClient struct {
@@ -59,12 +63,34 @@ func (c *productModifierServiceClient) GetProductModifierByProductID(ctx context
 	return out, nil
 }
 
+func (c *productModifierServiceClient) UpdateProductModifierByProductID(ctx context.Context, in *UpdateProductModifierByProductIDRequest, opts ...grpc.CallOption) (*UpdateProductModifierByProductIDResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateProductModifierByProductIDResponse)
+	err := c.cc.Invoke(ctx, ProductModifierService_UpdateProductModifierByProductID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productModifierServiceClient) DeactivateProductModifierByProductID(ctx context.Context, in *DeactivateProductModifierByProductIDRequest, opts ...grpc.CallOption) (*DeactivateProductModifierByProductIDResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeactivateProductModifierByProductIDResponse)
+	err := c.cc.Invoke(ctx, ProductModifierService_DeactivateProductModifierByProductID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductModifierServiceServer is the server API for ProductModifierService service.
 // All implementations must embed UnimplementedProductModifierServiceServer
 // for forward compatibility.
 type ProductModifierServiceServer interface {
 	CreateProductModifier(context.Context, *CreateProductModifierRequest) (*CreateProductModifierResponse, error)
 	GetProductModifierByProductID(context.Context, *GetProductModifierByProductIDRequest) (*GetProductModifierByProductIDResponse, error)
+	UpdateProductModifierByProductID(context.Context, *UpdateProductModifierByProductIDRequest) (*UpdateProductModifierByProductIDResponse, error)
+	DeactivateProductModifierByProductID(context.Context, *DeactivateProductModifierByProductIDRequest) (*DeactivateProductModifierByProductIDResponse, error)
 	mustEmbedUnimplementedProductModifierServiceServer()
 }
 
@@ -80,6 +106,12 @@ func (UnimplementedProductModifierServiceServer) CreateProductModifier(context.C
 }
 func (UnimplementedProductModifierServiceServer) GetProductModifierByProductID(context.Context, *GetProductModifierByProductIDRequest) (*GetProductModifierByProductIDResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetProductModifierByProductID not implemented")
+}
+func (UnimplementedProductModifierServiceServer) UpdateProductModifierByProductID(context.Context, *UpdateProductModifierByProductIDRequest) (*UpdateProductModifierByProductIDResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateProductModifierByProductID not implemented")
+}
+func (UnimplementedProductModifierServiceServer) DeactivateProductModifierByProductID(context.Context, *DeactivateProductModifierByProductIDRequest) (*DeactivateProductModifierByProductIDResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeactivateProductModifierByProductID not implemented")
 }
 func (UnimplementedProductModifierServiceServer) mustEmbedUnimplementedProductModifierServiceServer() {
 }
@@ -139,6 +171,42 @@ func _ProductModifierService_GetProductModifierByProductID_Handler(srv interface
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProductModifierService_UpdateProductModifierByProductID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateProductModifierByProductIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductModifierServiceServer).UpdateProductModifierByProductID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProductModifierService_UpdateProductModifierByProductID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductModifierServiceServer).UpdateProductModifierByProductID(ctx, req.(*UpdateProductModifierByProductIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProductModifierService_DeactivateProductModifierByProductID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeactivateProductModifierByProductIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductModifierServiceServer).DeactivateProductModifierByProductID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProductModifierService_DeactivateProductModifierByProductID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductModifierServiceServer).DeactivateProductModifierByProductID(ctx, req.(*DeactivateProductModifierByProductIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProductModifierService_ServiceDesc is the grpc.ServiceDesc for ProductModifierService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -153,6 +221,14 @@ var ProductModifierService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProductModifierByProductID",
 			Handler:    _ProductModifierService_GetProductModifierByProductID_Handler,
+		},
+		{
+			MethodName: "UpdateProductModifierByProductID",
+			Handler:    _ProductModifierService_UpdateProductModifierByProductID_Handler,
+		},
+		{
+			MethodName: "DeactivateProductModifierByProductID",
+			Handler:    _ProductModifierService_DeactivateProductModifierByProductID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
