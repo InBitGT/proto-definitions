@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package inventory.product;
+
+option go_package = "github.com/InBitGT/proto-definitions/inventory/product;productpb";
+
+service ProductService {
+  rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse);
+  rpc GetProductByID (GetProductByIDRequest) returns (ProductResponse);
+  rpc DeactivateProduct (DeactivateProductRequest) returns (DeactivateProductResponse);
+  rpc ListProducts (ListProductsRequest) returns (ListProductsResponse);
+  rpc UpdateProduct (UpdateProductRequest) returns (UpdateProductResponse);
+}
+
+message CreateProductRequest {
+  uint64 tenant_id = 1;
+  uint64 category_id = 2;
+  string name = 3;
+  string description = 4;
+  string sku = 5;
+  string barcode = 6;
+  string brand = 7;
+  string type = 8;
+  string unit_of_measure = 9;
+  double average_cost = 10;
+  bool requires_batch = 11;
+  string availability_status = 12;
+  string picture = 13;
+  bool is_modifier = 14;
+  string modifier_group = 15;
+  string modifier_name = 16;
+}
+
+message CreateProductResponse {
+  bool success = 1;
+  uint64 product_id = 2;
+}
+
+message GetProductByIDRequest {
+  uint64 id = 1;
+}
+
+message DeactivateProductRequest {
+  uint64 id = 1;
+}
+
+message DeactivateProductResponse {
+  bool success = 1;
+}
+
+message ListProductsRequest {
+  uint64 tenant_id = 1;
+  string type = 2;
+  bool only_active = 3;
+}
+
+message UpdateProductRequest {
+  uint64 id = 1;
+  uint64 category_id = 2;
+  string name = 3;
+  string description = 4;
+  string sku = 5;
+  string barcode = 6;
+  string brand = 7;
+  string type = 8;
+  string unit_of_measure = 9;
+  double average_cost = 10;
+  bool requires_batch = 11;
+  string availability_status = 12;
+  string picture = 13;
+}
+
+message UpdateProductResponse {
+  bool success = 1;
+}
+
+message ProductResponse {
+  uint64 id = 1;
+  uint64 tenant_id = 2;
+  uint64 category_id = 3;
+  string name = 4;
+  string description = 5;
+  string sku = 6;
+  string barcode = 7;
+  string brand = 8;
+  string type = 9;
+  string unit_of_measure = 10;
+  double average_cost = 11;
+  bool requires_batch = 12;
+  string availability_status = 13;
+  string picture = 14;
+  bool status = 15;
+  bool is_modifier = 16;
+  string modifier_group = 17;
+  string modifier_name = 18;
+}
+
+message ListProductsResponse {
+  repeated ProductResponse products = 1;
+}
