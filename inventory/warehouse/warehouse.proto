@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package inventory.warehouse;
+
+option go_package = "github.com/InBitGT/proto-definitions/inventory/warehouse;warehousepb";
+
+service WarehouseService {
+  rpc GetDefaultWarehouseByBranch (GetDefaultWarehouseByBranchRequest) returns (GetDefaultWarehouseByBranchResponse);
+}
+
+message GetDefaultWarehouseByBranchRequest {
+  uint64 branch_id = 1;
+}
+
+message GetDefaultWarehouseByBranchResponse {
+  bool success = 1;
+  uint64 warehouse_id = 2;
+  string warehouse_name = 3;
+}
