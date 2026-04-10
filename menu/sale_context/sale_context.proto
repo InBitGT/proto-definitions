@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package menu.sale_context;
+
+option go_package = "github.com/InBitGT/proto-definitions/menu/sale_context;salectxpb";
+
+service SaleContextService {
+  rpc GetSaleContext (GetSaleContextRequest) returns (GetSaleContextResponse);
+}
+
+message GetSaleContextRequest {
+  uint64 product_id = 1;
+  uint64 product_variant_id = 2;
+  repeated uint64 modifier_product_ids = 3;
+}
+
+message ModifierSaleContext {
+  uint64 modifier_product_id = 1;
+  string modifier_name = 2;
+  double price_adjustment = 3;
+  double quantity = 4;
+}
+
+message ConsumptionLine {
+  uint64 ingredient_product_id = 1;
+  double quantity = 2;
+  string unit = 3;
+}
+
+message GetSaleContextResponse {
+  bool success = 1;
+  uint64 product_id = 2;
+  string product_name = 3;
+  double base_price = 4;
+
+  uint64 product_variant_id = 5;
+  string variant_name = 6;
+  double variant_price_adjustment = 7;
+
+  repeated ModifierSaleContext modifiers = 8;
+  repeated ConsumptionLine consumption_lines = 9;
+}

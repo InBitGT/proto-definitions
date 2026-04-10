@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package inventory.sale_cost;
+
+option go_package = "github.com/InBitGT/proto-definitions/inventory/sale_cost;salecostpb";
+
+service SaleCostService {
+  rpc ConsumeAndGetCost (ConsumeAndGetCostRequest) returns (ConsumeAndGetCostResponse);
+}
+
+message ConsumptionRequestLine {
+  uint64 ingredient_product_id = 1;
+  double quantity = 2;
+  string unit = 3;
+}
+
+message ConsumeAndGetCostRequest {
+  uint64 warehouse_id = 1;
+  uint64 user_id = 2;
+  uint64 reference_id = 3;
+  string reference_type = 4;
+  repeated ConsumptionRequestLine lines = 5;
+}
+
+message ConsumptionResultLine {
+  uint64 ingredient_product_id = 1;
+  double quantity = 2;
+  double unit_cost = 3;
+  double subtotal_cost = 4;
+}
+
+message ConsumeAndGetCostResponse {
+  bool success = 1;
+  double total_cost = 2;
+  repeated ConsumptionResultLine lines = 3;
+}
