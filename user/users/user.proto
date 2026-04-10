@@ -31,4 +31,5 @@ message UserAuthResponse {
   bool   status        = 11;
   string tenant_name   = 12;
   uint64 branch_id     = 13;
+  uint64 warehouse_id    = 14;
 }

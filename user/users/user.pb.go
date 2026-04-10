@@ -124,6 +124,7 @@ type UserAuthResponse struct {
 	Status        bool                   `protobuf:"varint,11,opt,name=status,proto3" json:"status,omitempty"`
 	TenantName    string                 `protobuf:"bytes,12,opt,name=tenant_name,json=tenantName,proto3" json:"tenant_name,omitempty"`
 	BranchId      uint64                 `protobuf:"varint,13,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
+	WarehouseId   uint64                 `protobuf:"varint,14,opt,name=warehouse_id,json=warehouseId,proto3" json:"warehouse_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -249,6 +250,13 @@ func (x *UserAuthResponse) GetBranchId() uint64 {
 	return 0
 }
 
+func (x *UserAuthResponse) GetWarehouseId() uint64 {
+	if x != nil {
+		return x.WarehouseId
+	}
+	return 0
+}
+
 var File_proto_user_users_user_proto protoreflect.FileDescriptor
 
 const file_proto_user_users_user_proto_rawDesc = "" +
@@ -257,7 +265,7 @@ const file_proto_user_users_user_proto_rawDesc = "" +
 	"\x15GetUserByEmailRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\"$\n" +
 	"\x12GetUserByIDRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x04R\x02id\"\xfb\x02\n" +
+	"\x02id\x18\x01 \x01(\x04R\x02id\"\x9e\x03\n" +
 	"\x10UserAuthResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x1b\n" +
 	"\ttenant_id\x18\x02 \x01(\x04R\btenantId\x12\x14\n" +
@@ -274,7 +282,8 @@ const file_proto_user_users_user_proto_rawDesc = "" +
 	"\x06status\x18\v \x01(\bR\x06status\x12\x1f\n" +
 	"\vtenant_name\x18\f \x01(\tR\n" +
 	"tenantName\x12\x1b\n" +
-	"\tbranch_id\x18\r \x01(\x04R\bbranchId2\x95\x01\n" +
+	"\tbranch_id\x18\r \x01(\x04R\bbranchId\x12!\n" +
+	"\fwarehouse_id\x18\x0e \x01(\x04R\vwarehouseId2\x95\x01\n" +
 	"\vUserService\x12E\n" +
 	"\x0eGetUserByEmail\x12\x1b.user.GetUserByEmailRequest\x1a\x16.user.UserAuthResponse\x12?\n" +
 	"\vGetUserByID\x12\x18.user.GetUserByIDRequest\x1a\x16.user.UserAuthResponseB1Z/github.com/InBitGT/proto-definitions/user/usersb\x06proto3"
