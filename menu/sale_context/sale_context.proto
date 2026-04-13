@@ -31,12 +31,14 @@ message GetSaleContextResponse {
   bool success = 1;
   uint64 product_id = 2;
   string product_name = 3;
-  double base_price = 4;
+  uint64 category_id = 4;
+  string category_name = 5;
+  double base_price = 6;
 
-  uint64 product_variant_id = 5;
-  string variant_name = 6;
-  double variant_price_adjustment = 7;
+  uint64 product_variant_id = 7;
+  string variant_name = 8;
+  double variant_price_adjustment = 9;
 
-  repeated ModifierSaleContext modifiers = 8;
-  repeated ConsumptionLine consumption_lines = 9;
+  repeated ModifierSaleContext modifiers = 10;
+  repeated ConsumptionLine consumption_lines = 11;
 }

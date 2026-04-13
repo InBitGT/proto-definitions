@@ -214,12 +214,14 @@ type GetSaleContextResponse struct {
 	Success                bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
 	ProductId              uint64                 `protobuf:"varint,2,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
 	ProductName            string                 `protobuf:"bytes,3,opt,name=product_name,json=productName,proto3" json:"product_name,omitempty"`
-	BasePrice              float64                `protobuf:"fixed64,4,opt,name=base_price,json=basePrice,proto3" json:"base_price,omitempty"`
-	ProductVariantId       uint64                 `protobuf:"varint,5,opt,name=product_variant_id,json=productVariantId,proto3" json:"product_variant_id,omitempty"`
-	VariantName            string                 `protobuf:"bytes,6,opt,name=variant_name,json=variantName,proto3" json:"variant_name,omitempty"`
-	VariantPriceAdjustment float64                `protobuf:"fixed64,7,opt,name=variant_price_adjustment,json=variantPriceAdjustment,proto3" json:"variant_price_adjustment,omitempty"`
-	Modifiers              []*ModifierSaleContext `protobuf:"bytes,8,rep,name=modifiers,proto3" json:"modifiers,omitempty"`
-	ConsumptionLines       []*ConsumptionLine     `protobuf:"bytes,9,rep,name=consumption_lines,json=consumptionLines,proto3" json:"consumption_lines,omitempty"`
+	CategoryId             uint64                 `protobuf:"varint,4,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	CategoryName           string                 `protobuf:"bytes,5,opt,name=category_name,json=categoryName,proto3" json:"category_name,omitempty"`
+	BasePrice              float64                `protobuf:"fixed64,6,opt,name=base_price,json=basePrice,proto3" json:"base_price,omitempty"`
+	ProductVariantId       uint64                 `protobuf:"varint,7,opt,name=product_variant_id,json=productVariantId,proto3" json:"product_variant_id,omitempty"`
+	VariantName            string                 `protobuf:"bytes,8,opt,name=variant_name,json=variantName,proto3" json:"variant_name,omitempty"`
+	VariantPriceAdjustment float64                `protobuf:"fixed64,9,opt,name=variant_price_adjustment,json=variantPriceAdjustment,proto3" json:"variant_price_adjustment,omitempty"`
+	Modifiers              []*ModifierSaleContext `protobuf:"bytes,10,rep,name=modifiers,proto3" json:"modifiers,omitempty"`
+	ConsumptionLines       []*ConsumptionLine     `protobuf:"bytes,11,rep,name=consumption_lines,json=consumptionLines,proto3" json:"consumption_lines,omitempty"`
 	unknownFields          protoimpl.UnknownFields
 	sizeCache              protoimpl.SizeCache
 }
@@ -271,6 +273,20 @@ func (x *GetSaleContextResponse) GetProductId() uint64 {
 func (x *GetSaleContextResponse) GetProductName() string {
 	if x != nil {
 		return x.ProductName
+	}
+	return ""
+}
+
+func (x *GetSaleContextResponse) GetCategoryId() uint64 {
+	if x != nil {
+		return x.CategoryId
+	}
+	return 0
+}
+
+func (x *GetSaleContextResponse) GetCategoryName() string {
+	if x != nil {
+		return x.CategoryName
 	}
 	return ""
 }
@@ -335,19 +351,23 @@ const file_proto_menu_sale_context_sale_context_proto_rawDesc = "" +
 	"\x0fConsumptionLine\x122\n" +
 	"\x15ingredient_product_id\x18\x01 \x01(\x04R\x13ingredientProductId\x12\x1a\n" +
 	"\bquantity\x18\x02 \x01(\x01R\bquantity\x12\x12\n" +
-	"\x04unit\x18\x03 \x01(\tR\x04unit\"\xb5\x03\n" +
+	"\x04unit\x18\x03 \x01(\tR\x04unit\"\xfb\x03\n" +
 	"\x16GetSaleContextResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x1d\n" +
 	"\n" +
 	"product_id\x18\x02 \x01(\x04R\tproductId\x12!\n" +
-	"\fproduct_name\x18\x03 \x01(\tR\vproductName\x12\x1d\n" +
+	"\fproduct_name\x18\x03 \x01(\tR\vproductName\x12\x1f\n" +
+	"\vcategory_id\x18\x04 \x01(\x04R\n" +
+	"categoryId\x12#\n" +
+	"\rcategory_name\x18\x05 \x01(\tR\fcategoryName\x12\x1d\n" +
 	"\n" +
-	"base_price\x18\x04 \x01(\x01R\tbasePrice\x12,\n" +
-	"\x12product_variant_id\x18\x05 \x01(\x04R\x10productVariantId\x12!\n" +
-	"\fvariant_name\x18\x06 \x01(\tR\vvariantName\x128\n" +
-	"\x18variant_price_adjustment\x18\a \x01(\x01R\x16variantPriceAdjustment\x12D\n" +
-	"\tmodifiers\x18\b \x03(\v2&.menu.sale_context.ModifierSaleContextR\tmodifiers\x12O\n" +
-	"\x11consumption_lines\x18\t \x03(\v2\".menu.sale_context.ConsumptionLineR\x10consumptionLines2{\n" +
+	"base_price\x18\x06 \x01(\x01R\tbasePrice\x12,\n" +
+	"\x12product_variant_id\x18\a \x01(\x04R\x10productVariantId\x12!\n" +
+	"\fvariant_name\x18\b \x01(\tR\vvariantName\x128\n" +
+	"\x18variant_price_adjustment\x18\t \x01(\x01R\x16variantPriceAdjustment\x12D\n" +
+	"\tmodifiers\x18\n" +
+	" \x03(\v2&.menu.sale_context.ModifierSaleContextR\tmodifiers\x12O\n" +
+	"\x11consumption_lines\x18\v \x03(\v2\".menu.sale_context.ConsumptionLineR\x10consumptionLines2{\n" +
 	"\x12SaleContextService\x12e\n" +
 	"\x0eGetSaleContext\x12(.menu.sale_context.GetSaleContextRequest\x1a).menu.sale_context.GetSaleContextResponseBBZ@github.com/InBitGT/proto-definitions/menu/sale_context;salectxpbb\x06proto3"
 
