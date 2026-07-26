@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package menu.pos_context;
+
+option go_package = "github.com/InBitGT/proto-definitions/menu/pos_context;posctxpb";
+
+service POSContextService {
+  rpc GetPOSContext (GetPOSContextRequest) returns (GetPOSContextResponse);
+}
+
+message GetPOSContextRequest {
+  repeated uint64 product_ids    = 1;
+  uint64          tenant_id      = 2;
+  uint64          customer_type_id = 3;
+}
+
+message POSProductContext {
+  uint64 product_id             = 1;
+  double base_price             = 2;
+  string currency               = 3;
+
+  bool   has_promotion          = 4;
+  uint64 promotion_id           = 5;
+  string promotion_name         = 6;
+  string promotion_discount_type = 7;
+  double promotion_value        = 8;
+
+  bool   has_customer_type_price = 9;
+  double customer_type_price    = 10;
+
+  bool   has_wholesale          = 11;
+  double wholesale_min_qty      = 12;
+  double wholesale_discount_pct = 13;
+}
+
+message GetPOSContextResponse {
+  bool                      success  = 1;
+  repeated POSProductContext products = 2;
+}
