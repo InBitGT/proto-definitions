@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package menu.product_price;
+
+option go_package = "github.com/InBitGT/proto-definitions/menu/product_price;productpricepb";
+
+service ProductPriceService {
+  rpc CreatePrice                      (CreatePriceRequest)                      returns (CreatePriceResponse);
+  rpc GetPriceByProductID              (GetPriceByProductIDRequest)              returns (GetPriceByProductIDResponse);
+  rpc CreatePriceCustomerType          (CreatePriceCustomerTypeRequest)          returns (CreatePriceCustomerTypeResponse);
+  rpc GetPriceCustomerTypesByProductID (GetPriceCustomerTypesByProductIDRequest) returns (GetPriceCustomerTypesByProductIDResponse);
+}
+
+// ── Price ─────────────────────────────────────────────────────────────
+
+message CreatePriceRequest {
+  uint64 product_id = 1;
+  double amount     = 2;
+  string currency   = 3;
+}
+
+message CreatePriceResponse {
+  bool   success  = 1;
+  uint64 price_id = 2;
+  double amount   = 3;
+  string currency = 4;
+}
+
+message GetPriceByProductIDRequest {
+  uint64 product_id = 1;
+}
+
+message GetPriceByProductIDResponse {
+  bool   success  = 1;
+  uint64 price_id = 2;
+  double amount   = 3;
+  string currency = 4;
+  bool   is_base  = 5;
+}
+
+// ── PriceCustomerType ─────────────────────────────────────────────────
+
+message PriceCustomerTypeItem {
+  uint64 customer_type_id = 1;
+  double amount           = 2;
+  string currency         = 3;
+}
+
+message CreatePriceCustomerTypeRequest {
+  uint64                         product_id = 1;
+  repeated PriceCustomerTypeItem items      = 2;
+}
+
+message CreatePriceCustomerTypeResponse {
+  bool  success = 1;
+  int32 created = 2;
+}
+
+message GetPriceCustomerTypesByProductIDRequest {
+  uint64 product_id = 1;
+}
+
+message PriceCustomerTypeResult {
+  uint64 id               = 1;
+  uint64 customer_type_id = 2;
+  double amount           = 3;
+  string currency         = 4;
+}
+
+message GetPriceCustomerTypesByProductIDResponse {
+  bool                             success = 1;
+  repeated PriceCustomerTypeResult items   = 2;
+}
