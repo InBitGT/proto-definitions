@@ -23,6 +23,8 @@ const (
 	ProductPriceService_GetPriceByProductID_FullMethodName              = "/menu.product_price.ProductPriceService/GetPriceByProductID"
 	ProductPriceService_CreatePriceCustomerType_FullMethodName          = "/menu.product_price.ProductPriceService/CreatePriceCustomerType"
 	ProductPriceService_GetPriceCustomerTypesByProductID_FullMethodName = "/menu.product_price.ProductPriceService/GetPriceCustomerTypesByProductID"
+	ProductPriceService_CreatePricePerUom_FullMethodName                = "/menu.product_price.ProductPriceService/CreatePricePerUom"
+	ProductPriceService_GetPricePerUomByProductID_FullMethodName        = "/menu.product_price.ProductPriceService/GetPricePerUomByProductID"
 )
 
 // ProductPriceServiceClient is the client API for ProductPriceService service.
@@ -33,6 +35,8 @@ type ProductPriceServiceClient interface {
 	GetPriceByProductID(ctx context.Context, in *GetPriceByProductIDRequest, opts ...grpc.CallOption) (*GetPriceByProductIDResponse, error)
 	CreatePriceCustomerType(ctx context.Context, in *CreatePriceCustomerTypeRequest, opts ...grpc.CallOption) (*CreatePriceCustomerTypeResponse, error)
 	GetPriceCustomerTypesByProductID(ctx context.Context, in *GetPriceCustomerTypesByProductIDRequest, opts ...grpc.CallOption) (*GetPriceCustomerTypesByProductIDResponse, error)
+	CreatePricePerUom(ctx context.Context, in *CreatePricePerUomRequest, opts ...grpc.CallOption) (*CreatePricePerUomResponse, error)
+	GetPricePerUomByProductID(ctx context.Context, in *GetPricePerUomByProductIDRequest, opts ...grpc.CallOption) (*GetPricePerUomByProductIDResponse, error)
 }
 
 type productPriceServiceClient struct {
@@ -83,6 +87,26 @@ func (c *productPriceServiceClient) GetPriceCustomerTypesByProductID(ctx context
 	return out, nil
 }
 
+func (c *productPriceServiceClient) CreatePricePerUom(ctx context.Context, in *CreatePricePerUomRequest, opts ...grpc.CallOption) (*CreatePricePerUomResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreatePricePerUomResponse)
+	err := c.cc.Invoke(ctx, ProductPriceService_CreatePricePerUom_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productPriceServiceClient) GetPricePerUomByProductID(ctx context.Context, in *GetPricePerUomByProductIDRequest, opts ...grpc.CallOption) (*GetPricePerUomByProductIDResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetPricePerUomByProductIDResponse)
+	err := c.cc.Invoke(ctx, ProductPriceService_GetPricePerUomByProductID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductPriceServiceServer is the server API for ProductPriceService service.
 // All implementations must embed UnimplementedProductPriceServiceServer
 // for forward compatibility.
@@ -91,6 +115,8 @@ type ProductPriceServiceServer interface {
 	GetPriceByProductID(context.Context, *GetPriceByProductIDRequest) (*GetPriceByProductIDResponse, error)
 	CreatePriceCustomerType(context.Context, *CreatePriceCustomerTypeRequest) (*CreatePriceCustomerTypeResponse, error)
 	GetPriceCustomerTypesByProductID(context.Context, *GetPriceCustomerTypesByProductIDRequest) (*GetPriceCustomerTypesByProductIDResponse, error)
+	CreatePricePerUom(context.Context, *CreatePricePerUomRequest) (*CreatePricePerUomResponse, error)
+	GetPricePerUomByProductID(context.Context, *GetPricePerUomByProductIDRequest) (*GetPricePerUomByProductIDResponse, error)
 	mustEmbedUnimplementedProductPriceServiceServer()
 }
 
@@ -112,6 +138,12 @@ func (UnimplementedProductPriceServiceServer) CreatePriceCustomerType(context.Co
 }
 func (UnimplementedProductPriceServiceServer) GetPriceCustomerTypesByProductID(context.Context, *GetPriceCustomerTypesByProductIDRequest) (*GetPriceCustomerTypesByProductIDResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetPriceCustomerTypesByProductID not implemented")
+}
+func (UnimplementedProductPriceServiceServer) CreatePricePerUom(context.Context, *CreatePricePerUomRequest) (*CreatePricePerUomResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method CreatePricePerUom not implemented")
+}
+func (UnimplementedProductPriceServiceServer) GetPricePerUomByProductID(context.Context, *GetPricePerUomByProductIDRequest) (*GetPricePerUomByProductIDResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetPricePerUomByProductID not implemented")
 }
 func (UnimplementedProductPriceServiceServer) mustEmbedUnimplementedProductPriceServiceServer() {}
 func (UnimplementedProductPriceServiceServer) testEmbeddedByValue()                             {}
@@ -206,6 +238,42 @@ func _ProductPriceService_GetPriceCustomerTypesByProductID_Handler(srv interface
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProductPriceService_CreatePricePerUom_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreatePricePerUomRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductPriceServiceServer).CreatePricePerUom(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProductPriceService_CreatePricePerUom_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductPriceServiceServer).CreatePricePerUom(ctx, req.(*CreatePricePerUomRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProductPriceService_GetPricePerUomByProductID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPricePerUomByProductIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductPriceServiceServer).GetPricePerUomByProductID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProductPriceService_GetPricePerUomByProductID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductPriceServiceServer).GetPricePerUomByProductID(ctx, req.(*GetPricePerUomByProductIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProductPriceService_ServiceDesc is the grpc.ServiceDesc for ProductPriceService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -228,6 +296,14 @@ var ProductPriceService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPriceCustomerTypesByProductID",
 			Handler:    _ProductPriceService_GetPriceCustomerTypesByProductID_Handler,
+		},
+		{
+			MethodName: "CreatePricePerUom",
+			Handler:    _ProductPriceService_CreatePricePerUom_Handler,
+		},
+		{
+			MethodName: "GetPricePerUomByProductID",
+			Handler:    _ProductPriceService_GetPricePerUomByProductID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

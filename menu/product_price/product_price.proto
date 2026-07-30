@@ -9,6 +9,8 @@ service ProductPriceService {
   rpc GetPriceByProductID              (GetPriceByProductIDRequest)              returns (GetPriceByProductIDResponse);
   rpc CreatePriceCustomerType          (CreatePriceCustomerTypeRequest)          returns (CreatePriceCustomerTypeResponse);
   rpc GetPriceCustomerTypesByProductID (GetPriceCustomerTypesByProductIDRequest) returns (GetPriceCustomerTypesByProductIDResponse);
+  rpc CreatePricePerUom                (CreatePricePerUomRequest)                returns (CreatePricePerUomResponse);
+  rpc GetPricePerUomByProductID        (GetPricePerUomByProductIDRequest)        returns (GetPricePerUomByProductIDResponse);
 }
 
 // ── Price ─────────────────────────────────────────────────────────────
@@ -71,3 +73,42 @@ message GetPriceCustomerTypesByProductIDResponse {
   bool                             success = 1;
   repeated PriceCustomerTypeResult items   = 2;
 }
+
+// ── PricePerUom ───────────────────────────────────────────────────────
+
+message PricePerUomItem {
+  uint64 uom_id            = 1;
+  double amount            = 2;
+  string currency          = 3;
+  double wholesale_min_qty = 4;
+  double wholesale_amount  = 5;
+}
+
+message CreatePricePerUomRequest {
+  uint64                   product_id = 1;
+  repeated PricePerUomItem items      = 2;
+}
+
+message CreatePricePerUomResponse {
+  bool  success = 1;
+  int32 created = 2;
+}
+
+message GetPricePerUomByProductIDRequest {
+  uint64 product_id = 1;
+}
+
+message PricePerUomResult {
+  uint64 id               = 1;
+  uint64 uom_id           = 2;
+  double amount           = 3;
+  string currency         = 4;
+  double wholesale_min_qty = 5;
+  double wholesale_amount  = 6;
+} 
+
+message GetPricePerUomByProductIDResponse {
+  bool                     success = 1;
+  repeated PricePerUomResult items = 2;
+}
+

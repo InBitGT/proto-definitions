@@ -597,6 +597,366 @@ func (x *GetPriceCustomerTypesByProductIDResponse) GetItems() []*PriceCustomerTy
 	return nil
 }
 
+type PricePerUomItem struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	UomId           uint64                 `protobuf:"varint,1,opt,name=uom_id,json=uomId,proto3" json:"uom_id,omitempty"`
+	Amount          float64                `protobuf:"fixed64,2,opt,name=amount,proto3" json:"amount,omitempty"`
+	Currency        string                 `protobuf:"bytes,3,opt,name=currency,proto3" json:"currency,omitempty"`
+	WholesaleMinQty float64                `protobuf:"fixed64,4,opt,name=wholesale_min_qty,json=wholesaleMinQty,proto3" json:"wholesale_min_qty,omitempty"`
+	WholesaleAmount float64                `protobuf:"fixed64,5,opt,name=wholesale_amount,json=wholesaleAmount,proto3" json:"wholesale_amount,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *PricePerUomItem) Reset() {
+	*x = PricePerUomItem{}
+	mi := &file_proto_menu_product_price_product_price_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PricePerUomItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PricePerUomItem) ProtoMessage() {}
+
+func (x *PricePerUomItem) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_menu_product_price_product_price_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PricePerUomItem.ProtoReflect.Descriptor instead.
+func (*PricePerUomItem) Descriptor() ([]byte, []int) {
+	return file_proto_menu_product_price_product_price_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *PricePerUomItem) GetUomId() uint64 {
+	if x != nil {
+		return x.UomId
+	}
+	return 0
+}
+
+func (x *PricePerUomItem) GetAmount() float64 {
+	if x != nil {
+		return x.Amount
+	}
+	return 0
+}
+
+func (x *PricePerUomItem) GetCurrency() string {
+	if x != nil {
+		return x.Currency
+	}
+	return ""
+}
+
+func (x *PricePerUomItem) GetWholesaleMinQty() float64 {
+	if x != nil {
+		return x.WholesaleMinQty
+	}
+	return 0
+}
+
+func (x *PricePerUomItem) GetWholesaleAmount() float64 {
+	if x != nil {
+		return x.WholesaleAmount
+	}
+	return 0
+}
+
+type CreatePricePerUomRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ProductId     uint64                 `protobuf:"varint,1,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
+	Items         []*PricePerUomItem     `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreatePricePerUomRequest) Reset() {
+	*x = CreatePricePerUomRequest{}
+	mi := &file_proto_menu_product_price_product_price_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreatePricePerUomRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreatePricePerUomRequest) ProtoMessage() {}
+
+func (x *CreatePricePerUomRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_menu_product_price_product_price_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreatePricePerUomRequest.ProtoReflect.Descriptor instead.
+func (*CreatePricePerUomRequest) Descriptor() ([]byte, []int) {
+	return file_proto_menu_product_price_product_price_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *CreatePricePerUomRequest) GetProductId() uint64 {
+	if x != nil {
+		return x.ProductId
+	}
+	return 0
+}
+
+func (x *CreatePricePerUomRequest) GetItems() []*PricePerUomItem {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+type CreatePricePerUomResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Created       int32                  `protobuf:"varint,2,opt,name=created,proto3" json:"created,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreatePricePerUomResponse) Reset() {
+	*x = CreatePricePerUomResponse{}
+	mi := &file_proto_menu_product_price_product_price_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreatePricePerUomResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreatePricePerUomResponse) ProtoMessage() {}
+
+func (x *CreatePricePerUomResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_menu_product_price_product_price_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreatePricePerUomResponse.ProtoReflect.Descriptor instead.
+func (*CreatePricePerUomResponse) Descriptor() ([]byte, []int) {
+	return file_proto_menu_product_price_product_price_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *CreatePricePerUomResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *CreatePricePerUomResponse) GetCreated() int32 {
+	if x != nil {
+		return x.Created
+	}
+	return 0
+}
+
+type GetPricePerUomByProductIDRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ProductId     uint64                 `protobuf:"varint,1,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetPricePerUomByProductIDRequest) Reset() {
+	*x = GetPricePerUomByProductIDRequest{}
+	mi := &file_proto_menu_product_price_product_price_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetPricePerUomByProductIDRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetPricePerUomByProductIDRequest) ProtoMessage() {}
+
+func (x *GetPricePerUomByProductIDRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_menu_product_price_product_price_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetPricePerUomByProductIDRequest.ProtoReflect.Descriptor instead.
+func (*GetPricePerUomByProductIDRequest) Descriptor() ([]byte, []int) {
+	return file_proto_menu_product_price_product_price_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *GetPricePerUomByProductIDRequest) GetProductId() uint64 {
+	if x != nil {
+		return x.ProductId
+	}
+	return 0
+}
+
+type PricePerUomResult struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Id              uint64                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	UomId           uint64                 `protobuf:"varint,2,opt,name=uom_id,json=uomId,proto3" json:"uom_id,omitempty"`
+	Amount          float64                `protobuf:"fixed64,3,opt,name=amount,proto3" json:"amount,omitempty"`
+	Currency        string                 `protobuf:"bytes,4,opt,name=currency,proto3" json:"currency,omitempty"`
+	WholesaleMinQty float64                `protobuf:"fixed64,5,opt,name=wholesale_min_qty,json=wholesaleMinQty,proto3" json:"wholesale_min_qty,omitempty"`
+	WholesaleAmount float64                `protobuf:"fixed64,6,opt,name=wholesale_amount,json=wholesaleAmount,proto3" json:"wholesale_amount,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *PricePerUomResult) Reset() {
+	*x = PricePerUomResult{}
+	mi := &file_proto_menu_product_price_product_price_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PricePerUomResult) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PricePerUomResult) ProtoMessage() {}
+
+func (x *PricePerUomResult) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_menu_product_price_product_price_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PricePerUomResult.ProtoReflect.Descriptor instead.
+func (*PricePerUomResult) Descriptor() ([]byte, []int) {
+	return file_proto_menu_product_price_product_price_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *PricePerUomResult) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *PricePerUomResult) GetUomId() uint64 {
+	if x != nil {
+		return x.UomId
+	}
+	return 0
+}
+
+func (x *PricePerUomResult) GetAmount() float64 {
+	if x != nil {
+		return x.Amount
+	}
+	return 0
+}
+
+func (x *PricePerUomResult) GetCurrency() string {
+	if x != nil {
+		return x.Currency
+	}
+	return ""
+}
+
+func (x *PricePerUomResult) GetWholesaleMinQty() float64 {
+	if x != nil {
+		return x.WholesaleMinQty
+	}
+	return 0
+}
+
+func (x *PricePerUomResult) GetWholesaleAmount() float64 {
+	if x != nil {
+		return x.WholesaleAmount
+	}
+	return 0
+}
+
+type GetPricePerUomByProductIDResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Items         []*PricePerUomResult   `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetPricePerUomByProductIDResponse) Reset() {
+	*x = GetPricePerUomByProductIDResponse{}
+	mi := &file_proto_menu_product_price_product_price_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetPricePerUomByProductIDResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetPricePerUomByProductIDResponse) ProtoMessage() {}
+
+func (x *GetPricePerUomByProductIDResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_menu_product_price_product_price_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetPricePerUomByProductIDResponse.ProtoReflect.Descriptor instead.
+func (*GetPricePerUomByProductIDResponse) Descriptor() ([]byte, []int) {
+	return file_proto_menu_product_price_product_price_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *GetPricePerUomByProductIDResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *GetPricePerUomByProductIDResponse) GetItems() []*PricePerUomResult {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
 var File_proto_menu_product_price_product_price_proto protoreflect.FileDescriptor
 
 const file_proto_menu_product_price_product_price_proto_rawDesc = "" +
@@ -642,12 +1002,40 @@ const file_proto_menu_product_price_product_price_proto_rawDesc = "" +
 	"\bcurrency\x18\x04 \x01(\tR\bcurrency\"\x87\x01\n" +
 	"(GetPriceCustomerTypesByProductIDResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12A\n" +
-	"\x05items\x18\x02 \x03(\v2+.menu.product_price.PriceCustomerTypeResultR\x05items2\x92\x04\n" +
+	"\x05items\x18\x02 \x03(\v2+.menu.product_price.PriceCustomerTypeResultR\x05items\"\xb3\x01\n" +
+	"\x0fPricePerUomItem\x12\x15\n" +
+	"\x06uom_id\x18\x01 \x01(\x04R\x05uomId\x12\x16\n" +
+	"\x06amount\x18\x02 \x01(\x01R\x06amount\x12\x1a\n" +
+	"\bcurrency\x18\x03 \x01(\tR\bcurrency\x12*\n" +
+	"\x11wholesale_min_qty\x18\x04 \x01(\x01R\x0fwholesaleMinQty\x12)\n" +
+	"\x10wholesale_amount\x18\x05 \x01(\x01R\x0fwholesaleAmount\"t\n" +
+	"\x18CreatePricePerUomRequest\x12\x1d\n" +
+	"\n" +
+	"product_id\x18\x01 \x01(\x04R\tproductId\x129\n" +
+	"\x05items\x18\x02 \x03(\v2#.menu.product_price.PricePerUomItemR\x05items\"O\n" +
+	"\x19CreatePricePerUomResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
+	"\acreated\x18\x02 \x01(\x05R\acreated\"A\n" +
+	" GetPricePerUomByProductIDRequest\x12\x1d\n" +
+	"\n" +
+	"product_id\x18\x01 \x01(\x04R\tproductId\"\xc5\x01\n" +
+	"\x11PricePerUomResult\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x15\n" +
+	"\x06uom_id\x18\x02 \x01(\x04R\x05uomId\x12\x16\n" +
+	"\x06amount\x18\x03 \x01(\x01R\x06amount\x12\x1a\n" +
+	"\bcurrency\x18\x04 \x01(\tR\bcurrency\x12*\n" +
+	"\x11wholesale_min_qty\x18\x05 \x01(\x01R\x0fwholesaleMinQty\x12)\n" +
+	"\x10wholesale_amount\x18\x06 \x01(\x01R\x0fwholesaleAmount\"z\n" +
+	"!GetPricePerUomByProductIDResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12;\n" +
+	"\x05items\x18\x02 \x03(\v2%.menu.product_price.PricePerUomResultR\x05items2\x8f\x06\n" +
 	"\x13ProductPriceService\x12^\n" +
 	"\vCreatePrice\x12&.menu.product_price.CreatePriceRequest\x1a'.menu.product_price.CreatePriceResponse\x12v\n" +
 	"\x13GetPriceByProductID\x12..menu.product_price.GetPriceByProductIDRequest\x1a/.menu.product_price.GetPriceByProductIDResponse\x12\x82\x01\n" +
 	"\x17CreatePriceCustomerType\x122.menu.product_price.CreatePriceCustomerTypeRequest\x1a3.menu.product_price.CreatePriceCustomerTypeResponse\x12\x9d\x01\n" +
-	" GetPriceCustomerTypesByProductID\x12;.menu.product_price.GetPriceCustomerTypesByProductIDRequest\x1a<.menu.product_price.GetPriceCustomerTypesByProductIDResponseBHZFgithub.com/InBitGT/proto-definitions/menu/product_price;productpricepbb\x06proto3"
+	" GetPriceCustomerTypesByProductID\x12;.menu.product_price.GetPriceCustomerTypesByProductIDRequest\x1a<.menu.product_price.GetPriceCustomerTypesByProductIDResponse\x12p\n" +
+	"\x11CreatePricePerUom\x12,.menu.product_price.CreatePricePerUomRequest\x1a-.menu.product_price.CreatePricePerUomResponse\x12\x88\x01\n" +
+	"\x19GetPricePerUomByProductID\x124.menu.product_price.GetPricePerUomByProductIDRequest\x1a5.menu.product_price.GetPricePerUomByProductIDResponseBHZFgithub.com/InBitGT/proto-definitions/menu/product_price;productpricepbb\x06proto3"
 
 var (
 	file_proto_menu_product_price_product_price_proto_rawDescOnce sync.Once
@@ -661,7 +1049,7 @@ func file_proto_menu_product_price_product_price_proto_rawDescGZIP() []byte {
 	return file_proto_menu_product_price_product_price_proto_rawDescData
 }
 
-var file_proto_menu_product_price_product_price_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_proto_menu_product_price_product_price_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_proto_menu_product_price_product_price_proto_goTypes = []any{
 	(*CreatePriceRequest)(nil),                       // 0: menu.product_price.CreatePriceRequest
 	(*CreatePriceResponse)(nil),                      // 1: menu.product_price.CreatePriceResponse
@@ -673,23 +1061,35 @@ var file_proto_menu_product_price_product_price_proto_goTypes = []any{
 	(*GetPriceCustomerTypesByProductIDRequest)(nil),  // 7: menu.product_price.GetPriceCustomerTypesByProductIDRequest
 	(*PriceCustomerTypeResult)(nil),                  // 8: menu.product_price.PriceCustomerTypeResult
 	(*GetPriceCustomerTypesByProductIDResponse)(nil), // 9: menu.product_price.GetPriceCustomerTypesByProductIDResponse
+	(*PricePerUomItem)(nil),                          // 10: menu.product_price.PricePerUomItem
+	(*CreatePricePerUomRequest)(nil),                 // 11: menu.product_price.CreatePricePerUomRequest
+	(*CreatePricePerUomResponse)(nil),                // 12: menu.product_price.CreatePricePerUomResponse
+	(*GetPricePerUomByProductIDRequest)(nil),         // 13: menu.product_price.GetPricePerUomByProductIDRequest
+	(*PricePerUomResult)(nil),                        // 14: menu.product_price.PricePerUomResult
+	(*GetPricePerUomByProductIDResponse)(nil),        // 15: menu.product_price.GetPricePerUomByProductIDResponse
 }
 var file_proto_menu_product_price_product_price_proto_depIdxs = []int32{
-	4, // 0: menu.product_price.CreatePriceCustomerTypeRequest.items:type_name -> menu.product_price.PriceCustomerTypeItem
-	8, // 1: menu.product_price.GetPriceCustomerTypesByProductIDResponse.items:type_name -> menu.product_price.PriceCustomerTypeResult
-	0, // 2: menu.product_price.ProductPriceService.CreatePrice:input_type -> menu.product_price.CreatePriceRequest
-	2, // 3: menu.product_price.ProductPriceService.GetPriceByProductID:input_type -> menu.product_price.GetPriceByProductIDRequest
-	5, // 4: menu.product_price.ProductPriceService.CreatePriceCustomerType:input_type -> menu.product_price.CreatePriceCustomerTypeRequest
-	7, // 5: menu.product_price.ProductPriceService.GetPriceCustomerTypesByProductID:input_type -> menu.product_price.GetPriceCustomerTypesByProductIDRequest
-	1, // 6: menu.product_price.ProductPriceService.CreatePrice:output_type -> menu.product_price.CreatePriceResponse
-	3, // 7: menu.product_price.ProductPriceService.GetPriceByProductID:output_type -> menu.product_price.GetPriceByProductIDResponse
-	6, // 8: menu.product_price.ProductPriceService.CreatePriceCustomerType:output_type -> menu.product_price.CreatePriceCustomerTypeResponse
-	9, // 9: menu.product_price.ProductPriceService.GetPriceCustomerTypesByProductID:output_type -> menu.product_price.GetPriceCustomerTypesByProductIDResponse
-	6, // [6:10] is the sub-list for method output_type
-	2, // [2:6] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	4,  // 0: menu.product_price.CreatePriceCustomerTypeRequest.items:type_name -> menu.product_price.PriceCustomerTypeItem
+	8,  // 1: menu.product_price.GetPriceCustomerTypesByProductIDResponse.items:type_name -> menu.product_price.PriceCustomerTypeResult
+	10, // 2: menu.product_price.CreatePricePerUomRequest.items:type_name -> menu.product_price.PricePerUomItem
+	14, // 3: menu.product_price.GetPricePerUomByProductIDResponse.items:type_name -> menu.product_price.PricePerUomResult
+	0,  // 4: menu.product_price.ProductPriceService.CreatePrice:input_type -> menu.product_price.CreatePriceRequest
+	2,  // 5: menu.product_price.ProductPriceService.GetPriceByProductID:input_type -> menu.product_price.GetPriceByProductIDRequest
+	5,  // 6: menu.product_price.ProductPriceService.CreatePriceCustomerType:input_type -> menu.product_price.CreatePriceCustomerTypeRequest
+	7,  // 7: menu.product_price.ProductPriceService.GetPriceCustomerTypesByProductID:input_type -> menu.product_price.GetPriceCustomerTypesByProductIDRequest
+	11, // 8: menu.product_price.ProductPriceService.CreatePricePerUom:input_type -> menu.product_price.CreatePricePerUomRequest
+	13, // 9: menu.product_price.ProductPriceService.GetPricePerUomByProductID:input_type -> menu.product_price.GetPricePerUomByProductIDRequest
+	1,  // 10: menu.product_price.ProductPriceService.CreatePrice:output_type -> menu.product_price.CreatePriceResponse
+	3,  // 11: menu.product_price.ProductPriceService.GetPriceByProductID:output_type -> menu.product_price.GetPriceByProductIDResponse
+	6,  // 12: menu.product_price.ProductPriceService.CreatePriceCustomerType:output_type -> menu.product_price.CreatePriceCustomerTypeResponse
+	9,  // 13: menu.product_price.ProductPriceService.GetPriceCustomerTypesByProductID:output_type -> menu.product_price.GetPriceCustomerTypesByProductIDResponse
+	12, // 14: menu.product_price.ProductPriceService.CreatePricePerUom:output_type -> menu.product_price.CreatePricePerUomResponse
+	15, // 15: menu.product_price.ProductPriceService.GetPricePerUomByProductID:output_type -> menu.product_price.GetPricePerUomByProductIDResponse
+	10, // [10:16] is the sub-list for method output_type
+	4,  // [4:10] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_proto_menu_product_price_product_price_proto_init() }
@@ -703,7 +1103,7 @@ func file_proto_menu_product_price_product_price_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_menu_product_price_product_price_proto_rawDesc), len(file_proto_menu_product_price_product_price_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
