@@ -17,6 +17,17 @@ message GetUserByIDRequest {
   uint64 id = 1;
 }
 
+message Warehouse {
+  uint64 warehouse_id   = 1;
+  string warehouse_name = 2;
+}
+
+message Branch {
+  uint64 branch_id              = 1;
+  string branch_name            = 2;
+  repeated Warehouse warehouses = 3;
+}
+
 message UserAuthResponse {
   uint64 id            = 1;
   uint64 tenant_id     = 2;
@@ -30,6 +41,6 @@ message UserAuthResponse {
   bool   is_active     = 10;
   bool   status        = 11;
   string tenant_name   = 12;
-  uint64 branch_id     = 13;
-  uint64 warehouse_id    = 14;
+  reserved 13, 14; 
+  repeated Branch branches = 15;
 }

@@ -109,6 +109,118 @@ func (x *GetUserByIDRequest) GetId() uint64 {
 	return 0
 }
 
+type Warehouse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	WarehouseId   uint64                 `protobuf:"varint,1,opt,name=warehouse_id,json=warehouseId,proto3" json:"warehouse_id,omitempty"`
+	WarehouseName string                 `protobuf:"bytes,2,opt,name=warehouse_name,json=warehouseName,proto3" json:"warehouse_name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Warehouse) Reset() {
+	*x = Warehouse{}
+	mi := &file_proto_user_users_user_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Warehouse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Warehouse) ProtoMessage() {}
+
+func (x *Warehouse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_users_user_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Warehouse.ProtoReflect.Descriptor instead.
+func (*Warehouse) Descriptor() ([]byte, []int) {
+	return file_proto_user_users_user_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *Warehouse) GetWarehouseId() uint64 {
+	if x != nil {
+		return x.WarehouseId
+	}
+	return 0
+}
+
+func (x *Warehouse) GetWarehouseName() string {
+	if x != nil {
+		return x.WarehouseName
+	}
+	return ""
+}
+
+type Branch struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	BranchId      uint64                 `protobuf:"varint,1,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
+	BranchName    string                 `protobuf:"bytes,2,opt,name=branch_name,json=branchName,proto3" json:"branch_name,omitempty"`
+	Warehouses    []*Warehouse           `protobuf:"bytes,3,rep,name=warehouses,proto3" json:"warehouses,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Branch) Reset() {
+	*x = Branch{}
+	mi := &file_proto_user_users_user_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Branch) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Branch) ProtoMessage() {}
+
+func (x *Branch) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_users_user_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Branch.ProtoReflect.Descriptor instead.
+func (*Branch) Descriptor() ([]byte, []int) {
+	return file_proto_user_users_user_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *Branch) GetBranchId() uint64 {
+	if x != nil {
+		return x.BranchId
+	}
+	return 0
+}
+
+func (x *Branch) GetBranchName() string {
+	if x != nil {
+		return x.BranchName
+	}
+	return ""
+}
+
+func (x *Branch) GetWarehouses() []*Warehouse {
+	if x != nil {
+		return x.Warehouses
+	}
+	return nil
+}
+
 type UserAuthResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            uint64                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -123,15 +235,14 @@ type UserAuthResponse struct {
 	IsActive      bool                   `protobuf:"varint,10,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
 	Status        bool                   `protobuf:"varint,11,opt,name=status,proto3" json:"status,omitempty"`
 	TenantName    string                 `protobuf:"bytes,12,opt,name=tenant_name,json=tenantName,proto3" json:"tenant_name,omitempty"`
-	BranchId      uint64                 `protobuf:"varint,13,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
-	WarehouseId   uint64                 `protobuf:"varint,14,opt,name=warehouse_id,json=warehouseId,proto3" json:"warehouse_id,omitempty"`
+	Branches      []*Branch              `protobuf:"bytes,15,rep,name=branches,proto3" json:"branches,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UserAuthResponse) Reset() {
 	*x = UserAuthResponse{}
-	mi := &file_proto_user_users_user_proto_msgTypes[2]
+	mi := &file_proto_user_users_user_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -143,7 +254,7 @@ func (x *UserAuthResponse) String() string {
 func (*UserAuthResponse) ProtoMessage() {}
 
 func (x *UserAuthResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_user_users_user_proto_msgTypes[2]
+	mi := &file_proto_user_users_user_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -156,7 +267,7 @@ func (x *UserAuthResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserAuthResponse.ProtoReflect.Descriptor instead.
 func (*UserAuthResponse) Descriptor() ([]byte, []int) {
-	return file_proto_user_users_user_proto_rawDescGZIP(), []int{2}
+	return file_proto_user_users_user_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *UserAuthResponse) GetId() uint64 {
@@ -243,18 +354,11 @@ func (x *UserAuthResponse) GetTenantName() string {
 	return ""
 }
 
-func (x *UserAuthResponse) GetBranchId() uint64 {
+func (x *UserAuthResponse) GetBranches() []*Branch {
 	if x != nil {
-		return x.BranchId
+		return x.Branches
 	}
-	return 0
-}
-
-func (x *UserAuthResponse) GetWarehouseId() uint64 {
-	if x != nil {
-		return x.WarehouseId
-	}
-	return 0
+	return nil
 }
 
 var File_proto_user_users_user_proto protoreflect.FileDescriptor
@@ -265,7 +369,17 @@ const file_proto_user_users_user_proto_rawDesc = "" +
 	"\x15GetUserByEmailRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\"$\n" +
 	"\x12GetUserByIDRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x04R\x02id\"\x9e\x03\n" +
+	"\x02id\x18\x01 \x01(\x04R\x02id\"U\n" +
+	"\tWarehouse\x12!\n" +
+	"\fwarehouse_id\x18\x01 \x01(\x04R\vwarehouseId\x12%\n" +
+	"\x0ewarehouse_name\x18\x02 \x01(\tR\rwarehouseName\"w\n" +
+	"\x06Branch\x12\x1b\n" +
+	"\tbranch_id\x18\x01 \x01(\x04R\bbranchId\x12\x1f\n" +
+	"\vbranch_name\x18\x02 \x01(\tR\n" +
+	"branchName\x12/\n" +
+	"\n" +
+	"warehouses\x18\x03 \x03(\v2\x0f.user.WarehouseR\n" +
+	"warehouses\"\x94\x03\n" +
 	"\x10UserAuthResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x1b\n" +
 	"\ttenant_id\x18\x02 \x01(\x04R\btenantId\x12\x14\n" +
@@ -281,9 +395,8 @@ const file_proto_user_users_user_proto_rawDesc = "" +
 	" \x01(\bR\bisActive\x12\x16\n" +
 	"\x06status\x18\v \x01(\bR\x06status\x12\x1f\n" +
 	"\vtenant_name\x18\f \x01(\tR\n" +
-	"tenantName\x12\x1b\n" +
-	"\tbranch_id\x18\r \x01(\x04R\bbranchId\x12!\n" +
-	"\fwarehouse_id\x18\x0e \x01(\x04R\vwarehouseId2\x95\x01\n" +
+	"tenantName\x12(\n" +
+	"\bbranches\x18\x0f \x03(\v2\f.user.BranchR\bbranchesJ\x04\b\r\x10\x0eJ\x04\b\x0e\x10\x0f2\x95\x01\n" +
 	"\vUserService\x12E\n" +
 	"\x0eGetUserByEmail\x12\x1b.user.GetUserByEmailRequest\x1a\x16.user.UserAuthResponse\x12?\n" +
 	"\vGetUserByID\x12\x18.user.GetUserByIDRequest\x1a\x16.user.UserAuthResponseB1Z/github.com/InBitGT/proto-definitions/user/usersb\x06proto3"
@@ -300,22 +413,26 @@ func file_proto_user_users_user_proto_rawDescGZIP() []byte {
 	return file_proto_user_users_user_proto_rawDescData
 }
 
-var file_proto_user_users_user_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_proto_user_users_user_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_proto_user_users_user_proto_goTypes = []any{
 	(*GetUserByEmailRequest)(nil), // 0: user.GetUserByEmailRequest
 	(*GetUserByIDRequest)(nil),    // 1: user.GetUserByIDRequest
-	(*UserAuthResponse)(nil),      // 2: user.UserAuthResponse
+	(*Warehouse)(nil),             // 2: user.Warehouse
+	(*Branch)(nil),                // 3: user.Branch
+	(*UserAuthResponse)(nil),      // 4: user.UserAuthResponse
 }
 var file_proto_user_users_user_proto_depIdxs = []int32{
-	0, // 0: user.UserService.GetUserByEmail:input_type -> user.GetUserByEmailRequest
-	1, // 1: user.UserService.GetUserByID:input_type -> user.GetUserByIDRequest
-	2, // 2: user.UserService.GetUserByEmail:output_type -> user.UserAuthResponse
-	2, // 3: user.UserService.GetUserByID:output_type -> user.UserAuthResponse
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	2, // 0: user.Branch.warehouses:type_name -> user.Warehouse
+	3, // 1: user.UserAuthResponse.branches:type_name -> user.Branch
+	0, // 2: user.UserService.GetUserByEmail:input_type -> user.GetUserByEmailRequest
+	1, // 3: user.UserService.GetUserByID:input_type -> user.GetUserByIDRequest
+	4, // 4: user.UserService.GetUserByEmail:output_type -> user.UserAuthResponse
+	4, // 5: user.UserService.GetUserByID:output_type -> user.UserAuthResponse
+	4, // [4:6] is the sub-list for method output_type
+	2, // [2:4] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_proto_user_users_user_proto_init() }
@@ -329,7 +446,7 @@ func file_proto_user_users_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_user_users_user_proto_rawDesc), len(file_proto_user_users_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

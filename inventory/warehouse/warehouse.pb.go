@@ -125,6 +125,206 @@ func (x *GetDefaultWarehouseByBranchResponse) GetWarehouseName() string {
 	return ""
 }
 
+type WarehouseItem struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	WarehouseId   uint64                 `protobuf:"varint,1,opt,name=warehouse_id,json=warehouseId,proto3" json:"warehouse_id,omitempty"`
+	WarehouseName string                 `protobuf:"bytes,2,opt,name=warehouse_name,json=warehouseName,proto3" json:"warehouse_name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *WarehouseItem) Reset() {
+	*x = WarehouseItem{}
+	mi := &file_proto_inventory_warehouse_warehouse_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *WarehouseItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WarehouseItem) ProtoMessage() {}
+
+func (x *WarehouseItem) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_inventory_warehouse_warehouse_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WarehouseItem.ProtoReflect.Descriptor instead.
+func (*WarehouseItem) Descriptor() ([]byte, []int) {
+	return file_proto_inventory_warehouse_warehouse_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *WarehouseItem) GetWarehouseId() uint64 {
+	if x != nil {
+		return x.WarehouseId
+	}
+	return 0
+}
+
+func (x *WarehouseItem) GetWarehouseName() string {
+	if x != nil {
+		return x.WarehouseName
+	}
+	return ""
+}
+
+type BranchWarehouses struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	BranchId      uint64                 `protobuf:"varint,1,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
+	Warehouses    []*WarehouseItem       `protobuf:"bytes,2,rep,name=warehouses,proto3" json:"warehouses,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BranchWarehouses) Reset() {
+	*x = BranchWarehouses{}
+	mi := &file_proto_inventory_warehouse_warehouse_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BranchWarehouses) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BranchWarehouses) ProtoMessage() {}
+
+func (x *BranchWarehouses) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_inventory_warehouse_warehouse_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BranchWarehouses.ProtoReflect.Descriptor instead.
+func (*BranchWarehouses) Descriptor() ([]byte, []int) {
+	return file_proto_inventory_warehouse_warehouse_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *BranchWarehouses) GetBranchId() uint64 {
+	if x != nil {
+		return x.BranchId
+	}
+	return 0
+}
+
+func (x *BranchWarehouses) GetWarehouses() []*WarehouseItem {
+	if x != nil {
+		return x.Warehouses
+	}
+	return nil
+}
+
+type ListWarehousesByBranchesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	BranchIds     []uint64               `protobuf:"varint,1,rep,packed,name=branch_ids,json=branchIds,proto3" json:"branch_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListWarehousesByBranchesRequest) Reset() {
+	*x = ListWarehousesByBranchesRequest{}
+	mi := &file_proto_inventory_warehouse_warehouse_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListWarehousesByBranchesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListWarehousesByBranchesRequest) ProtoMessage() {}
+
+func (x *ListWarehousesByBranchesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_inventory_warehouse_warehouse_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListWarehousesByBranchesRequest.ProtoReflect.Descriptor instead.
+func (*ListWarehousesByBranchesRequest) Descriptor() ([]byte, []int) {
+	return file_proto_inventory_warehouse_warehouse_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ListWarehousesByBranchesRequest) GetBranchIds() []uint64 {
+	if x != nil {
+		return x.BranchIds
+	}
+	return nil
+}
+
+type ListWarehousesByBranchesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Branches      []*BranchWarehouses    `protobuf:"bytes,2,rep,name=branches,proto3" json:"branches,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListWarehousesByBranchesResponse) Reset() {
+	*x = ListWarehousesByBranchesResponse{}
+	mi := &file_proto_inventory_warehouse_warehouse_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListWarehousesByBranchesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListWarehousesByBranchesResponse) ProtoMessage() {}
+
+func (x *ListWarehousesByBranchesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_inventory_warehouse_warehouse_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListWarehousesByBranchesResponse.ProtoReflect.Descriptor instead.
+func (*ListWarehousesByBranchesResponse) Descriptor() ([]byte, []int) {
+	return file_proto_inventory_warehouse_warehouse_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ListWarehousesByBranchesResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *ListWarehousesByBranchesResponse) GetBranches() []*BranchWarehouses {
+	if x != nil {
+		return x.Branches
+	}
+	return nil
+}
+
 var File_proto_inventory_warehouse_warehouse_proto protoreflect.FileDescriptor
 
 const file_proto_inventory_warehouse_warehouse_proto_rawDesc = "" +
@@ -135,9 +335,24 @@ const file_proto_inventory_warehouse_warehouse_proto_rawDesc = "" +
 	"#GetDefaultWarehouseByBranchResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12!\n" +
 	"\fwarehouse_id\x18\x02 \x01(\x04R\vwarehouseId\x12%\n" +
-	"\x0ewarehouse_name\x18\x03 \x01(\tR\rwarehouseName2\xa5\x01\n" +
+	"\x0ewarehouse_name\x18\x03 \x01(\tR\rwarehouseName\"Y\n" +
+	"\rWarehouseItem\x12!\n" +
+	"\fwarehouse_id\x18\x01 \x01(\x04R\vwarehouseId\x12%\n" +
+	"\x0ewarehouse_name\x18\x02 \x01(\tR\rwarehouseName\"s\n" +
+	"\x10BranchWarehouses\x12\x1b\n" +
+	"\tbranch_id\x18\x01 \x01(\x04R\bbranchId\x12B\n" +
+	"\n" +
+	"warehouses\x18\x02 \x03(\v2\".inventory.warehouse.WarehouseItemR\n" +
+	"warehouses\"@\n" +
+	"\x1fListWarehousesByBranchesRequest\x12\x1d\n" +
+	"\n" +
+	"branch_ids\x18\x01 \x03(\x04R\tbranchIds\"\x7f\n" +
+	" ListWarehousesByBranchesResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12A\n" +
+	"\bbranches\x18\x02 \x03(\v2%.inventory.warehouse.BranchWarehousesR\bbranches2\xaf\x02\n" +
 	"\x10WarehouseService\x12\x90\x01\n" +
-	"\x1bGetDefaultWarehouseByBranch\x127.inventory.warehouse.GetDefaultWarehouseByBranchRequest\x1a8.inventory.warehouse.GetDefaultWarehouseByBranchResponseBFZDgithub.com/InBitGT/proto-definitions/inventory/warehouse;warehousepbb\x06proto3"
+	"\x1bGetDefaultWarehouseByBranch\x127.inventory.warehouse.GetDefaultWarehouseByBranchRequest\x1a8.inventory.warehouse.GetDefaultWarehouseByBranchResponse\x12\x87\x01\n" +
+	"\x18ListWarehousesByBranches\x124.inventory.warehouse.ListWarehousesByBranchesRequest\x1a5.inventory.warehouse.ListWarehousesByBranchesResponseBFZDgithub.com/InBitGT/proto-definitions/inventory/warehouse;warehousepbb\x06proto3"
 
 var (
 	file_proto_inventory_warehouse_warehouse_proto_rawDescOnce sync.Once
@@ -151,19 +366,27 @@ func file_proto_inventory_warehouse_warehouse_proto_rawDescGZIP() []byte {
 	return file_proto_inventory_warehouse_warehouse_proto_rawDescData
 }
 
-var file_proto_inventory_warehouse_warehouse_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_proto_inventory_warehouse_warehouse_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_proto_inventory_warehouse_warehouse_proto_goTypes = []any{
 	(*GetDefaultWarehouseByBranchRequest)(nil),  // 0: inventory.warehouse.GetDefaultWarehouseByBranchRequest
 	(*GetDefaultWarehouseByBranchResponse)(nil), // 1: inventory.warehouse.GetDefaultWarehouseByBranchResponse
+	(*WarehouseItem)(nil),                       // 2: inventory.warehouse.WarehouseItem
+	(*BranchWarehouses)(nil),                    // 3: inventory.warehouse.BranchWarehouses
+	(*ListWarehousesByBranchesRequest)(nil),     // 4: inventory.warehouse.ListWarehousesByBranchesRequest
+	(*ListWarehousesByBranchesResponse)(nil),    // 5: inventory.warehouse.ListWarehousesByBranchesResponse
 }
 var file_proto_inventory_warehouse_warehouse_proto_depIdxs = []int32{
-	0, // 0: inventory.warehouse.WarehouseService.GetDefaultWarehouseByBranch:input_type -> inventory.warehouse.GetDefaultWarehouseByBranchRequest
-	1, // 1: inventory.warehouse.WarehouseService.GetDefaultWarehouseByBranch:output_type -> inventory.warehouse.GetDefaultWarehouseByBranchResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	2, // 0: inventory.warehouse.BranchWarehouses.warehouses:type_name -> inventory.warehouse.WarehouseItem
+	3, // 1: inventory.warehouse.ListWarehousesByBranchesResponse.branches:type_name -> inventory.warehouse.BranchWarehouses
+	0, // 2: inventory.warehouse.WarehouseService.GetDefaultWarehouseByBranch:input_type -> inventory.warehouse.GetDefaultWarehouseByBranchRequest
+	4, // 3: inventory.warehouse.WarehouseService.ListWarehousesByBranches:input_type -> inventory.warehouse.ListWarehousesByBranchesRequest
+	1, // 4: inventory.warehouse.WarehouseService.GetDefaultWarehouseByBranch:output_type -> inventory.warehouse.GetDefaultWarehouseByBranchResponse
+	5, // 5: inventory.warehouse.WarehouseService.ListWarehousesByBranches:output_type -> inventory.warehouse.ListWarehousesByBranchesResponse
+	4, // [4:6] is the sub-list for method output_type
+	2, // [2:4] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_proto_inventory_warehouse_warehouse_proto_init() }
@@ -177,7 +400,7 @@ func file_proto_inventory_warehouse_warehouse_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_inventory_warehouse_warehouse_proto_rawDesc), len(file_proto_inventory_warehouse_warehouse_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
