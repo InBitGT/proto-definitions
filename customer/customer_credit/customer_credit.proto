@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package customer.credit;
+
+option go_package = "github.com/InBitGT/proto-definitions/customer/credit;customercreditpb";
+
+service CustomerCreditService {
+  rpc GetCustomerCredit  (GetCustomerCreditRequest)  returns (GetCustomerCreditResponse);
+  rpc ChargeCredit       (ChargeCreditRequest)       returns (ChargeCreditResponse);
+  rpc ReleaseCredit      (ReleaseCreditRequest)      returns (ReleaseCreditResponse);
+}
+
+message GetCustomerCreditRequest {
+  uint64 customer_id = 1;
+}
+
+message GetCustomerCreditResponse {
+  bool   success          = 1;
+  uint64 customer_id      = 2;
+  bool   has_credit       = 3;
+  double credit_limit     = 4;
+  double credit_available = 5;
+}
+
+message ChargeCreditRequest {
+  uint64 customer_id  = 1;
+  double amount       = 2;
+  uint64 order_id     = 3;
+  uint64 user_id      = 4;
+  string description  = 5;
+}
+
+message ChargeCreditResponse {
+  bool   success          = 1;
+  double credit_available = 2;
+  string error_message    = 3;
+}
+
+message ReleaseCreditRequest {
+  uint64 customer_id = 1;
+  double amount      = 2;
+  uint64 order_id    = 3;
+  uint64 user_id     = 4;
+}
+
+message ReleaseCreditResponse {
+  bool success = 1;
+}
