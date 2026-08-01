@@ -6,11 +6,14 @@ option go_package = "github.com/InBitGT/proto-definitions/menu/product_price;pro
 
 service ProductPriceService {
   rpc CreatePrice                      (CreatePriceRequest)                      returns (CreatePriceResponse);
+  rpc UpdatePrice                      (UpdatePriceRequest)                      returns (UpdatePriceResponse);
   rpc GetPriceByProductID              (GetPriceByProductIDRequest)              returns (GetPriceByProductIDResponse);
   rpc CreatePriceCustomerType          (CreatePriceCustomerTypeRequest)          returns (CreatePriceCustomerTypeResponse);
   rpc GetPriceCustomerTypesByProductID (GetPriceCustomerTypesByProductIDRequest) returns (GetPriceCustomerTypesByProductIDResponse);
+  rpc DeletePriceCustomerTypeByProduct (DeleteByProductRequest)                  returns (DeleteByProductResponse);
   rpc CreatePricePerUom                (CreatePricePerUomRequest)                returns (CreatePricePerUomResponse);
   rpc GetPricePerUomByProductID        (GetPricePerUomByProductIDRequest)        returns (GetPricePerUomByProductIDResponse);
+  rpc DeletePricePerUomByProduct       (DeleteByProductRequest)                  returns (DeleteByProductResponse);
 }
 
 // ── Price ─────────────────────────────────────────────────────────────
@@ -26,6 +29,16 @@ message CreatePriceResponse {
   uint64 price_id = 2;
   double amount   = 3;
   string currency = 4;
+}
+
+message UpdatePriceRequest {
+  uint64 product_id = 1;
+  double amount     = 2;
+  string currency   = 3;
+}
+
+message UpdatePriceResponse {
+  bool success = 1;
 }
 
 message GetPriceByProductIDRequest {
@@ -99,16 +112,25 @@ message GetPricePerUomByProductIDRequest {
 }
 
 message PricePerUomResult {
-  uint64 id               = 1;
-  uint64 uom_id           = 2;
-  double amount           = 3;
-  string currency         = 4;
+  uint64 id                = 1;
+  uint64 uom_id            = 2;
+  double amount            = 3;
+  string currency          = 4;
   double wholesale_min_qty = 5;
   double wholesale_amount  = 6;
-} 
-
-message GetPricePerUomByProductIDResponse {
-  bool                     success = 1;
-  repeated PricePerUomResult items = 2;
 }
 
+message GetPricePerUomByProductIDResponse {
+  bool                       success = 1;
+  repeated PricePerUomResult items   = 2;
+}
+
+// ── Shared ────────────────────────────────────────────────────────────
+
+message DeleteByProductRequest {
+  uint64 product_id = 1;
+}
+
+message DeleteByProductResponse {
+  bool success = 1;
+}
