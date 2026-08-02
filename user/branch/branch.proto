@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package user.branch;
+
+option go_package = "github.com/InBitGT/proto-definitions/user/branch;branchpb";
+
+service BranchService {
+  rpc GetBranchByID    (GetBranchByIDRequest)    returns (GetBranchByIDResponse);
+  rpc GetBranchesByIDs (GetBranchesByIDsRequest) returns (GetBranchesByIDsResponse);
+}
+
+message AddressData {
+  uint64 id          = 1;
+  string line1       = 2;
+  string line2       = 3;
+  string city        = 4;
+  string state       = 5;
+  string country     = 6;
+  string postal_code = 7;
+}
+
+message BranchData {
+  uint64      id          = 1;
+  string      name        = 2;
+  uint64      address_id  = 3;
+  AddressData address     = 4;
+  string      description = 5;
+  uint64      tenant_id   = 6;
+}
+
+message GetBranchByIDRequest {
+  uint64 id = 1;
+}
+
+message GetBranchByIDResponse {
+  bool       success = 1;
+  BranchData branch  = 2;
+}
+
+message GetBranchesByIDsRequest {
+  repeated uint64 ids = 1;
+}
+
+message GetBranchesByIDsResponse {
+  bool                success  = 1;
+  repeated BranchData branches = 2;
+}
