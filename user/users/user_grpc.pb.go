@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_GetUserByEmail_FullMethodName = "/user.UserService/GetUserByEmail"
-	UserService_GetUserByID_FullMethodName    = "/user.UserService/GetUserByID"
+	UserService_GetUserByEmail_FullMethodName     = "/user.UserService/GetUserByEmail"
+	UserService_GetUserByID_FullMethodName        = "/user.UserService/GetUserByID"
+	UserService_GetUsersByTenantID_FullMethodName = "/user.UserService/GetUsersByTenantID"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -29,6 +30,7 @@ const (
 type UserServiceClient interface {
 	GetUserByEmail(ctx context.Context, in *GetUserByEmailRequest, opts ...grpc.CallOption) (*UserAuthResponse, error)
 	GetUserByID(ctx context.Context, in *GetUserByIDRequest, opts ...grpc.CallOption) (*UserAuthResponse, error)
+	GetUsersByTenantID(ctx context.Context, in *GetUsersByTenantIDRequest, opts ...grpc.CallOption) (*GetUsersByTenantIDResponse, error)
 }
 
 type userServiceClient struct {
@@ -59,12 +61,23 @@ func (c *userServiceClient) GetUserByID(ctx context.Context, in *GetUserByIDRequ
 	return out, nil
 }
 
+func (c *userServiceClient) GetUsersByTenantID(ctx context.Context, in *GetUsersByTenantIDRequest, opts ...grpc.CallOption) (*GetUsersByTenantIDResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetUsersByTenantIDResponse)
+	err := c.cc.Invoke(ctx, UserService_GetUsersByTenantID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
 type UserServiceServer interface {
 	GetUserByEmail(context.Context, *GetUserByEmailRequest) (*UserAuthResponse, error)
 	GetUserByID(context.Context, *GetUserByIDRequest) (*UserAuthResponse, error)
+	GetUsersByTenantID(context.Context, *GetUsersByTenantIDRequest) (*GetUsersByTenantIDResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -80,6 +93,9 @@ func (UnimplementedUserServiceServer) GetUserByEmail(context.Context, *GetUserBy
 }
 func (UnimplementedUserServiceServer) GetUserByID(context.Context, *GetUserByIDRequest) (*UserAuthResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetUserByID not implemented")
+}
+func (UnimplementedUserServiceServer) GetUsersByTenantID(context.Context, *GetUsersByTenantIDRequest) (*GetUsersByTenantIDResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetUsersByTenantID not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -138,6 +154,24 @@ func _UserService_GetUserByID_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetUsersByTenantID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUsersByTenantIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetUsersByTenantID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetUsersByTenantID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetUsersByTenantID(ctx, req.(*GetUsersByTenantIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -152,6 +186,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUserByID",
 			Handler:    _UserService_GetUserByID_Handler,
+		},
+		{
+			MethodName: "GetUsersByTenantID",
+			Handler:    _UserService_GetUsersByTenantID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
