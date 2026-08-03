@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	BranchService_GetBranchByID_FullMethodName    = "/user.branch.BranchService/GetBranchByID"
-	BranchService_GetBranchesByIDs_FullMethodName = "/user.branch.BranchService/GetBranchesByIDs"
+	BranchService_GetBranchByID_FullMethodName         = "/user.branch.BranchService/GetBranchByID"
+	BranchService_GetBranchesByIDs_FullMethodName      = "/user.branch.BranchService/GetBranchesByIDs"
+	BranchService_GetBranchesByTenantID_FullMethodName = "/user.branch.BranchService/GetBranchesByTenantID"
 )
 
 // BranchServiceClient is the client API for BranchService service.
@@ -29,6 +30,7 @@ const (
 type BranchServiceClient interface {
 	GetBranchByID(ctx context.Context, in *GetBranchByIDRequest, opts ...grpc.CallOption) (*GetBranchByIDResponse, error)
 	GetBranchesByIDs(ctx context.Context, in *GetBranchesByIDsRequest, opts ...grpc.CallOption) (*GetBranchesByIDsResponse, error)
+	GetBranchesByTenantID(ctx context.Context, in *GetBranchesByTenantIDRequest, opts ...grpc.CallOption) (*GetBranchesByIDsResponse, error)
 }
 
 type branchServiceClient struct {
@@ -59,12 +61,23 @@ func (c *branchServiceClient) GetBranchesByIDs(ctx context.Context, in *GetBranc
 	return out, nil
 }
 
+func (c *branchServiceClient) GetBranchesByTenantID(ctx context.Context, in *GetBranchesByTenantIDRequest, opts ...grpc.CallOption) (*GetBranchesByIDsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetBranchesByIDsResponse)
+	err := c.cc.Invoke(ctx, BranchService_GetBranchesByTenantID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BranchServiceServer is the server API for BranchService service.
 // All implementations must embed UnimplementedBranchServiceServer
 // for forward compatibility.
 type BranchServiceServer interface {
 	GetBranchByID(context.Context, *GetBranchByIDRequest) (*GetBranchByIDResponse, error)
 	GetBranchesByIDs(context.Context, *GetBranchesByIDsRequest) (*GetBranchesByIDsResponse, error)
+	GetBranchesByTenantID(context.Context, *GetBranchesByTenantIDRequest) (*GetBranchesByIDsResponse, error)
 	mustEmbedUnimplementedBranchServiceServer()
 }
 
@@ -80,6 +93,9 @@ func (UnimplementedBranchServiceServer) GetBranchByID(context.Context, *GetBranc
 }
 func (UnimplementedBranchServiceServer) GetBranchesByIDs(context.Context, *GetBranchesByIDsRequest) (*GetBranchesByIDsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetBranchesByIDs not implemented")
+}
+func (UnimplementedBranchServiceServer) GetBranchesByTenantID(context.Context, *GetBranchesByTenantIDRequest) (*GetBranchesByIDsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetBranchesByTenantID not implemented")
 }
 func (UnimplementedBranchServiceServer) mustEmbedUnimplementedBranchServiceServer() {}
 func (UnimplementedBranchServiceServer) testEmbeddedByValue()                       {}
@@ -138,6 +154,24 @@ func _BranchService_GetBranchesByIDs_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BranchService_GetBranchesByTenantID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBranchesByTenantIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BranchServiceServer).GetBranchesByTenantID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BranchService_GetBranchesByTenantID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BranchServiceServer).GetBranchesByTenantID(ctx, req.(*GetBranchesByTenantIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // BranchService_ServiceDesc is the grpc.ServiceDesc for BranchService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -152,6 +186,10 @@ var BranchService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetBranchesByIDs",
 			Handler:    _BranchService_GetBranchesByIDs_Handler,
+		},
+		{
+			MethodName: "GetBranchesByTenantID",
+			Handler:    _BranchService_GetBranchesByTenantID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

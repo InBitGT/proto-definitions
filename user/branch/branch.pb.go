@@ -337,6 +337,50 @@ func (x *GetBranchesByIDsRequest) GetIds() []uint64 {
 	return nil
 }
 
+type GetBranchesByTenantIDRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TenantId      uint64                 `protobuf:"varint,1,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetBranchesByTenantIDRequest) Reset() {
+	*x = GetBranchesByTenantIDRequest{}
+	mi := &file_proto_user_branch_branch_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetBranchesByTenantIDRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetBranchesByTenantIDRequest) ProtoMessage() {}
+
+func (x *GetBranchesByTenantIDRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_user_branch_branch_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetBranchesByTenantIDRequest.ProtoReflect.Descriptor instead.
+func (*GetBranchesByTenantIDRequest) Descriptor() ([]byte, []int) {
+	return file_proto_user_branch_branch_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *GetBranchesByTenantIDRequest) GetTenantId() uint64 {
+	if x != nil {
+		return x.TenantId
+	}
+	return 0
+}
+
 type GetBranchesByIDsResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
@@ -347,7 +391,7 @@ type GetBranchesByIDsResponse struct {
 
 func (x *GetBranchesByIDsResponse) Reset() {
 	*x = GetBranchesByIDsResponse{}
-	mi := &file_proto_user_branch_branch_proto_msgTypes[5]
+	mi := &file_proto_user_branch_branch_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -359,7 +403,7 @@ func (x *GetBranchesByIDsResponse) String() string {
 func (*GetBranchesByIDsResponse) ProtoMessage() {}
 
 func (x *GetBranchesByIDsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_user_branch_branch_proto_msgTypes[5]
+	mi := &file_proto_user_branch_branch_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -372,7 +416,7 @@ func (x *GetBranchesByIDsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetBranchesByIDsResponse.ProtoReflect.Descriptor instead.
 func (*GetBranchesByIDsResponse) Descriptor() ([]byte, []int) {
-	return file_proto_user_branch_branch_proto_rawDescGZIP(), []int{5}
+	return file_proto_user_branch_branch_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *GetBranchesByIDsResponse) GetSuccess() bool {
@@ -418,13 +462,16 @@ const file_proto_user_branch_branch_proto_rawDesc = "" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12/\n" +
 	"\x06branch\x18\x02 \x01(\v2\x17.user.branch.BranchDataR\x06branch\"+\n" +
 	"\x17GetBranchesByIDsRequest\x12\x10\n" +
-	"\x03ids\x18\x01 \x03(\x04R\x03ids\"i\n" +
+	"\x03ids\x18\x01 \x03(\x04R\x03ids\";\n" +
+	"\x1cGetBranchesByTenantIDRequest\x12\x1b\n" +
+	"\ttenant_id\x18\x01 \x01(\x04R\btenantId\"i\n" +
 	"\x18GetBranchesByIDsResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x123\n" +
-	"\bbranches\x18\x02 \x03(\v2\x17.user.branch.BranchDataR\bbranches2\xc8\x01\n" +
+	"\bbranches\x18\x02 \x03(\v2\x17.user.branch.BranchDataR\bbranches2\xb3\x02\n" +
 	"\rBranchService\x12V\n" +
 	"\rGetBranchByID\x12!.user.branch.GetBranchByIDRequest\x1a\".user.branch.GetBranchByIDResponse\x12_\n" +
-	"\x10GetBranchesByIDs\x12$.user.branch.GetBranchesByIDsRequest\x1a%.user.branch.GetBranchesByIDsResponseB;Z9github.com/InBitGT/proto-definitions/user/branch;branchpbb\x06proto3"
+	"\x10GetBranchesByIDs\x12$.user.branch.GetBranchesByIDsRequest\x1a%.user.branch.GetBranchesByIDsResponse\x12i\n" +
+	"\x15GetBranchesByTenantID\x12).user.branch.GetBranchesByTenantIDRequest\x1a%.user.branch.GetBranchesByIDsResponseB;Z9github.com/InBitGT/proto-definitions/user/branch;branchpbb\x06proto3"
 
 var (
 	file_proto_user_branch_branch_proto_rawDescOnce sync.Once
@@ -438,14 +485,15 @@ func file_proto_user_branch_branch_proto_rawDescGZIP() []byte {
 	return file_proto_user_branch_branch_proto_rawDescData
 }
 
-var file_proto_user_branch_branch_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_proto_user_branch_branch_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_proto_user_branch_branch_proto_goTypes = []any{
-	(*AddressData)(nil),              // 0: user.branch.AddressData
-	(*BranchData)(nil),               // 1: user.branch.BranchData
-	(*GetBranchByIDRequest)(nil),     // 2: user.branch.GetBranchByIDRequest
-	(*GetBranchByIDResponse)(nil),    // 3: user.branch.GetBranchByIDResponse
-	(*GetBranchesByIDsRequest)(nil),  // 4: user.branch.GetBranchesByIDsRequest
-	(*GetBranchesByIDsResponse)(nil), // 5: user.branch.GetBranchesByIDsResponse
+	(*AddressData)(nil),                  // 0: user.branch.AddressData
+	(*BranchData)(nil),                   // 1: user.branch.BranchData
+	(*GetBranchByIDRequest)(nil),         // 2: user.branch.GetBranchByIDRequest
+	(*GetBranchByIDResponse)(nil),        // 3: user.branch.GetBranchByIDResponse
+	(*GetBranchesByIDsRequest)(nil),      // 4: user.branch.GetBranchesByIDsRequest
+	(*GetBranchesByTenantIDRequest)(nil), // 5: user.branch.GetBranchesByTenantIDRequest
+	(*GetBranchesByIDsResponse)(nil),     // 6: user.branch.GetBranchesByIDsResponse
 }
 var file_proto_user_branch_branch_proto_depIdxs = []int32{
 	0, // 0: user.branch.BranchData.address:type_name -> user.branch.AddressData
@@ -453,10 +501,12 @@ var file_proto_user_branch_branch_proto_depIdxs = []int32{
 	1, // 2: user.branch.GetBranchesByIDsResponse.branches:type_name -> user.branch.BranchData
 	2, // 3: user.branch.BranchService.GetBranchByID:input_type -> user.branch.GetBranchByIDRequest
 	4, // 4: user.branch.BranchService.GetBranchesByIDs:input_type -> user.branch.GetBranchesByIDsRequest
-	3, // 5: user.branch.BranchService.GetBranchByID:output_type -> user.branch.GetBranchByIDResponse
-	5, // 6: user.branch.BranchService.GetBranchesByIDs:output_type -> user.branch.GetBranchesByIDsResponse
-	5, // [5:7] is the sub-list for method output_type
-	3, // [3:5] is the sub-list for method input_type
+	5, // 5: user.branch.BranchService.GetBranchesByTenantID:input_type -> user.branch.GetBranchesByTenantIDRequest
+	3, // 6: user.branch.BranchService.GetBranchByID:output_type -> user.branch.GetBranchByIDResponse
+	6, // 7: user.branch.BranchService.GetBranchesByIDs:output_type -> user.branch.GetBranchesByIDsResponse
+	6, // 8: user.branch.BranchService.GetBranchesByTenantID:output_type -> user.branch.GetBranchesByIDsResponse
+	6, // [6:9] is the sub-list for method output_type
+	3, // [3:6] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name
 	3, // [3:3] is the sub-list for extension extendee
 	0, // [0:3] is the sub-list for field type_name
@@ -473,7 +523,7 @@ func file_proto_user_branch_branch_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_user_branch_branch_proto_rawDesc), len(file_proto_user_branch_branch_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

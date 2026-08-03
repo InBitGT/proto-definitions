@@ -5,8 +5,9 @@ package user.branch;
 option go_package = "github.com/InBitGT/proto-definitions/user/branch;branchpb";
 
 service BranchService {
-  rpc GetBranchByID    (GetBranchByIDRequest)    returns (GetBranchByIDResponse);
-  rpc GetBranchesByIDs (GetBranchesByIDsRequest) returns (GetBranchesByIDsResponse);
+  rpc GetBranchByID          (GetBranchByIDRequest)          returns (GetBranchByIDResponse);
+  rpc GetBranchesByIDs       (GetBranchesByIDsRequest)       returns (GetBranchesByIDsResponse);
+  rpc GetBranchesByTenantID  (GetBranchesByTenantIDRequest)  returns (GetBranchesByIDsResponse);
 }
 
 message AddressData {
@@ -39,6 +40,10 @@ message GetBranchByIDResponse {
 
 message GetBranchesByIDsRequest {
   repeated uint64 ids = 1;
+}
+
+message GetBranchesByTenantIDRequest {
+  uint64 tenant_id = 1;
 }
 
 message GetBranchesByIDsResponse {
