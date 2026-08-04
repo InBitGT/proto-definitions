@@ -277,6 +277,194 @@ func (x *ConsumeDirectProductResponse) GetLines() []*ConsumeDirectProductResultL
 	return nil
 }
 
+type ReverseConsumeProductLine struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ProductId     uint64                 `protobuf:"varint,1,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
+	Quantity      float64                `protobuf:"fixed64,2,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	UnitCost      float64                `protobuf:"fixed64,3,opt,name=unit_cost,json=unitCost,proto3" json:"unit_cost,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReverseConsumeProductLine) Reset() {
+	*x = ReverseConsumeProductLine{}
+	mi := &file_proto_inventory_pos_consume_pos_consume_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReverseConsumeProductLine) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReverseConsumeProductLine) ProtoMessage() {}
+
+func (x *ReverseConsumeProductLine) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_inventory_pos_consume_pos_consume_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReverseConsumeProductLine.ProtoReflect.Descriptor instead.
+func (*ReverseConsumeProductLine) Descriptor() ([]byte, []int) {
+	return file_proto_inventory_pos_consume_pos_consume_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ReverseConsumeProductLine) GetProductId() uint64 {
+	if x != nil {
+		return x.ProductId
+	}
+	return 0
+}
+
+func (x *ReverseConsumeProductLine) GetQuantity() float64 {
+	if x != nil {
+		return x.Quantity
+	}
+	return 0
+}
+
+func (x *ReverseConsumeProductLine) GetUnitCost() float64 {
+	if x != nil {
+		return x.UnitCost
+	}
+	return 0
+}
+
+type ReverseConsumeProductRequest struct {
+	state         protoimpl.MessageState       `protogen:"open.v1"`
+	WarehouseId   uint64                       `protobuf:"varint,1,opt,name=warehouse_id,json=warehouseId,proto3" json:"warehouse_id,omitempty"`
+	UserId        uint64                       `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	ReferenceId   uint64                       `protobuf:"varint,3,opt,name=reference_id,json=referenceId,proto3" json:"reference_id,omitempty"`
+	ReferenceType string                       `protobuf:"bytes,4,opt,name=reference_type,json=referenceType,proto3" json:"reference_type,omitempty"`
+	Lines         []*ReverseConsumeProductLine `protobuf:"bytes,5,rep,name=lines,proto3" json:"lines,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReverseConsumeProductRequest) Reset() {
+	*x = ReverseConsumeProductRequest{}
+	mi := &file_proto_inventory_pos_consume_pos_consume_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReverseConsumeProductRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReverseConsumeProductRequest) ProtoMessage() {}
+
+func (x *ReverseConsumeProductRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_inventory_pos_consume_pos_consume_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReverseConsumeProductRequest.ProtoReflect.Descriptor instead.
+func (*ReverseConsumeProductRequest) Descriptor() ([]byte, []int) {
+	return file_proto_inventory_pos_consume_pos_consume_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ReverseConsumeProductRequest) GetWarehouseId() uint64 {
+	if x != nil {
+		return x.WarehouseId
+	}
+	return 0
+}
+
+func (x *ReverseConsumeProductRequest) GetUserId() uint64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *ReverseConsumeProductRequest) GetReferenceId() uint64 {
+	if x != nil {
+		return x.ReferenceId
+	}
+	return 0
+}
+
+func (x *ReverseConsumeProductRequest) GetReferenceType() string {
+	if x != nil {
+		return x.ReferenceType
+	}
+	return ""
+}
+
+func (x *ReverseConsumeProductRequest) GetLines() []*ReverseConsumeProductLine {
+	if x != nil {
+		return x.Lines
+	}
+	return nil
+}
+
+type ReverseConsumeProductResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReverseConsumeProductResponse) Reset() {
+	*x = ReverseConsumeProductResponse{}
+	mi := &file_proto_inventory_pos_consume_pos_consume_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReverseConsumeProductResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReverseConsumeProductResponse) ProtoMessage() {}
+
+func (x *ReverseConsumeProductResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_inventory_pos_consume_pos_consume_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReverseConsumeProductResponse.ProtoReflect.Descriptor instead.
+func (*ReverseConsumeProductResponse) Descriptor() ([]byte, []int) {
+	return file_proto_inventory_pos_consume_pos_consume_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ReverseConsumeProductResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *ReverseConsumeProductResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
 var File_proto_inventory_pos_consume_pos_consume_proto protoreflect.FileDescriptor
 
 const file_proto_inventory_pos_consume_pos_consume_proto_rawDesc = "" +
@@ -302,9 +490,24 @@ const file_proto_inventory_pos_consume_pos_consume_proto_rawDesc = "" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x1d\n" +
 	"\n" +
 	"total_cost\x18\x02 \x01(\x01R\ttotalCost\x12K\n" +
-	"\x05lines\x18\x03 \x03(\v25.inventory.pos_consume.ConsumeDirectProductResultLineR\x05lines2\x94\x01\n" +
+	"\x05lines\x18\x03 \x03(\v25.inventory.pos_consume.ConsumeDirectProductResultLineR\x05lines\"s\n" +
+	"\x19ReverseConsumeProductLine\x12\x1d\n" +
+	"\n" +
+	"product_id\x18\x01 \x01(\x04R\tproductId\x12\x1a\n" +
+	"\bquantity\x18\x02 \x01(\x01R\bquantity\x12\x1b\n" +
+	"\tunit_cost\x18\x03 \x01(\x01R\bunitCost\"\xec\x01\n" +
+	"\x1cReverseConsumeProductRequest\x12!\n" +
+	"\fwarehouse_id\x18\x01 \x01(\x04R\vwarehouseId\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\x04R\x06userId\x12!\n" +
+	"\freference_id\x18\x03 \x01(\x04R\vreferenceId\x12%\n" +
+	"\x0ereference_type\x18\x04 \x01(\tR\rreferenceType\x12F\n" +
+	"\x05lines\x18\x05 \x03(\v20.inventory.pos_consume.ReverseConsumeProductLineR\x05lines\"S\n" +
+	"\x1dReverseConsumeProductResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage2\x99\x02\n" +
 	"\x11POSConsumeService\x12\x7f\n" +
-	"\x14ConsumeDirectProduct\x122.inventory.pos_consume.ConsumeDirectProductRequest\x1a3.inventory.pos_consume.ConsumeDirectProductResponseBIZGgithub.com/InBitGT/proto-definitions/inventory/pos_consume;posconsumepbb\x06proto3"
+	"\x14ConsumeDirectProduct\x122.inventory.pos_consume.ConsumeDirectProductRequest\x1a3.inventory.pos_consume.ConsumeDirectProductResponse\x12\x82\x01\n" +
+	"\x15ReverseConsumeProduct\x123.inventory.pos_consume.ReverseConsumeProductRequest\x1a4.inventory.pos_consume.ReverseConsumeProductResponseBIZGgithub.com/InBitGT/proto-definitions/inventory/pos_consume;posconsumepbb\x06proto3"
 
 var (
 	file_proto_inventory_pos_consume_pos_consume_proto_rawDescOnce sync.Once
@@ -318,23 +521,29 @@ func file_proto_inventory_pos_consume_pos_consume_proto_rawDescGZIP() []byte {
 	return file_proto_inventory_pos_consume_pos_consume_proto_rawDescData
 }
 
-var file_proto_inventory_pos_consume_pos_consume_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_proto_inventory_pos_consume_pos_consume_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_proto_inventory_pos_consume_pos_consume_proto_goTypes = []any{
 	(*ConsumeDirectProductLine)(nil),       // 0: inventory.pos_consume.ConsumeDirectProductLine
 	(*ConsumeDirectProductRequest)(nil),    // 1: inventory.pos_consume.ConsumeDirectProductRequest
 	(*ConsumeDirectProductResultLine)(nil), // 2: inventory.pos_consume.ConsumeDirectProductResultLine
 	(*ConsumeDirectProductResponse)(nil),   // 3: inventory.pos_consume.ConsumeDirectProductResponse
+	(*ReverseConsumeProductLine)(nil),      // 4: inventory.pos_consume.ReverseConsumeProductLine
+	(*ReverseConsumeProductRequest)(nil),   // 5: inventory.pos_consume.ReverseConsumeProductRequest
+	(*ReverseConsumeProductResponse)(nil),  // 6: inventory.pos_consume.ReverseConsumeProductResponse
 }
 var file_proto_inventory_pos_consume_pos_consume_proto_depIdxs = []int32{
 	0, // 0: inventory.pos_consume.ConsumeDirectProductRequest.lines:type_name -> inventory.pos_consume.ConsumeDirectProductLine
 	2, // 1: inventory.pos_consume.ConsumeDirectProductResponse.lines:type_name -> inventory.pos_consume.ConsumeDirectProductResultLine
-	1, // 2: inventory.pos_consume.POSConsumeService.ConsumeDirectProduct:input_type -> inventory.pos_consume.ConsumeDirectProductRequest
-	3, // 3: inventory.pos_consume.POSConsumeService.ConsumeDirectProduct:output_type -> inventory.pos_consume.ConsumeDirectProductResponse
-	3, // [3:4] is the sub-list for method output_type
-	2, // [2:3] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	4, // 2: inventory.pos_consume.ReverseConsumeProductRequest.lines:type_name -> inventory.pos_consume.ReverseConsumeProductLine
+	1, // 3: inventory.pos_consume.POSConsumeService.ConsumeDirectProduct:input_type -> inventory.pos_consume.ConsumeDirectProductRequest
+	5, // 4: inventory.pos_consume.POSConsumeService.ReverseConsumeProduct:input_type -> inventory.pos_consume.ReverseConsumeProductRequest
+	3, // 5: inventory.pos_consume.POSConsumeService.ConsumeDirectProduct:output_type -> inventory.pos_consume.ConsumeDirectProductResponse
+	6, // 6: inventory.pos_consume.POSConsumeService.ReverseConsumeProduct:output_type -> inventory.pos_consume.ReverseConsumeProductResponse
+	5, // [5:7] is the sub-list for method output_type
+	3, // [3:5] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_proto_inventory_pos_consume_pos_consume_proto_init() }
@@ -348,7 +557,7 @@ func file_proto_inventory_pos_consume_pos_consume_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_inventory_pos_consume_pos_consume_proto_rawDesc), len(file_proto_inventory_pos_consume_pos_consume_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
