@@ -6,7 +6,8 @@ option go_package = "github.com/InBitGT/proto-definitions/inventory/warehouse;wa
 
 service WarehouseService {
   rpc GetDefaultWarehouseByBranch (GetDefaultWarehouseByBranchRequest) returns (GetDefaultWarehouseByBranchResponse);
-  rpc ListWarehousesByBranches (ListWarehousesByBranchesRequest) returns (ListWarehousesByBranchesResponse);
+  rpc ListWarehousesByBranches    (ListWarehousesByBranchesRequest)    returns (ListWarehousesByBranchesResponse);
+  rpc GetWarehousesByIDs          (GetWarehousesByIDsRequest)          returns (GetWarehousesByIDsResponse); // ← nuevo
 }
 
 message GetDefaultWarehouseByBranchRequest {
@@ -14,8 +15,8 @@ message GetDefaultWarehouseByBranchRequest {
 }
 
 message GetDefaultWarehouseByBranchResponse {
-  bool success = 1;
-  uint64 warehouse_id = 2;
+  bool   success        = 1;
+  uint64 warehouse_id   = 2;
   string warehouse_name = 3;
 }
 
@@ -25,8 +26,8 @@ message WarehouseItem {
 }
 
 message BranchWarehouses {
-  uint64 branch_id                  = 1;
-  repeated WarehouseItem warehouses = 2;
+  uint64                   branch_id  = 1;
+  repeated WarehouseItem   warehouses = 2;
 }
 
 message ListWarehousesByBranchesRequest {
@@ -34,6 +35,23 @@ message ListWarehousesByBranchesRequest {
 }
 
 message ListWarehousesByBranchesResponse {
-  bool success = 1;
+  bool                     success  = 1;
   repeated BranchWarehouses branches = 2;
+}
+
+// ── GetWarehousesByIDs ────────────────────────────────────────────────
+
+message WarehouseWithBranch {
+  uint64 warehouse_id   = 1;
+  string warehouse_name = 2;
+  uint64 branch_id      = 3;
+}
+
+message GetWarehousesByIDsRequest {
+  repeated uint64 warehouse_ids = 1;
+}
+
+message GetWarehousesByIDsResponse {
+  bool                       success    = 1;
+  repeated WarehouseWithBranch warehouses = 2;
 }

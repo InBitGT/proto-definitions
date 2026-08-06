@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	WarehouseService_GetDefaultWarehouseByBranch_FullMethodName = "/inventory.warehouse.WarehouseService/GetDefaultWarehouseByBranch"
 	WarehouseService_ListWarehousesByBranches_FullMethodName    = "/inventory.warehouse.WarehouseService/ListWarehousesByBranches"
+	WarehouseService_GetWarehousesByIDs_FullMethodName          = "/inventory.warehouse.WarehouseService/GetWarehousesByIDs"
 )
 
 // WarehouseServiceClient is the client API for WarehouseService service.
@@ -29,6 +30,7 @@ const (
 type WarehouseServiceClient interface {
 	GetDefaultWarehouseByBranch(ctx context.Context, in *GetDefaultWarehouseByBranchRequest, opts ...grpc.CallOption) (*GetDefaultWarehouseByBranchResponse, error)
 	ListWarehousesByBranches(ctx context.Context, in *ListWarehousesByBranchesRequest, opts ...grpc.CallOption) (*ListWarehousesByBranchesResponse, error)
+	GetWarehousesByIDs(ctx context.Context, in *GetWarehousesByIDsRequest, opts ...grpc.CallOption) (*GetWarehousesByIDsResponse, error)
 }
 
 type warehouseServiceClient struct {
@@ -59,12 +61,23 @@ func (c *warehouseServiceClient) ListWarehousesByBranches(ctx context.Context, i
 	return out, nil
 }
 
+func (c *warehouseServiceClient) GetWarehousesByIDs(ctx context.Context, in *GetWarehousesByIDsRequest, opts ...grpc.CallOption) (*GetWarehousesByIDsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetWarehousesByIDsResponse)
+	err := c.cc.Invoke(ctx, WarehouseService_GetWarehousesByIDs_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WarehouseServiceServer is the server API for WarehouseService service.
 // All implementations must embed UnimplementedWarehouseServiceServer
 // for forward compatibility.
 type WarehouseServiceServer interface {
 	GetDefaultWarehouseByBranch(context.Context, *GetDefaultWarehouseByBranchRequest) (*GetDefaultWarehouseByBranchResponse, error)
 	ListWarehousesByBranches(context.Context, *ListWarehousesByBranchesRequest) (*ListWarehousesByBranchesResponse, error)
+	GetWarehousesByIDs(context.Context, *GetWarehousesByIDsRequest) (*GetWarehousesByIDsResponse, error)
 	mustEmbedUnimplementedWarehouseServiceServer()
 }
 
@@ -80,6 +93,9 @@ func (UnimplementedWarehouseServiceServer) GetDefaultWarehouseByBranch(context.C
 }
 func (UnimplementedWarehouseServiceServer) ListWarehousesByBranches(context.Context, *ListWarehousesByBranchesRequest) (*ListWarehousesByBranchesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ListWarehousesByBranches not implemented")
+}
+func (UnimplementedWarehouseServiceServer) GetWarehousesByIDs(context.Context, *GetWarehousesByIDsRequest) (*GetWarehousesByIDsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetWarehousesByIDs not implemented")
 }
 func (UnimplementedWarehouseServiceServer) mustEmbedUnimplementedWarehouseServiceServer() {}
 func (UnimplementedWarehouseServiceServer) testEmbeddedByValue()                          {}
@@ -138,6 +154,24 @@ func _WarehouseService_ListWarehousesByBranches_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WarehouseService_GetWarehousesByIDs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetWarehousesByIDsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WarehouseServiceServer).GetWarehousesByIDs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WarehouseService_GetWarehousesByIDs_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WarehouseServiceServer).GetWarehousesByIDs(ctx, req.(*GetWarehousesByIDsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // WarehouseService_ServiceDesc is the grpc.ServiceDesc for WarehouseService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -152,6 +186,10 @@ var WarehouseService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListWarehousesByBranches",
 			Handler:    _WarehouseService_ListWarehousesByBranches_Handler,
+		},
+		{
+			MethodName: "GetWarehousesByIDs",
+			Handler:    _WarehouseService_GetWarehousesByIDs_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
