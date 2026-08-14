@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package customer.credit;
 
-option go_package = "github.com/InBitGT/proto-definitions/customer/credit;customercreditpb";
+option go_package = "github.com/InBitGT/proto-definitions/customer/customer_credit;customercreditpb";
 
 service CustomerCreditService {
   rpc GetCustomerCredit  (GetCustomerCreditRequest)  returns (GetCustomerCreditResponse);
@@ -20,14 +20,17 @@ message GetCustomerCreditResponse {
   bool   has_credit       = 3;
   double credit_limit     = 4;
   double credit_available = 5;
+  bool   is_overdue       = 6;
 }
 
 message ChargeCreditRequest {
-  uint64 customer_id  = 1;
-  double amount       = 2;
-  uint64 order_id     = 3;
-  uint64 user_id      = 4;
-  string description  = 5;
+  uint64 customer_id            = 1;
+  double amount                 = 2;
+  uint64 order_id               = 3;
+  uint64 user_id                = 4;
+  string description            = 5;
+  bool   allow_override         = 6;
+  uint64 override_authorized_by = 7;
 }
 
 message ChargeCreditResponse {

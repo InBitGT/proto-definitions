@@ -5,8 +5,9 @@ package user;
 option go_package = "github.com/InBitGT/proto-definitions/user/users";
 
 service UserService {
-  rpc GetUserByEmail (GetUserByEmailRequest) returns (UserAuthResponse);
-  rpc GetUserByID    (GetUserByIDRequest)    returns (UserAuthResponse);
+  rpc GetUserByEmail      (GetUserByEmailRequest)      returns (UserAuthResponse);
+  rpc GetUserByID         (GetUserByIDRequest)         returns (UserAuthResponse);
+  rpc GetUsersByTenantID  (GetUsersByTenantIDRequest)  returns (GetUsersByTenantIDResponse);
 }
 
 message GetUserByEmailRequest {
@@ -15,6 +16,24 @@ message GetUserByEmailRequest {
 
 message GetUserByIDRequest {
   uint64 id = 1;
+}
+
+message GetUsersByTenantIDRequest {
+  uint64 tenant_id = 1;
+}
+
+message UserListItem {
+  uint64 id         = 1;
+  string username   = 2;
+  string first_name = 3;
+  string last_name  = 4;
+  string role_name  = 5;
+  bool   is_active  = 6;
+}
+
+message GetUsersByTenantIDResponse {
+  bool                  success = 1;
+  repeated UserListItem users   = 2;
 }
 
 message Warehouse {
@@ -41,6 +60,6 @@ message UserAuthResponse {
   bool   is_active     = 10;
   bool   status        = 11;
   string tenant_name   = 12;
-  reserved 13, 14; 
+  reserved 13, 14;
   repeated Branch branches = 15;
 }

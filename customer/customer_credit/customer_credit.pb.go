@@ -72,6 +72,7 @@ type GetCustomerCreditResponse struct {
 	HasCredit       bool                   `protobuf:"varint,3,opt,name=has_credit,json=hasCredit,proto3" json:"has_credit,omitempty"`
 	CreditLimit     float64                `protobuf:"fixed64,4,opt,name=credit_limit,json=creditLimit,proto3" json:"credit_limit,omitempty"`
 	CreditAvailable float64                `protobuf:"fixed64,5,opt,name=credit_available,json=creditAvailable,proto3" json:"credit_available,omitempty"`
+	IsOverdue       bool                   `protobuf:"varint,6,opt,name=is_overdue,json=isOverdue,proto3" json:"is_overdue,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -141,15 +142,24 @@ func (x *GetCustomerCreditResponse) GetCreditAvailable() float64 {
 	return 0
 }
 
+func (x *GetCustomerCreditResponse) GetIsOverdue() bool {
+	if x != nil {
+		return x.IsOverdue
+	}
+	return false
+}
+
 type ChargeCreditRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	CustomerId    uint64                 `protobuf:"varint,1,opt,name=customer_id,json=customerId,proto3" json:"customer_id,omitempty"`
-	Amount        float64                `protobuf:"fixed64,2,opt,name=amount,proto3" json:"amount,omitempty"`
-	OrderId       uint64                 `protobuf:"varint,3,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
-	UserId        uint64                 `protobuf:"varint,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Description   string                 `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                protoimpl.MessageState `protogen:"open.v1"`
+	CustomerId           uint64                 `protobuf:"varint,1,opt,name=customer_id,json=customerId,proto3" json:"customer_id,omitempty"`
+	Amount               float64                `protobuf:"fixed64,2,opt,name=amount,proto3" json:"amount,omitempty"`
+	OrderId              uint64                 `protobuf:"varint,3,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
+	UserId               uint64                 `protobuf:"varint,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Description          string                 `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
+	AllowOverride        bool                   `protobuf:"varint,6,opt,name=allow_override,json=allowOverride,proto3" json:"allow_override,omitempty"`
+	OverrideAuthorizedBy uint64                 `protobuf:"varint,7,opt,name=override_authorized_by,json=overrideAuthorizedBy,proto3" json:"override_authorized_by,omitempty"`
+	unknownFields        protoimpl.UnknownFields
+	sizeCache            protoimpl.SizeCache
 }
 
 func (x *ChargeCreditRequest) Reset() {
@@ -215,6 +225,20 @@ func (x *ChargeCreditRequest) GetDescription() string {
 		return x.Description
 	}
 	return ""
+}
+
+func (x *ChargeCreditRequest) GetAllowOverride() bool {
+	if x != nil {
+		return x.AllowOverride
+	}
+	return false
+}
+
+func (x *ChargeCreditRequest) GetOverrideAuthorizedBy() uint64 {
+	if x != nil {
+		return x.OverrideAuthorizedBy
+	}
+	return 0
 }
 
 type ChargeCreditResponse struct {
@@ -396,7 +420,7 @@ const file_proto_customer_customer_credit_customer_credit_proto_rawDesc = "" +
 	"4proto/customer/customer_credit/customer_credit.proto\x12\x0fcustomer.credit\";\n" +
 	"\x18GetCustomerCreditRequest\x12\x1f\n" +
 	"\vcustomer_id\x18\x01 \x01(\x04R\n" +
-	"customerId\"\xc3\x01\n" +
+	"customerId\"\xe2\x01\n" +
 	"\x19GetCustomerCreditResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x1f\n" +
 	"\vcustomer_id\x18\x02 \x01(\x04R\n" +
@@ -404,14 +428,18 @@ const file_proto_customer_customer_credit_customer_credit_proto_rawDesc = "" +
 	"\n" +
 	"has_credit\x18\x03 \x01(\bR\thasCredit\x12!\n" +
 	"\fcredit_limit\x18\x04 \x01(\x01R\vcreditLimit\x12)\n" +
-	"\x10credit_available\x18\x05 \x01(\x01R\x0fcreditAvailable\"\xa4\x01\n" +
+	"\x10credit_available\x18\x05 \x01(\x01R\x0fcreditAvailable\x12\x1d\n" +
+	"\n" +
+	"is_overdue\x18\x06 \x01(\bR\tisOverdue\"\x81\x02\n" +
 	"\x13ChargeCreditRequest\x12\x1f\n" +
 	"\vcustomer_id\x18\x01 \x01(\x04R\n" +
 	"customerId\x12\x16\n" +
 	"\x06amount\x18\x02 \x01(\x01R\x06amount\x12\x19\n" +
 	"\border_id\x18\x03 \x01(\x04R\aorderId\x12\x17\n" +
 	"\auser_id\x18\x04 \x01(\x04R\x06userId\x12 \n" +
-	"\vdescription\x18\x05 \x01(\tR\vdescription\"\x80\x01\n" +
+	"\vdescription\x18\x05 \x01(\tR\vdescription\x12%\n" +
+	"\x0eallow_override\x18\x06 \x01(\bR\rallowOverride\x124\n" +
+	"\x16override_authorized_by\x18\a \x01(\x04R\x14overrideAuthorizedBy\"\x80\x01\n" +
 	"\x14ChargeCreditResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12)\n" +
 	"\x10credit_available\x18\x02 \x01(\x01R\x0fcreditAvailable\x12#\n" +
@@ -427,7 +455,7 @@ const file_proto_customer_customer_credit_customer_credit_proto_rawDesc = "" +
 	"\x15CustomerCreditService\x12j\n" +
 	"\x11GetCustomerCredit\x12).customer.credit.GetCustomerCreditRequest\x1a*.customer.credit.GetCustomerCreditResponse\x12[\n" +
 	"\fChargeCredit\x12$.customer.credit.ChargeCreditRequest\x1a%.customer.credit.ChargeCreditResponse\x12^\n" +
-	"\rReleaseCredit\x12%.customer.credit.ReleaseCreditRequest\x1a&.customer.credit.ReleaseCreditResponseBGZEgithub.com/InBitGT/proto-definitions/customer/credit;customercreditpbb\x06proto3"
+	"\rReleaseCredit\x12%.customer.credit.ReleaseCreditRequest\x1a&.customer.credit.ReleaseCreditResponseBPZNgithub.com/InBitGT/proto-definitions/customer/customer_credit;customercreditpbb\x06proto3"
 
 var (
 	file_proto_customer_customer_credit_customer_credit_proto_rawDescOnce sync.Once

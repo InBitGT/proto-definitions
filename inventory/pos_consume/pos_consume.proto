@@ -5,7 +5,8 @@ package inventory.pos_consume;
 option go_package = "github.com/InBitGT/proto-definitions/inventory/pos_consume;posconsumepb";
 
 service POSConsumeService {
-  rpc ConsumeDirectProduct (ConsumeDirectProductRequest) returns (ConsumeDirectProductResponse);
+  rpc ConsumeDirectProduct  (ConsumeDirectProductRequest)  returns (ConsumeDirectProductResponse);
+  rpc ReverseConsumeProduct (ReverseConsumeProductRequest) returns (ReverseConsumeProductResponse);
 }
 
 message ConsumeDirectProductLine {
@@ -14,11 +15,11 @@ message ConsumeDirectProductLine {
 }
 
 message ConsumeDirectProductRequest {
-  uint64                         warehouse_id   = 1;
-  uint64                         user_id        = 2;
-  uint64                         reference_id   = 3;
-  string                         reference_type = 4;
-  repeated ConsumeDirectProductLine lines       = 5;
+  uint64                            warehouse_id   = 1;
+  uint64                            user_id        = 2;
+  uint64                            reference_id   = 3;
+  string                            reference_type = 4;
+  repeated ConsumeDirectProductLine lines          = 5;
 }
 
 message ConsumeDirectProductResultLine {
@@ -32,4 +33,23 @@ message ConsumeDirectProductResponse {
   bool                                    success    = 1;
   double                                  total_cost = 2;
   repeated ConsumeDirectProductResultLine lines      = 3;
+}
+
+message ReverseConsumeProductLine {
+  uint64 product_id = 1;
+  double quantity   = 2;
+  double unit_cost  = 3;
+}
+
+message ReverseConsumeProductRequest {
+  uint64                             warehouse_id   = 1;
+  uint64                             user_id        = 2;
+  uint64                             reference_id   = 3;
+  string                             reference_type = 4;
+  repeated ReverseConsumeProductLine lines          = 5;
+}
+
+message ReverseConsumeProductResponse {
+  bool   success = 1;
+  string message = 2;
 }
