@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package customer.customer_type;
+
+option go_package = "github.com/InBitGT/proto-definitions/customer/customer_type;customertypepb";
+
+service CustomerTypeService {
+  rpc GetCustomerTypesByIDs (GetCustomerTypesByIDsRequest) returns (GetCustomerTypesByIDsResponse);
+}
+
+message GetCustomerTypesByIDsRequest {
+  repeated uint64 ids = 1;
+}
+
+message CustomerTypeItem {
+  uint64 id   = 1;
+  string name = 2;
+}
+
+message GetCustomerTypesByIDsResponse {
+  bool                        success = 1;
+  repeated CustomerTypeItem   items   = 2;
+}
