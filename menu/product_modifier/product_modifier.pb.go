@@ -29,6 +29,7 @@ type CreateProductModifierRequest struct {
 	MaxSelection      int32                  `protobuf:"varint,4,opt,name=max_selection,json=maxSelection,proto3" json:"max_selection,omitempty"`
 	PriceAdjustment   float64                `protobuf:"fixed64,5,opt,name=price_adjustment,json=priceAdjustment,proto3" json:"price_adjustment,omitempty"`
 	IsDefault         bool                   `protobuf:"varint,6,opt,name=is_default,json=isDefault,proto3" json:"is_default,omitempty"`
+	ModifierType      string                 `protobuf:"bytes,7,opt,name=modifier_type,json=modifierType,proto3" json:"modifier_type,omitempty"` // ← nuevo: "" | "extra" | "packing"
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
@@ -103,6 +104,13 @@ func (x *CreateProductModifierRequest) GetIsDefault() bool {
 		return x.IsDefault
 	}
 	return false
+}
+
+func (x *CreateProductModifierRequest) GetModifierType() string {
+	if x != nil {
+		return x.ModifierType
+	}
+	return ""
 }
 
 type CreateProductModifierResponse struct {
@@ -211,6 +219,7 @@ type GetProductModifierByProductIDResponse struct {
 	MaxSelection      int32                  `protobuf:"varint,6,opt,name=max_selection,json=maxSelection,proto3" json:"max_selection,omitempty"`
 	PriceAdjustment   float64                `protobuf:"fixed64,7,opt,name=price_adjustment,json=priceAdjustment,proto3" json:"price_adjustment,omitempty"`
 	IsDefault         bool                   `protobuf:"varint,8,opt,name=is_default,json=isDefault,proto3" json:"is_default,omitempty"`
+	ModifierType      string                 `protobuf:"bytes,9,opt,name=modifier_type,json=modifierType,proto3" json:"modifier_type,omitempty"` // ← nuevo
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
@@ -301,6 +310,13 @@ func (x *GetProductModifierByProductIDResponse) GetIsDefault() bool {
 	return false
 }
 
+func (x *GetProductModifierByProductIDResponse) GetModifierType() string {
+	if x != nil {
+		return x.ModifierType
+	}
+	return ""
+}
+
 type UpdateProductModifierByProductIDRequest struct {
 	state             protoimpl.MessageState `protogen:"open.v1"`
 	ModifierProductId uint64                 `protobuf:"varint,1,opt,name=modifier_product_id,json=modifierProductId,proto3" json:"modifier_product_id,omitempty"`
@@ -309,6 +325,7 @@ type UpdateProductModifierByProductIDRequest struct {
 	MaxSelection      int32                  `protobuf:"varint,4,opt,name=max_selection,json=maxSelection,proto3" json:"max_selection,omitempty"`
 	PriceAdjustment   float64                `protobuf:"fixed64,5,opt,name=price_adjustment,json=priceAdjustment,proto3" json:"price_adjustment,omitempty"`
 	IsDefault         bool                   `protobuf:"varint,6,opt,name=is_default,json=isDefault,proto3" json:"is_default,omitempty"`
+	ModifierType      string                 `protobuf:"bytes,7,opt,name=modifier_type,json=modifierType,proto3" json:"modifier_type,omitempty"` // ← nuevo
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
@@ -383,6 +400,13 @@ func (x *UpdateProductModifierByProductIDRequest) GetIsDefault() bool {
 		return x.IsDefault
 	}
 	return false
+}
+
+func (x *UpdateProductModifierByProductIDRequest) GetModifierType() string {
+	if x != nil {
+		return x.ModifierType
+	}
+	return ""
 }
 
 type UpdateProductModifierByProductIDResponse struct {
@@ -521,7 +545,7 @@ var File_proto_menu_product_modifier_product_modifier_proto protoreflect.FileDes
 
 const file_proto_menu_product_modifier_product_modifier_proto_rawDesc = "" +
 	"\n" +
-	"2proto/menu/product_modifier/product_modifier.proto\x12\x15menu.product_modifier\"\xfe\x01\n" +
+	"2proto/menu/product_modifier/product_modifier.proto\x12\x15menu.product_modifier\"\xa3\x02\n" +
 	"\x1cCreateProductModifierRequest\x12.\n" +
 	"\x13modifier_product_id\x18\x01 \x01(\x04R\x11modifierProductId\x12\x1a\n" +
 	"\bquantity\x18\x02 \x01(\x01R\bquantity\x12#\n" +
@@ -529,12 +553,13 @@ const file_proto_menu_product_modifier_product_modifier_proto_rawDesc = "" +
 	"\rmax_selection\x18\x04 \x01(\x05R\fmaxSelection\x12)\n" +
 	"\x10price_adjustment\x18\x05 \x01(\x01R\x0fpriceAdjustment\x12\x1d\n" +
 	"\n" +
-	"is_default\x18\x06 \x01(\bR\tisDefault\"i\n" +
+	"is_default\x18\x06 \x01(\bR\tisDefault\x12#\n" +
+	"\rmodifier_type\x18\a \x01(\tR\fmodifierType\"i\n" +
 	"\x1dCreateProductModifierResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12.\n" +
 	"\x13product_modifier_id\x18\x02 \x01(\x04R\x11productModifierId\"V\n" +
 	"$GetProductModifierByProductIDRequest\x12.\n" +
-	"\x13modifier_product_id\x18\x01 \x01(\x04R\x11modifierProductId\"\xd1\x02\n" +
+	"\x13modifier_product_id\x18\x01 \x01(\x04R\x11modifierProductId\"\xf6\x02\n" +
 	"%GetProductModifierByProductIDResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12.\n" +
 	"\x13product_modifier_id\x18\x02 \x01(\x04R\x11productModifierId\x12.\n" +
@@ -544,7 +569,8 @@ const file_proto_menu_product_modifier_product_modifier_proto_rawDesc = "" +
 	"\rmax_selection\x18\x06 \x01(\x05R\fmaxSelection\x12)\n" +
 	"\x10price_adjustment\x18\a \x01(\x01R\x0fpriceAdjustment\x12\x1d\n" +
 	"\n" +
-	"is_default\x18\b \x01(\bR\tisDefault\"\x89\x02\n" +
+	"is_default\x18\b \x01(\bR\tisDefault\x12#\n" +
+	"\rmodifier_type\x18\t \x01(\tR\fmodifierType\"\xae\x02\n" +
 	"'UpdateProductModifierByProductIDRequest\x12.\n" +
 	"\x13modifier_product_id\x18\x01 \x01(\x04R\x11modifierProductId\x12\x1a\n" +
 	"\bquantity\x18\x02 \x01(\x01R\bquantity\x12#\n" +
@@ -552,7 +578,8 @@ const file_proto_menu_product_modifier_product_modifier_proto_rawDesc = "" +
 	"\rmax_selection\x18\x04 \x01(\x05R\fmaxSelection\x12)\n" +
 	"\x10price_adjustment\x18\x05 \x01(\x01R\x0fpriceAdjustment\x12\x1d\n" +
 	"\n" +
-	"is_default\x18\x06 \x01(\bR\tisDefault\"D\n" +
+	"is_default\x18\x06 \x01(\bR\tisDefault\x12#\n" +
+	"\rmodifier_type\x18\a \x01(\tR\fmodifierType\"D\n" +
 	"(UpdateProductModifierByProductIDResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\"]\n" +
 	"+DeactivateProductModifierByProductIDRequest\x12.\n" +

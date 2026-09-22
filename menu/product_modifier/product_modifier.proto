@@ -18,6 +18,7 @@ message CreateProductModifierRequest {
   int32 max_selection = 4;
   double price_adjustment = 5;
   bool is_default = 6;
+  string modifier_type = 7; // ← nuevo: "" | "extra" | "packing"
 }
 
 message CreateProductModifierResponse {
@@ -38,6 +39,7 @@ message GetProductModifierByProductIDResponse {
   int32 max_selection = 6;
   double price_adjustment = 7;
   bool is_default = 8;
+  string modifier_type = 9; // ← nuevo
 }
 
 message UpdateProductModifierByProductIDRequest {
@@ -47,6 +49,7 @@ message UpdateProductModifierByProductIDRequest {
   int32 max_selection = 4;
   double price_adjustment = 5;
   bool is_default = 6;
+  string modifier_type = 7; // ← nuevo
 }
 
 message UpdateProductModifierByProductIDResponse {
