@@ -31,6 +31,27 @@ message POSCustomerTypePrice {
   string customer_type_name = 5; // ← nuevo
 }
 
+// ── Variante disponible del producto (nuevo) ──────────────────────────
+message POSVariant {
+  uint64 id               = 1;
+  string name             = 2;
+  double price_adjustment = 3;
+  string adjustment_type  = 4;
+}
+
+// ── Modificador ASIGNADO al producto (nuevo) ──────────────────────────
+// En la venta se manda modifier_product_id, no product_modifier_id.
+message POSModifier {
+  uint64 product_modifier_id = 1;
+  uint64 modifier_product_id = 2;
+  double quantity            = 3;
+  int32  min_selection       = 4;
+  int32  max_selection       = 5;
+  double price_adjustment    = 6;
+  bool   is_default          = 7;
+  string modifier_type       = 8;
+}
+
 message POSProductContext {
   uint64 product_id              = 1;
   double base_price              = 2;
@@ -52,6 +73,9 @@ message POSProductContext {
   repeated POSPricePerUom price_per_uom = 14;
 
   repeated POSCustomerTypePrice customer_type_prices = 15;
+
+  repeated POSVariant  variants  = 16; // ← nuevo
+  repeated POSModifier modifiers = 17; // ← nuevo
 }
 
 message GetPOSContextResponse {

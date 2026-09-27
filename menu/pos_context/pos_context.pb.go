@@ -241,6 +241,177 @@ func (x *POSCustomerTypePrice) GetCustomerTypeName() string {
 	return ""
 }
 
+// ── Variante disponible del producto (nuevo) ──────────────────────────
+type POSVariant struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Id              uint64                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name            string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	PriceAdjustment float64                `protobuf:"fixed64,3,opt,name=price_adjustment,json=priceAdjustment,proto3" json:"price_adjustment,omitempty"`
+	AdjustmentType  string                 `protobuf:"bytes,4,opt,name=adjustment_type,json=adjustmentType,proto3" json:"adjustment_type,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *POSVariant) Reset() {
+	*x = POSVariant{}
+	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *POSVariant) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*POSVariant) ProtoMessage() {}
+
+func (x *POSVariant) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use POSVariant.ProtoReflect.Descriptor instead.
+func (*POSVariant) Descriptor() ([]byte, []int) {
+	return file_proto_menu_pos_context_pos_context_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *POSVariant) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *POSVariant) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *POSVariant) GetPriceAdjustment() float64 {
+	if x != nil {
+		return x.PriceAdjustment
+	}
+	return 0
+}
+
+func (x *POSVariant) GetAdjustmentType() string {
+	if x != nil {
+		return x.AdjustmentType
+	}
+	return ""
+}
+
+// ── Modificador ASIGNADO al producto (nuevo) ──────────────────────────
+// En la venta se manda modifier_product_id, no product_modifier_id.
+type POSModifier struct {
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	ProductModifierId uint64                 `protobuf:"varint,1,opt,name=product_modifier_id,json=productModifierId,proto3" json:"product_modifier_id,omitempty"`
+	ModifierProductId uint64                 `protobuf:"varint,2,opt,name=modifier_product_id,json=modifierProductId,proto3" json:"modifier_product_id,omitempty"`
+	Quantity          float64                `protobuf:"fixed64,3,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	MinSelection      int32                  `protobuf:"varint,4,opt,name=min_selection,json=minSelection,proto3" json:"min_selection,omitempty"`
+	MaxSelection      int32                  `protobuf:"varint,5,opt,name=max_selection,json=maxSelection,proto3" json:"max_selection,omitempty"`
+	PriceAdjustment   float64                `protobuf:"fixed64,6,opt,name=price_adjustment,json=priceAdjustment,proto3" json:"price_adjustment,omitempty"`
+	IsDefault         bool                   `protobuf:"varint,7,opt,name=is_default,json=isDefault,proto3" json:"is_default,omitempty"`
+	ModifierType      string                 `protobuf:"bytes,8,opt,name=modifier_type,json=modifierType,proto3" json:"modifier_type,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *POSModifier) Reset() {
+	*x = POSModifier{}
+	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *POSModifier) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*POSModifier) ProtoMessage() {}
+
+func (x *POSModifier) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use POSModifier.ProtoReflect.Descriptor instead.
+func (*POSModifier) Descriptor() ([]byte, []int) {
+	return file_proto_menu_pos_context_pos_context_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *POSModifier) GetProductModifierId() uint64 {
+	if x != nil {
+		return x.ProductModifierId
+	}
+	return 0
+}
+
+func (x *POSModifier) GetModifierProductId() uint64 {
+	if x != nil {
+		return x.ModifierProductId
+	}
+	return 0
+}
+
+func (x *POSModifier) GetQuantity() float64 {
+	if x != nil {
+		return x.Quantity
+	}
+	return 0
+}
+
+func (x *POSModifier) GetMinSelection() int32 {
+	if x != nil {
+		return x.MinSelection
+	}
+	return 0
+}
+
+func (x *POSModifier) GetMaxSelection() int32 {
+	if x != nil {
+		return x.MaxSelection
+	}
+	return 0
+}
+
+func (x *POSModifier) GetPriceAdjustment() float64 {
+	if x != nil {
+		return x.PriceAdjustment
+	}
+	return 0
+}
+
+func (x *POSModifier) GetIsDefault() bool {
+	if x != nil {
+		return x.IsDefault
+	}
+	return false
+}
+
+func (x *POSModifier) GetModifierType() string {
+	if x != nil {
+		return x.ModifierType
+	}
+	return ""
+}
+
 type POSProductContext struct {
 	state                 protoimpl.MessageState  `protogen:"open.v1"`
 	ProductId             uint64                  `protobuf:"varint,1,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
@@ -258,13 +429,15 @@ type POSProductContext struct {
 	WholesaleDiscountPct  float64                 `protobuf:"fixed64,13,opt,name=wholesale_discount_pct,json=wholesaleDiscountPct,proto3" json:"wholesale_discount_pct,omitempty"`
 	PricePerUom           []*POSPricePerUom       `protobuf:"bytes,14,rep,name=price_per_uom,json=pricePerUom,proto3" json:"price_per_uom,omitempty"`
 	CustomerTypePrices    []*POSCustomerTypePrice `protobuf:"bytes,15,rep,name=customer_type_prices,json=customerTypePrices,proto3" json:"customer_type_prices,omitempty"`
+	Variants              []*POSVariant           `protobuf:"bytes,16,rep,name=variants,proto3" json:"variants,omitempty"`   // ← nuevo
+	Modifiers             []*POSModifier          `protobuf:"bytes,17,rep,name=modifiers,proto3" json:"modifiers,omitempty"` // ← nuevo
 	unknownFields         protoimpl.UnknownFields
 	sizeCache             protoimpl.SizeCache
 }
 
 func (x *POSProductContext) Reset() {
 	*x = POSProductContext{}
-	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[3]
+	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -276,7 +449,7 @@ func (x *POSProductContext) String() string {
 func (*POSProductContext) ProtoMessage() {}
 
 func (x *POSProductContext) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[3]
+	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -289,7 +462,7 @@ func (x *POSProductContext) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use POSProductContext.ProtoReflect.Descriptor instead.
 func (*POSProductContext) Descriptor() ([]byte, []int) {
-	return file_proto_menu_pos_context_pos_context_proto_rawDescGZIP(), []int{3}
+	return file_proto_menu_pos_context_pos_context_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *POSProductContext) GetProductId() uint64 {
@@ -397,6 +570,20 @@ func (x *POSProductContext) GetCustomerTypePrices() []*POSCustomerTypePrice {
 	return nil
 }
 
+func (x *POSProductContext) GetVariants() []*POSVariant {
+	if x != nil {
+		return x.Variants
+	}
+	return nil
+}
+
+func (x *POSProductContext) GetModifiers() []*POSModifier {
+	if x != nil {
+		return x.Modifiers
+	}
+	return nil
+}
+
 type GetPOSContextResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
@@ -407,7 +594,7 @@ type GetPOSContextResponse struct {
 
 func (x *GetPOSContextResponse) Reset() {
 	*x = GetPOSContextResponse{}
-	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[4]
+	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -419,7 +606,7 @@ func (x *GetPOSContextResponse) String() string {
 func (*GetPOSContextResponse) ProtoMessage() {}
 
 func (x *GetPOSContextResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[4]
+	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -432,7 +619,7 @@ func (x *GetPOSContextResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPOSContextResponse.ProtoReflect.Descriptor instead.
 func (*GetPOSContextResponse) Descriptor() ([]byte, []int) {
-	return file_proto_menu_pos_context_pos_context_proto_rawDescGZIP(), []int{4}
+	return file_proto_menu_pos_context_pos_context_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *GetPOSContextResponse) GetSuccess() bool {
@@ -471,7 +658,23 @@ const file_proto_menu_pos_context_pos_context_proto_rawDesc = "" +
 	"\x10customer_type_id\x18\x02 \x01(\x04R\x0ecustomerTypeId\x12\x16\n" +
 	"\x06amount\x18\x03 \x01(\x01R\x06amount\x12\x1a\n" +
 	"\bcurrency\x18\x04 \x01(\tR\bcurrency\x12,\n" +
-	"\x12customer_type_name\x18\x05 \x01(\tR\x10customerTypeName\"\xcb\x05\n" +
+	"\x12customer_type_name\x18\x05 \x01(\tR\x10customerTypeName\"\x84\x01\n" +
+	"\n" +
+	"POSVariant\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12)\n" +
+	"\x10price_adjustment\x18\x03 \x01(\x01R\x0fpriceAdjustment\x12'\n" +
+	"\x0fadjustment_type\x18\x04 \x01(\tR\x0eadjustmentType\"\xc2\x02\n" +
+	"\vPOSModifier\x12.\n" +
+	"\x13product_modifier_id\x18\x01 \x01(\x04R\x11productModifierId\x12.\n" +
+	"\x13modifier_product_id\x18\x02 \x01(\x04R\x11modifierProductId\x12\x1a\n" +
+	"\bquantity\x18\x03 \x01(\x01R\bquantity\x12#\n" +
+	"\rmin_selection\x18\x04 \x01(\x05R\fminSelection\x12#\n" +
+	"\rmax_selection\x18\x05 \x01(\x05R\fmaxSelection\x12)\n" +
+	"\x10price_adjustment\x18\x06 \x01(\x01R\x0fpriceAdjustment\x12\x1d\n" +
+	"\n" +
+	"is_default\x18\a \x01(\bR\tisDefault\x12#\n" +
+	"\rmodifier_type\x18\b \x01(\tR\fmodifierType\"\xc2\x06\n" +
 	"\x11POSProductContext\x12\x1d\n" +
 	"\n" +
 	"product_id\x18\x01 \x01(\x04R\tproductId\x12\x1d\n" +
@@ -490,7 +693,9 @@ const file_proto_menu_pos_context_pos_context_proto_rawDesc = "" +
 	"\x11wholesale_min_qty\x18\f \x01(\x01R\x0fwholesaleMinQty\x124\n" +
 	"\x16wholesale_discount_pct\x18\r \x01(\x01R\x14wholesaleDiscountPct\x12D\n" +
 	"\rprice_per_uom\x18\x0e \x03(\v2 .menu.pos_context.POSPricePerUomR\vpricePerUom\x12X\n" +
-	"\x14customer_type_prices\x18\x0f \x03(\v2&.menu.pos_context.POSCustomerTypePriceR\x12customerTypePrices\"r\n" +
+	"\x14customer_type_prices\x18\x0f \x03(\v2&.menu.pos_context.POSCustomerTypePriceR\x12customerTypePrices\x128\n" +
+	"\bvariants\x18\x10 \x03(\v2\x1c.menu.pos_context.POSVariantR\bvariants\x12;\n" +
+	"\tmodifiers\x18\x11 \x03(\v2\x1d.menu.pos_context.POSModifierR\tmodifiers\"r\n" +
 	"\x15GetPOSContextResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12?\n" +
 	"\bproducts\x18\x02 \x03(\v2#.menu.pos_context.POSProductContextR\bproducts2u\n" +
@@ -509,25 +714,29 @@ func file_proto_menu_pos_context_pos_context_proto_rawDescGZIP() []byte {
 	return file_proto_menu_pos_context_pos_context_proto_rawDescData
 }
 
-var file_proto_menu_pos_context_pos_context_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_proto_menu_pos_context_pos_context_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_proto_menu_pos_context_pos_context_proto_goTypes = []any{
 	(*GetPOSContextRequest)(nil),  // 0: menu.pos_context.GetPOSContextRequest
 	(*POSPricePerUom)(nil),        // 1: menu.pos_context.POSPricePerUom
 	(*POSCustomerTypePrice)(nil),  // 2: menu.pos_context.POSCustomerTypePrice
-	(*POSProductContext)(nil),     // 3: menu.pos_context.POSProductContext
-	(*GetPOSContextResponse)(nil), // 4: menu.pos_context.GetPOSContextResponse
+	(*POSVariant)(nil),            // 3: menu.pos_context.POSVariant
+	(*POSModifier)(nil),           // 4: menu.pos_context.POSModifier
+	(*POSProductContext)(nil),     // 5: menu.pos_context.POSProductContext
+	(*GetPOSContextResponse)(nil), // 6: menu.pos_context.GetPOSContextResponse
 }
 var file_proto_menu_pos_context_pos_context_proto_depIdxs = []int32{
 	1, // 0: menu.pos_context.POSProductContext.price_per_uom:type_name -> menu.pos_context.POSPricePerUom
 	2, // 1: menu.pos_context.POSProductContext.customer_type_prices:type_name -> menu.pos_context.POSCustomerTypePrice
-	3, // 2: menu.pos_context.GetPOSContextResponse.products:type_name -> menu.pos_context.POSProductContext
-	0, // 3: menu.pos_context.POSContextService.GetPOSContext:input_type -> menu.pos_context.GetPOSContextRequest
-	4, // 4: menu.pos_context.POSContextService.GetPOSContext:output_type -> menu.pos_context.GetPOSContextResponse
-	4, // [4:5] is the sub-list for method output_type
-	3, // [3:4] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	3, // 2: menu.pos_context.POSProductContext.variants:type_name -> menu.pos_context.POSVariant
+	4, // 3: menu.pos_context.POSProductContext.modifiers:type_name -> menu.pos_context.POSModifier
+	5, // 4: menu.pos_context.GetPOSContextResponse.products:type_name -> menu.pos_context.POSProductContext
+	0, // 5: menu.pos_context.POSContextService.GetPOSContext:input_type -> menu.pos_context.GetPOSContextRequest
+	6, // 6: menu.pos_context.POSContextService.GetPOSContext:output_type -> menu.pos_context.GetPOSContextResponse
+	6, // [6:7] is the sub-list for method output_type
+	5, // [5:6] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_proto_menu_pos_context_pos_context_proto_init() }
@@ -541,7 +750,7 @@ func file_proto_menu_pos_context_pos_context_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_menu_pos_context_pos_context_proto_rawDesc), len(file_proto_menu_pos_context_pos_context_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
