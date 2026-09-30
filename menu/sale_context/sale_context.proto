@@ -44,4 +44,5 @@ message GetSaleContextResponse {
 
   bool   has_variants  = 12; // ← nuevo: el producto tiene variantes activas
   string error_message = 13; // ← nuevo: motivo cuando success = false
+  bool   has_recipe    = 14; // ← nuevo: consumption_lines incluye receta (si es false, solo trae modificadores)
 }

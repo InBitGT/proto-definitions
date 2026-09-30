@@ -224,6 +224,7 @@ type GetSaleContextResponse struct {
 	ConsumptionLines       []*ConsumptionLine     `protobuf:"bytes,11,rep,name=consumption_lines,json=consumptionLines,proto3" json:"consumption_lines,omitempty"`
 	HasVariants            bool                   `protobuf:"varint,12,opt,name=has_variants,json=hasVariants,proto3" json:"has_variants,omitempty"`   // ← nuevo: el producto tiene variantes activas
 	ErrorMessage           string                 `protobuf:"bytes,13,opt,name=error_message,json=errorMessage,proto3" json:"error_message,omitempty"` // ← nuevo: motivo cuando success = false
+	HasRecipe              bool                   `protobuf:"varint,14,opt,name=has_recipe,json=hasRecipe,proto3" json:"has_recipe,omitempty"`         // ← nuevo: consumption_lines incluye receta (si es false, solo trae modificadores)
 	unknownFields          protoimpl.UnknownFields
 	sizeCache              protoimpl.SizeCache
 }
@@ -349,6 +350,13 @@ func (x *GetSaleContextResponse) GetErrorMessage() string {
 	return ""
 }
 
+func (x *GetSaleContextResponse) GetHasRecipe() bool {
+	if x != nil {
+		return x.HasRecipe
+	}
+	return false
+}
+
 var File_proto_menu_sale_context_sale_context_proto protoreflect.FileDescriptor
 
 const file_proto_menu_sale_context_sale_context_proto_rawDesc = "" +
@@ -367,7 +375,7 @@ const file_proto_menu_sale_context_sale_context_proto_rawDesc = "" +
 	"\x0fConsumptionLine\x122\n" +
 	"\x15ingredient_product_id\x18\x01 \x01(\x04R\x13ingredientProductId\x12\x1a\n" +
 	"\bquantity\x18\x02 \x01(\x01R\bquantity\x12\x12\n" +
-	"\x04unit\x18\x03 \x01(\tR\x04unit\"\xc3\x04\n" +
+	"\x04unit\x18\x03 \x01(\tR\x04unit\"\xe2\x04\n" +
 	"\x16GetSaleContextResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x1d\n" +
 	"\n" +
@@ -385,7 +393,9 @@ const file_proto_menu_sale_context_sale_context_proto_rawDesc = "" +
 	" \x03(\v2&.menu.sale_context.ModifierSaleContextR\tmodifiers\x12O\n" +
 	"\x11consumption_lines\x18\v \x03(\v2\".menu.sale_context.ConsumptionLineR\x10consumptionLines\x12!\n" +
 	"\fhas_variants\x18\f \x01(\bR\vhasVariants\x12#\n" +
-	"\rerror_message\x18\r \x01(\tR\ferrorMessage2{\n" +
+	"\rerror_message\x18\r \x01(\tR\ferrorMessage\x12\x1d\n" +
+	"\n" +
+	"has_recipe\x18\x0e \x01(\bR\thasRecipe2{\n" +
 	"\x12SaleContextService\x12e\n" +
 	"\x0eGetSaleContext\x12(.menu.sale_context.GetSaleContextRequest\x1a).menu.sale_context.GetSaleContextResponseBBZ@github.com/InBitGT/proto-definitions/menu/sale_context;salectxpbb\x06proto3"
 
