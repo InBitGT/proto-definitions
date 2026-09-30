@@ -41,4 +41,7 @@ message GetSaleContextResponse {
 
   repeated ModifierSaleContext modifiers = 10;
   repeated ConsumptionLine consumption_lines = 11;
+
+  bool   has_variants  = 12; // ← nuevo: el producto tiene variantes activas
+  string error_message = 13; // ← nuevo: motivo cuando success = false
 }
