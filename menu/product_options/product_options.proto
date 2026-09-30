@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+package menu.product_options;
+
+option go_package = "github.com/InBitGT/proto-definitions/menu/product_options;productoptionspb";
+
+// Variantes, receta y modificadores asignados de un producto, en una sola
+// transacción de menu-service. Lo usa inventory-service desde /product/full.
+service ProductOptionsService {
+  rpc SetProductOptions (SetProductOptionsRequest) returns (SetProductOptionsResponse);
+  rpc GetProductOptions (GetProductOptionsRequest) returns (GetProductOptionsResponse);
+}
+
+// ── Entrada ────────────────────────────────────────────────────────────
+
+message VariantInput {
+  uint64 id               = 1; // 0 = crear; con valor = actualizar esa variante
+  string name             = 2;
+  double price_adjustment = 3;
+  string adjustment_type  = 4;
+}
+
+message IngredientInput {
+  uint64 ingredient_id = 1;
+  double quantity      = 2;
+  string unit          = 3;
+  double waste_factor  = 4;
+  uint64 variant_id    = 5; // amarre por ID (variante existente)
+  string variant_name  = 6; // amarre por nombre (variante del mismo request)
+}
+
+message RecipeInput {
+  string name                        = 1;
+  int32  version                     = 2;
+  repeated IngredientInput ingredients = 3;
+}
+
+// Los flags set_* indican si la sección viene en el request.
+// set_x = false → no se toca. set_x = true con lista vacía → se elimina.
+message SetProductOptionsRequest {
+  uint64 product_id            = 1;
+  string product_name          = 2; // para el nombre por defecto de la receta
+  bool   set_variants          = 3;
+  repeated VariantInput variants = 4;
+  bool   set_modifiers         = 5;
+  repeated uint64 product_modifier_ids = 6;
+  bool   set_recipe            = 7;
+  RecipeInput recipe           = 8;
+}
+
+// ── Salida ─────────────────────────────────────────────────────────────
+
+message VariantOutput {
+  uint64 id               = 1;
+  string name             = 2;
+  double price_adjustment = 3;
+  string adjustment_type  = 4;
+}
+
+message SetProductOptionsResponse {
+  bool   success           = 1;
+  string error_message     = 2;
+  repeated VariantOutput variants = 3;
+  uint64 recipe_id         = 4;
+  int32  ingredients_count = 5;
+  int32  modifiers_count   = 6;
+}
+
+message GetProductOptionsRequest {
+  uint64 product_id = 1;
+}
+
+message IngredientOutput {
+  uint64 id            = 1;
+  uint64 ingredient_id = 2;
+  double quantity      = 3;
+  string unit          = 4;
+  double waste_factor  = 5;
+  uint64 variant_id    = 6; // 0 = se consume siempre
+}
+
+message RecipeOutput {
+  uint64 id      = 1;
+  string name    = 2;
+  int32  version = 3;
+  repeated IngredientOutput ingredients = 4;
+}
+
+message ModifierOutput {
+  uint64 product_modifier_id = 1;
+  uint64 modifier_product_id = 2;
+  double quantity            = 3;
+  int32  min_selection       = 4;
+  int32  max_selection       = 5;
+  double price_adjustment    = 6;
+  bool   is_default          = 7;
+  string modifier_type       = 8;
+}
+
+message GetProductOptionsResponse {
+  bool success                     = 1;
+  repeated VariantOutput variants  = 2;
+  RecipeOutput recipe              = 3; // null si no tiene receta
+  repeated ModifierOutput modifiers = 4;
+}
