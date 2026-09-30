@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ProductOptionsService_SetProductOptions_FullMethodName = "/menu.product_options.ProductOptionsService/SetProductOptions"
-	ProductOptionsService_GetProductOptions_FullMethodName = "/menu.product_options.ProductOptionsService/GetProductOptions"
+	ProductOptionsService_SetProductOptions_FullMethodName      = "/menu.product_options.ProductOptionsService/SetProductOptions"
+	ProductOptionsService_GetProductOptions_FullMethodName      = "/menu.product_options.ProductOptionsService/GetProductOptions"
+	ProductOptionsService_GetProductOptionsBatch_FullMethodName = "/menu.product_options.ProductOptionsService/GetProductOptionsBatch"
 )
 
 // ProductOptionsServiceClient is the client API for ProductOptionsService service.
@@ -32,6 +33,7 @@ const (
 type ProductOptionsServiceClient interface {
 	SetProductOptions(ctx context.Context, in *SetProductOptionsRequest, opts ...grpc.CallOption) (*SetProductOptionsResponse, error)
 	GetProductOptions(ctx context.Context, in *GetProductOptionsRequest, opts ...grpc.CallOption) (*GetProductOptionsResponse, error)
+	GetProductOptionsBatch(ctx context.Context, in *GetProductOptionsBatchRequest, opts ...grpc.CallOption) (*GetProductOptionsBatchResponse, error)
 }
 
 type productOptionsServiceClient struct {
@@ -62,6 +64,16 @@ func (c *productOptionsServiceClient) GetProductOptions(ctx context.Context, in 
 	return out, nil
 }
 
+func (c *productOptionsServiceClient) GetProductOptionsBatch(ctx context.Context, in *GetProductOptionsBatchRequest, opts ...grpc.CallOption) (*GetProductOptionsBatchResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetProductOptionsBatchResponse)
+	err := c.cc.Invoke(ctx, ProductOptionsService_GetProductOptionsBatch_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductOptionsServiceServer is the server API for ProductOptionsService service.
 // All implementations must embed UnimplementedProductOptionsServiceServer
 // for forward compatibility.
@@ -71,6 +83,7 @@ func (c *productOptionsServiceClient) GetProductOptions(ctx context.Context, in 
 type ProductOptionsServiceServer interface {
 	SetProductOptions(context.Context, *SetProductOptionsRequest) (*SetProductOptionsResponse, error)
 	GetProductOptions(context.Context, *GetProductOptionsRequest) (*GetProductOptionsResponse, error)
+	GetProductOptionsBatch(context.Context, *GetProductOptionsBatchRequest) (*GetProductOptionsBatchResponse, error)
 	mustEmbedUnimplementedProductOptionsServiceServer()
 }
 
@@ -86,6 +99,9 @@ func (UnimplementedProductOptionsServiceServer) SetProductOptions(context.Contex
 }
 func (UnimplementedProductOptionsServiceServer) GetProductOptions(context.Context, *GetProductOptionsRequest) (*GetProductOptionsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetProductOptions not implemented")
+}
+func (UnimplementedProductOptionsServiceServer) GetProductOptionsBatch(context.Context, *GetProductOptionsBatchRequest) (*GetProductOptionsBatchResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetProductOptionsBatch not implemented")
 }
 func (UnimplementedProductOptionsServiceServer) mustEmbedUnimplementedProductOptionsServiceServer() {}
 func (UnimplementedProductOptionsServiceServer) testEmbeddedByValue()                               {}
@@ -144,6 +160,24 @@ func _ProductOptionsService_GetProductOptions_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProductOptionsService_GetProductOptionsBatch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProductOptionsBatchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductOptionsServiceServer).GetProductOptionsBatch(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProductOptionsService_GetProductOptionsBatch_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductOptionsServiceServer).GetProductOptionsBatch(ctx, req.(*GetProductOptionsBatchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProductOptionsService_ServiceDesc is the grpc.ServiceDesc for ProductOptionsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -158,6 +192,10 @@ var ProductOptionsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProductOptions",
 			Handler:    _ProductOptionsService_GetProductOptions_Handler,
+		},
+		{
+			MethodName: "GetProductOptionsBatch",
+			Handler:    _ProductOptionsService_GetProductOptionsBatch_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

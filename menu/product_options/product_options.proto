@@ -9,6 +9,7 @@ option go_package = "github.com/InBitGT/proto-definitions/menu/product_options;p
 service ProductOptionsService {
   rpc SetProductOptions (SetProductOptionsRequest) returns (SetProductOptionsResponse);
   rpc GetProductOptions (GetProductOptionsRequest) returns (GetProductOptionsResponse);
+  rpc GetProductOptionsBatch (GetProductOptionsBatchRequest) returns (GetProductOptionsBatchResponse); // ← nuevo
 }
 
 // ── Entrada ────────────────────────────────────────────────────────────
@@ -102,4 +103,23 @@ message GetProductOptionsResponse {
   repeated VariantOutput variants  = 2;
   RecipeOutput recipe              = 3; // null si no tiene receta
   repeated ModifierOutput modifiers = 4;
+}
+
+// ── Lote: para GET /product/full (lista) ───────────────────────────────
+
+message GetProductOptionsBatchRequest {
+  repeated uint64 product_ids = 1;
+}
+
+message ProductOptionsEntry {
+  uint64 product_id                 = 1;
+  repeated VariantOutput variants   = 2;
+  RecipeOutput recipe               = 3; // null si no tiene receta
+  repeated ModifierOutput modifiers = 4; // modificadores ASIGNADOS al producto
+  ModifierOutput own_modifier       = 5; // configuración propia, si el producto ES un modificador
+}
+
+message GetProductOptionsBatchResponse {
+  bool success                        = 1;
+  repeated ProductOptionsEntry entries = 2;
 }

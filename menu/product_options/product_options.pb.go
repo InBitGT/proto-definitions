@@ -851,6 +851,178 @@ func (x *GetProductOptionsResponse) GetModifiers() []*ModifierOutput {
 	return nil
 }
 
+type GetProductOptionsBatchRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ProductIds    []uint64               `protobuf:"varint,1,rep,packed,name=product_ids,json=productIds,proto3" json:"product_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetProductOptionsBatchRequest) Reset() {
+	*x = GetProductOptionsBatchRequest{}
+	mi := &file_proto_menu_product_options_product_options_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetProductOptionsBatchRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetProductOptionsBatchRequest) ProtoMessage() {}
+
+func (x *GetProductOptionsBatchRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_menu_product_options_product_options_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetProductOptionsBatchRequest.ProtoReflect.Descriptor instead.
+func (*GetProductOptionsBatchRequest) Descriptor() ([]byte, []int) {
+	return file_proto_menu_product_options_product_options_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GetProductOptionsBatchRequest) GetProductIds() []uint64 {
+	if x != nil {
+		return x.ProductIds
+	}
+	return nil
+}
+
+type ProductOptionsEntry struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ProductId     uint64                 `protobuf:"varint,1,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
+	Variants      []*VariantOutput       `protobuf:"bytes,2,rep,name=variants,proto3" json:"variants,omitempty"`
+	Recipe        *RecipeOutput          `protobuf:"bytes,3,opt,name=recipe,proto3" json:"recipe,omitempty"`                              // null si no tiene receta
+	Modifiers     []*ModifierOutput      `protobuf:"bytes,4,rep,name=modifiers,proto3" json:"modifiers,omitempty"`                        // modificadores ASIGNADOS al producto
+	OwnModifier   *ModifierOutput        `protobuf:"bytes,5,opt,name=own_modifier,json=ownModifier,proto3" json:"own_modifier,omitempty"` // configuración propia, si el producto ES un modificador
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ProductOptionsEntry) Reset() {
+	*x = ProductOptionsEntry{}
+	mi := &file_proto_menu_product_options_product_options_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ProductOptionsEntry) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProductOptionsEntry) ProtoMessage() {}
+
+func (x *ProductOptionsEntry) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_menu_product_options_product_options_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProductOptionsEntry.ProtoReflect.Descriptor instead.
+func (*ProductOptionsEntry) Descriptor() ([]byte, []int) {
+	return file_proto_menu_product_options_product_options_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *ProductOptionsEntry) GetProductId() uint64 {
+	if x != nil {
+		return x.ProductId
+	}
+	return 0
+}
+
+func (x *ProductOptionsEntry) GetVariants() []*VariantOutput {
+	if x != nil {
+		return x.Variants
+	}
+	return nil
+}
+
+func (x *ProductOptionsEntry) GetRecipe() *RecipeOutput {
+	if x != nil {
+		return x.Recipe
+	}
+	return nil
+}
+
+func (x *ProductOptionsEntry) GetModifiers() []*ModifierOutput {
+	if x != nil {
+		return x.Modifiers
+	}
+	return nil
+}
+
+func (x *ProductOptionsEntry) GetOwnModifier() *ModifierOutput {
+	if x != nil {
+		return x.OwnModifier
+	}
+	return nil
+}
+
+type GetProductOptionsBatchResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Entries       []*ProductOptionsEntry `protobuf:"bytes,2,rep,name=entries,proto3" json:"entries,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetProductOptionsBatchResponse) Reset() {
+	*x = GetProductOptionsBatchResponse{}
+	mi := &file_proto_menu_product_options_product_options_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetProductOptionsBatchResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetProductOptionsBatchResponse) ProtoMessage() {}
+
+func (x *GetProductOptionsBatchResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_menu_product_options_product_options_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetProductOptionsBatchResponse.ProtoReflect.Descriptor instead.
+func (*GetProductOptionsBatchResponse) Descriptor() ([]byte, []int) {
+	return file_proto_menu_product_options_product_options_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *GetProductOptionsBatchResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *GetProductOptionsBatchResponse) GetEntries() []*ProductOptionsEntry {
+	if x != nil {
+		return x.Entries
+	}
+	return nil
+}
+
 var File_proto_menu_product_options_product_options_proto protoreflect.FileDescriptor
 
 const file_proto_menu_product_options_product_options_proto_rawDesc = "" +
@@ -926,10 +1098,24 @@ const file_proto_menu_product_options_product_options_proto_rawDesc = "" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12?\n" +
 	"\bvariants\x18\x02 \x03(\v2#.menu.product_options.VariantOutputR\bvariants\x12:\n" +
 	"\x06recipe\x18\x03 \x01(\v2\".menu.product_options.RecipeOutputR\x06recipe\x12B\n" +
-	"\tmodifiers\x18\x04 \x03(\v2$.menu.product_options.ModifierOutputR\tmodifiers2\x83\x02\n" +
+	"\tmodifiers\x18\x04 \x03(\v2$.menu.product_options.ModifierOutputR\tmodifiers\"@\n" +
+	"\x1dGetProductOptionsBatchRequest\x12\x1f\n" +
+	"\vproduct_ids\x18\x01 \x03(\x04R\n" +
+	"productIds\"\xbe\x02\n" +
+	"\x13ProductOptionsEntry\x12\x1d\n" +
+	"\n" +
+	"product_id\x18\x01 \x01(\x04R\tproductId\x12?\n" +
+	"\bvariants\x18\x02 \x03(\v2#.menu.product_options.VariantOutputR\bvariants\x12:\n" +
+	"\x06recipe\x18\x03 \x01(\v2\".menu.product_options.RecipeOutputR\x06recipe\x12B\n" +
+	"\tmodifiers\x18\x04 \x03(\v2$.menu.product_options.ModifierOutputR\tmodifiers\x12G\n" +
+	"\fown_modifier\x18\x05 \x01(\v2$.menu.product_options.ModifierOutputR\vownModifier\"\x7f\n" +
+	"\x1eGetProductOptionsBatchResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12C\n" +
+	"\aentries\x18\x02 \x03(\v2).menu.product_options.ProductOptionsEntryR\aentries2\x89\x03\n" +
 	"\x15ProductOptionsService\x12t\n" +
 	"\x11SetProductOptions\x12..menu.product_options.SetProductOptionsRequest\x1a/.menu.product_options.SetProductOptionsResponse\x12t\n" +
-	"\x11GetProductOptions\x12..menu.product_options.GetProductOptionsRequest\x1a/.menu.product_options.GetProductOptionsResponseBLZJgithub.com/InBitGT/proto-definitions/menu/product_options;productoptionspbb\x06proto3"
+	"\x11GetProductOptions\x12..menu.product_options.GetProductOptionsRequest\x1a/.menu.product_options.GetProductOptionsResponse\x12\x83\x01\n" +
+	"\x16GetProductOptionsBatch\x123.menu.product_options.GetProductOptionsBatchRequest\x1a4.menu.product_options.GetProductOptionsBatchResponseBLZJgithub.com/InBitGT/proto-definitions/menu/product_options;productoptionspbb\x06proto3"
 
 var (
 	file_proto_menu_product_options_product_options_proto_rawDescOnce sync.Once
@@ -943,19 +1129,22 @@ func file_proto_menu_product_options_product_options_proto_rawDescGZIP() []byte 
 	return file_proto_menu_product_options_product_options_proto_rawDescData
 }
 
-var file_proto_menu_product_options_product_options_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_proto_menu_product_options_product_options_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_proto_menu_product_options_product_options_proto_goTypes = []any{
-	(*VariantInput)(nil),              // 0: menu.product_options.VariantInput
-	(*IngredientInput)(nil),           // 1: menu.product_options.IngredientInput
-	(*RecipeInput)(nil),               // 2: menu.product_options.RecipeInput
-	(*SetProductOptionsRequest)(nil),  // 3: menu.product_options.SetProductOptionsRequest
-	(*VariantOutput)(nil),             // 4: menu.product_options.VariantOutput
-	(*SetProductOptionsResponse)(nil), // 5: menu.product_options.SetProductOptionsResponse
-	(*GetProductOptionsRequest)(nil),  // 6: menu.product_options.GetProductOptionsRequest
-	(*IngredientOutput)(nil),          // 7: menu.product_options.IngredientOutput
-	(*RecipeOutput)(nil),              // 8: menu.product_options.RecipeOutput
-	(*ModifierOutput)(nil),            // 9: menu.product_options.ModifierOutput
-	(*GetProductOptionsResponse)(nil), // 10: menu.product_options.GetProductOptionsResponse
+	(*VariantInput)(nil),                   // 0: menu.product_options.VariantInput
+	(*IngredientInput)(nil),                // 1: menu.product_options.IngredientInput
+	(*RecipeInput)(nil),                    // 2: menu.product_options.RecipeInput
+	(*SetProductOptionsRequest)(nil),       // 3: menu.product_options.SetProductOptionsRequest
+	(*VariantOutput)(nil),                  // 4: menu.product_options.VariantOutput
+	(*SetProductOptionsResponse)(nil),      // 5: menu.product_options.SetProductOptionsResponse
+	(*GetProductOptionsRequest)(nil),       // 6: menu.product_options.GetProductOptionsRequest
+	(*IngredientOutput)(nil),               // 7: menu.product_options.IngredientOutput
+	(*RecipeOutput)(nil),                   // 8: menu.product_options.RecipeOutput
+	(*ModifierOutput)(nil),                 // 9: menu.product_options.ModifierOutput
+	(*GetProductOptionsResponse)(nil),      // 10: menu.product_options.GetProductOptionsResponse
+	(*GetProductOptionsBatchRequest)(nil),  // 11: menu.product_options.GetProductOptionsBatchRequest
+	(*ProductOptionsEntry)(nil),            // 12: menu.product_options.ProductOptionsEntry
+	(*GetProductOptionsBatchResponse)(nil), // 13: menu.product_options.GetProductOptionsBatchResponse
 }
 var file_proto_menu_product_options_product_options_proto_depIdxs = []int32{
 	1,  // 0: menu.product_options.RecipeInput.ingredients:type_name -> menu.product_options.IngredientInput
@@ -966,15 +1155,22 @@ var file_proto_menu_product_options_product_options_proto_depIdxs = []int32{
 	4,  // 5: menu.product_options.GetProductOptionsResponse.variants:type_name -> menu.product_options.VariantOutput
 	8,  // 6: menu.product_options.GetProductOptionsResponse.recipe:type_name -> menu.product_options.RecipeOutput
 	9,  // 7: menu.product_options.GetProductOptionsResponse.modifiers:type_name -> menu.product_options.ModifierOutput
-	3,  // 8: menu.product_options.ProductOptionsService.SetProductOptions:input_type -> menu.product_options.SetProductOptionsRequest
-	6,  // 9: menu.product_options.ProductOptionsService.GetProductOptions:input_type -> menu.product_options.GetProductOptionsRequest
-	5,  // 10: menu.product_options.ProductOptionsService.SetProductOptions:output_type -> menu.product_options.SetProductOptionsResponse
-	10, // 11: menu.product_options.ProductOptionsService.GetProductOptions:output_type -> menu.product_options.GetProductOptionsResponse
-	10, // [10:12] is the sub-list for method output_type
-	8,  // [8:10] is the sub-list for method input_type
-	8,  // [8:8] is the sub-list for extension type_name
-	8,  // [8:8] is the sub-list for extension extendee
-	0,  // [0:8] is the sub-list for field type_name
+	4,  // 8: menu.product_options.ProductOptionsEntry.variants:type_name -> menu.product_options.VariantOutput
+	8,  // 9: menu.product_options.ProductOptionsEntry.recipe:type_name -> menu.product_options.RecipeOutput
+	9,  // 10: menu.product_options.ProductOptionsEntry.modifiers:type_name -> menu.product_options.ModifierOutput
+	9,  // 11: menu.product_options.ProductOptionsEntry.own_modifier:type_name -> menu.product_options.ModifierOutput
+	12, // 12: menu.product_options.GetProductOptionsBatchResponse.entries:type_name -> menu.product_options.ProductOptionsEntry
+	3,  // 13: menu.product_options.ProductOptionsService.SetProductOptions:input_type -> menu.product_options.SetProductOptionsRequest
+	6,  // 14: menu.product_options.ProductOptionsService.GetProductOptions:input_type -> menu.product_options.GetProductOptionsRequest
+	11, // 15: menu.product_options.ProductOptionsService.GetProductOptionsBatch:input_type -> menu.product_options.GetProductOptionsBatchRequest
+	5,  // 16: menu.product_options.ProductOptionsService.SetProductOptions:output_type -> menu.product_options.SetProductOptionsResponse
+	10, // 17: menu.product_options.ProductOptionsService.GetProductOptions:output_type -> menu.product_options.GetProductOptionsResponse
+	13, // 18: menu.product_options.ProductOptionsService.GetProductOptionsBatch:output_type -> menu.product_options.GetProductOptionsBatchResponse
+	16, // [16:19] is the sub-list for method output_type
+	13, // [13:16] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
 func init() { file_proto_menu_product_options_product_options_proto_init() }
@@ -988,7 +1184,7 @@ func file_proto_menu_product_options_product_options_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_menu_product_options_product_options_proto_rawDesc), len(file_proto_menu_product_options_product_options_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
