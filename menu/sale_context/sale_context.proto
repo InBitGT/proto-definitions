@@ -25,6 +25,7 @@ message ConsumptionLine {
   uint64 ingredient_product_id = 1;
   double quantity = 2;
   string unit = 3;
+  uint64 unit_of_measure_id = 4; // ← nuevo: 0 = unidad de inventario del producto
 }
 
 message GetSaleContextResponse {

@@ -28,6 +28,7 @@ message IngredientInput {
   double waste_factor  = 4;
   uint64 variant_id    = 5; // amarre por ID (variante existente)
   string variant_name  = 6; // amarre por nombre (variante del mismo request)
+  uint64 unit_of_measure_id = 7; // ← nuevo
 }
 
 message RecipeInput {
@@ -78,6 +79,7 @@ message IngredientOutput {
   string unit          = 4;
   double waste_factor  = 5;
   uint64 variant_id    = 6; // 0 = se consume siempre
+  uint64 unit_of_measure_id = 7; // ← nuevo
 }
 
 message RecipeOutput {

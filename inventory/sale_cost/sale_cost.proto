@@ -11,7 +11,8 @@ service SaleCostService {
 message ConsumptionRequestLine {
   uint64 ingredient_product_id = 1;
   double quantity = 2;
-  string unit = 3;
+  string unit = 3;                 // informativo
+  uint64 unit_of_measure_id = 4;   // ← nuevo: 0 = unidad de inventario del producto (sin conversión)
 }
 
 message ConsumeAndGetCostRequest {
@@ -24,13 +25,15 @@ message ConsumeAndGetCostRequest {
 
 message ConsumptionResultLine {
   uint64 ingredient_product_id = 1;
-  double quantity = 2;
+  double quantity = 2;        // cantidad pedida, en la unidad de la línea
   double unit_cost = 3;
   double subtotal_cost = 4;
+  double base_quantity = 5;   // ← nuevo: lo que realmente se descontó, en la unidad de inventario
 }
 
 message ConsumeAndGetCostResponse {
   bool success = 1;
   double total_cost = 2;
   repeated ConsumptionResultLine lines = 3;
+  string error_message = 4;   // ← nuevo: motivo cuando success = false
 }

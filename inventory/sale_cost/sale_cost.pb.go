@@ -25,7 +25,8 @@ type ConsumptionRequestLine struct {
 	state               protoimpl.MessageState `protogen:"open.v1"`
 	IngredientProductId uint64                 `protobuf:"varint,1,opt,name=ingredient_product_id,json=ingredientProductId,proto3" json:"ingredient_product_id,omitempty"`
 	Quantity            float64                `protobuf:"fixed64,2,opt,name=quantity,proto3" json:"quantity,omitempty"`
-	Unit                string                 `protobuf:"bytes,3,opt,name=unit,proto3" json:"unit,omitempty"`
+	Unit                string                 `protobuf:"bytes,3,opt,name=unit,proto3" json:"unit,omitempty"`                                                   // informativo
+	UnitOfMeasureId     uint64                 `protobuf:"varint,4,opt,name=unit_of_measure_id,json=unitOfMeasureId,proto3" json:"unit_of_measure_id,omitempty"` // ← nuevo: 0 = unidad de inventario del producto (sin conversión)
 	unknownFields       protoimpl.UnknownFields
 	sizeCache           protoimpl.SizeCache
 }
@@ -79,6 +80,13 @@ func (x *ConsumptionRequestLine) GetUnit() string {
 		return x.Unit
 	}
 	return ""
+}
+
+func (x *ConsumptionRequestLine) GetUnitOfMeasureId() uint64 {
+	if x != nil {
+		return x.UnitOfMeasureId
+	}
+	return 0
 }
 
 type ConsumeAndGetCostRequest struct {
@@ -160,9 +168,10 @@ func (x *ConsumeAndGetCostRequest) GetLines() []*ConsumptionRequestLine {
 type ConsumptionResultLine struct {
 	state               protoimpl.MessageState `protogen:"open.v1"`
 	IngredientProductId uint64                 `protobuf:"varint,1,opt,name=ingredient_product_id,json=ingredientProductId,proto3" json:"ingredient_product_id,omitempty"`
-	Quantity            float64                `protobuf:"fixed64,2,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	Quantity            float64                `protobuf:"fixed64,2,opt,name=quantity,proto3" json:"quantity,omitempty"` // cantidad pedida, en la unidad de la línea
 	UnitCost            float64                `protobuf:"fixed64,3,opt,name=unit_cost,json=unitCost,proto3" json:"unit_cost,omitempty"`
 	SubtotalCost        float64                `protobuf:"fixed64,4,opt,name=subtotal_cost,json=subtotalCost,proto3" json:"subtotal_cost,omitempty"`
+	BaseQuantity        float64                `protobuf:"fixed64,5,opt,name=base_quantity,json=baseQuantity,proto3" json:"base_quantity,omitempty"` // ← nuevo: lo que realmente se descontó, en la unidad de inventario
 	unknownFields       protoimpl.UnknownFields
 	sizeCache           protoimpl.SizeCache
 }
@@ -225,11 +234,19 @@ func (x *ConsumptionResultLine) GetSubtotalCost() float64 {
 	return 0
 }
 
+func (x *ConsumptionResultLine) GetBaseQuantity() float64 {
+	if x != nil {
+		return x.BaseQuantity
+	}
+	return 0
+}
+
 type ConsumeAndGetCostResponse struct {
 	state         protoimpl.MessageState   `protogen:"open.v1"`
 	Success       bool                     `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
 	TotalCost     float64                  `protobuf:"fixed64,2,opt,name=total_cost,json=totalCost,proto3" json:"total_cost,omitempty"`
 	Lines         []*ConsumptionResultLine `protobuf:"bytes,3,rep,name=lines,proto3" json:"lines,omitempty"`
+	ErrorMessage  string                   `protobuf:"bytes,4,opt,name=error_message,json=errorMessage,proto3" json:"error_message,omitempty"` // ← nuevo: motivo cuando success = false
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -285,31 +302,41 @@ func (x *ConsumeAndGetCostResponse) GetLines() []*ConsumptionResultLine {
 	return nil
 }
 
+func (x *ConsumeAndGetCostResponse) GetErrorMessage() string {
+	if x != nil {
+		return x.ErrorMessage
+	}
+	return ""
+}
+
 var File_proto_inventory_sale_cost_sale_cost_proto protoreflect.FileDescriptor
 
 const file_proto_inventory_sale_cost_sale_cost_proto_rawDesc = "" +
 	"\n" +
-	")proto/inventory/sale_cost/sale_cost.proto\x12\x13inventory.sale_cost\"|\n" +
+	")proto/inventory/sale_cost/sale_cost.proto\x12\x13inventory.sale_cost\"\xa9\x01\n" +
 	"\x16ConsumptionRequestLine\x122\n" +
 	"\x15ingredient_product_id\x18\x01 \x01(\x04R\x13ingredientProductId\x12\x1a\n" +
 	"\bquantity\x18\x02 \x01(\x01R\bquantity\x12\x12\n" +
-	"\x04unit\x18\x03 \x01(\tR\x04unit\"\xe3\x01\n" +
+	"\x04unit\x18\x03 \x01(\tR\x04unit\x12+\n" +
+	"\x12unit_of_measure_id\x18\x04 \x01(\x04R\x0funitOfMeasureId\"\xe3\x01\n" +
 	"\x18ConsumeAndGetCostRequest\x12!\n" +
 	"\fwarehouse_id\x18\x01 \x01(\x04R\vwarehouseId\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\x04R\x06userId\x12!\n" +
 	"\freference_id\x18\x03 \x01(\x04R\vreferenceId\x12%\n" +
 	"\x0ereference_type\x18\x04 \x01(\tR\rreferenceType\x12A\n" +
-	"\x05lines\x18\x05 \x03(\v2+.inventory.sale_cost.ConsumptionRequestLineR\x05lines\"\xa9\x01\n" +
+	"\x05lines\x18\x05 \x03(\v2+.inventory.sale_cost.ConsumptionRequestLineR\x05lines\"\xce\x01\n" +
 	"\x15ConsumptionResultLine\x122\n" +
 	"\x15ingredient_product_id\x18\x01 \x01(\x04R\x13ingredientProductId\x12\x1a\n" +
 	"\bquantity\x18\x02 \x01(\x01R\bquantity\x12\x1b\n" +
 	"\tunit_cost\x18\x03 \x01(\x01R\bunitCost\x12#\n" +
-	"\rsubtotal_cost\x18\x04 \x01(\x01R\fsubtotalCost\"\x96\x01\n" +
+	"\rsubtotal_cost\x18\x04 \x01(\x01R\fsubtotalCost\x12#\n" +
+	"\rbase_quantity\x18\x05 \x01(\x01R\fbaseQuantity\"\xbb\x01\n" +
 	"\x19ConsumeAndGetCostResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x1d\n" +
 	"\n" +
 	"total_cost\x18\x02 \x01(\x01R\ttotalCost\x12@\n" +
-	"\x05lines\x18\x03 \x03(\v2*.inventory.sale_cost.ConsumptionResultLineR\x05lines2\x85\x01\n" +
+	"\x05lines\x18\x03 \x03(\v2*.inventory.sale_cost.ConsumptionResultLineR\x05lines\x12#\n" +
+	"\rerror_message\x18\x04 \x01(\tR\ferrorMessage2\x85\x01\n" +
 	"\x0fSaleCostService\x12r\n" +
 	"\x11ConsumeAndGetCost\x12-.inventory.sale_cost.ConsumeAndGetCostRequest\x1a..inventory.sale_cost.ConsumeAndGetCostResponseBEZCgithub.com/InBitGT/proto-definitions/inventory/sale_cost;salecostpbb\x06proto3"
 

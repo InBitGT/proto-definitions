@@ -222,6 +222,7 @@ type ConsumeDirectProductResponse struct {
 	Success       bool                              `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
 	TotalCost     float64                           `protobuf:"fixed64,2,opt,name=total_cost,json=totalCost,proto3" json:"total_cost,omitempty"`
 	Lines         []*ConsumeDirectProductResultLine `protobuf:"bytes,3,rep,name=lines,proto3" json:"lines,omitempty"`
+	ErrorMessage  string                            `protobuf:"bytes,4,opt,name=error_message,json=errorMessage,proto3" json:"error_message,omitempty"` // ← nuevo
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -275,6 +276,13 @@ func (x *ConsumeDirectProductResponse) GetLines() []*ConsumeDirectProductResultL
 		return x.Lines
 	}
 	return nil
+}
+
+func (x *ConsumeDirectProductResponse) GetErrorMessage() string {
+	if x != nil {
+		return x.ErrorMessage
+	}
+	return ""
 }
 
 type ReverseConsumeProductLine struct {
@@ -337,6 +345,9 @@ func (x *ReverseConsumeProductLine) GetUnitCost() float64 {
 	return 0
 }
 
+// Si lines viene VACÍO, se revierte exactamente lo que se consumió con
+// reference_id + reference_type (todos sus movimientos de venta y consumo).
+// Es idempotente: si ya se revirtió, responde success = true sin hacer nada.
 type ReverseConsumeProductRequest struct {
 	state         protoimpl.MessageState       `protogen:"open.v1"`
 	WarehouseId   uint64                       `protobuf:"varint,1,opt,name=warehouse_id,json=warehouseId,proto3" json:"warehouse_id,omitempty"`
@@ -414,11 +425,13 @@ func (x *ReverseConsumeProductRequest) GetLines() []*ReverseConsumeProductLine {
 }
 
 type ReverseConsumeProductResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
-	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Success         bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Message         string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	LinesRestored   int32                  `protobuf:"varint,3,opt,name=lines_restored,json=linesRestored,proto3" json:"lines_restored,omitempty"`       // ← nuevo
+	AlreadyReversed bool                   `protobuf:"varint,4,opt,name=already_reversed,json=alreadyReversed,proto3" json:"already_reversed,omitempty"` // ← nuevo
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *ReverseConsumeProductResponse) Reset() {
@@ -465,6 +478,20 @@ func (x *ReverseConsumeProductResponse) GetMessage() string {
 	return ""
 }
 
+func (x *ReverseConsumeProductResponse) GetLinesRestored() int32 {
+	if x != nil {
+		return x.LinesRestored
+	}
+	return 0
+}
+
+func (x *ReverseConsumeProductResponse) GetAlreadyReversed() bool {
+	if x != nil {
+		return x.AlreadyReversed
+	}
+	return false
+}
+
 var File_proto_inventory_pos_consume_pos_consume_proto protoreflect.FileDescriptor
 
 const file_proto_inventory_pos_consume_pos_consume_proto_rawDesc = "" +
@@ -485,12 +512,13 @@ const file_proto_inventory_pos_consume_pos_consume_proto_rawDesc = "" +
 	"product_id\x18\x01 \x01(\x04R\tproductId\x12\x1a\n" +
 	"\bquantity\x18\x02 \x01(\x01R\bquantity\x12\x1b\n" +
 	"\tunit_cost\x18\x03 \x01(\x01R\bunitCost\x12#\n" +
-	"\rsubtotal_cost\x18\x04 \x01(\x01R\fsubtotalCost\"\xa4\x01\n" +
+	"\rsubtotal_cost\x18\x04 \x01(\x01R\fsubtotalCost\"\xc9\x01\n" +
 	"\x1cConsumeDirectProductResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x1d\n" +
 	"\n" +
 	"total_cost\x18\x02 \x01(\x01R\ttotalCost\x12K\n" +
-	"\x05lines\x18\x03 \x03(\v25.inventory.pos_consume.ConsumeDirectProductResultLineR\x05lines\"s\n" +
+	"\x05lines\x18\x03 \x03(\v25.inventory.pos_consume.ConsumeDirectProductResultLineR\x05lines\x12#\n" +
+	"\rerror_message\x18\x04 \x01(\tR\ferrorMessage\"s\n" +
 	"\x19ReverseConsumeProductLine\x12\x1d\n" +
 	"\n" +
 	"product_id\x18\x01 \x01(\x04R\tproductId\x12\x1a\n" +
@@ -501,10 +529,12 @@ const file_proto_inventory_pos_consume_pos_consume_proto_rawDesc = "" +
 	"\auser_id\x18\x02 \x01(\x04R\x06userId\x12!\n" +
 	"\freference_id\x18\x03 \x01(\x04R\vreferenceId\x12%\n" +
 	"\x0ereference_type\x18\x04 \x01(\tR\rreferenceType\x12F\n" +
-	"\x05lines\x18\x05 \x03(\v20.inventory.pos_consume.ReverseConsumeProductLineR\x05lines\"S\n" +
+	"\x05lines\x18\x05 \x03(\v20.inventory.pos_consume.ReverseConsumeProductLineR\x05lines\"\xa5\x01\n" +
 	"\x1dReverseConsumeProductResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage2\x99\x02\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\x12%\n" +
+	"\x0elines_restored\x18\x03 \x01(\x05R\rlinesRestored\x12)\n" +
+	"\x10already_reversed\x18\x04 \x01(\bR\x0falreadyReversed2\x99\x02\n" +
 	"\x11POSConsumeService\x12\x7f\n" +
 	"\x14ConsumeDirectProduct\x122.inventory.pos_consume.ConsumeDirectProductRequest\x1a3.inventory.pos_consume.ConsumeDirectProductResponse\x12\x82\x01\n" +
 	"\x15ReverseConsumeProduct\x123.inventory.pos_consume.ReverseConsumeProductRequest\x1a4.inventory.pos_consume.ReverseConsumeProductResponseBIZGgithub.com/InBitGT/proto-definitions/inventory/pos_consume;posconsumepbb\x06proto3"

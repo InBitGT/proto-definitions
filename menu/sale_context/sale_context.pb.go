@@ -154,6 +154,7 @@ type ConsumptionLine struct {
 	IngredientProductId uint64                 `protobuf:"varint,1,opt,name=ingredient_product_id,json=ingredientProductId,proto3" json:"ingredient_product_id,omitempty"`
 	Quantity            float64                `protobuf:"fixed64,2,opt,name=quantity,proto3" json:"quantity,omitempty"`
 	Unit                string                 `protobuf:"bytes,3,opt,name=unit,proto3" json:"unit,omitempty"`
+	UnitOfMeasureId     uint64                 `protobuf:"varint,4,opt,name=unit_of_measure_id,json=unitOfMeasureId,proto3" json:"unit_of_measure_id,omitempty"` // ← nuevo: 0 = unidad de inventario del producto
 	unknownFields       protoimpl.UnknownFields
 	sizeCache           protoimpl.SizeCache
 }
@@ -207,6 +208,13 @@ func (x *ConsumptionLine) GetUnit() string {
 		return x.Unit
 	}
 	return ""
+}
+
+func (x *ConsumptionLine) GetUnitOfMeasureId() uint64 {
+	if x != nil {
+		return x.UnitOfMeasureId
+	}
+	return 0
 }
 
 type GetSaleContextResponse struct {
@@ -371,11 +379,12 @@ const file_proto_menu_sale_context_sale_context_proto_rawDesc = "" +
 	"\x13modifier_product_id\x18\x01 \x01(\x04R\x11modifierProductId\x12#\n" +
 	"\rmodifier_name\x18\x02 \x01(\tR\fmodifierName\x12)\n" +
 	"\x10price_adjustment\x18\x03 \x01(\x01R\x0fpriceAdjustment\x12\x1a\n" +
-	"\bquantity\x18\x04 \x01(\x01R\bquantity\"u\n" +
+	"\bquantity\x18\x04 \x01(\x01R\bquantity\"\xa2\x01\n" +
 	"\x0fConsumptionLine\x122\n" +
 	"\x15ingredient_product_id\x18\x01 \x01(\x04R\x13ingredientProductId\x12\x1a\n" +
 	"\bquantity\x18\x02 \x01(\x01R\bquantity\x12\x12\n" +
-	"\x04unit\x18\x03 \x01(\tR\x04unit\"\xe2\x04\n" +
+	"\x04unit\x18\x03 \x01(\tR\x04unit\x12+\n" +
+	"\x12unit_of_measure_id\x18\x04 \x01(\x04R\x0funitOfMeasureId\"\xe2\x04\n" +
 	"\x16GetSaleContextResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x1d\n" +
 	"\n" +

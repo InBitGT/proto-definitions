@@ -30,9 +30,10 @@ message ConsumeDirectProductResultLine {
 }
 
 message ConsumeDirectProductResponse {
-  bool                                    success    = 1;
-  double                                  total_cost = 2;
-  repeated ConsumeDirectProductResultLine lines      = 3;
+  bool                                    success       = 1;
+  double                                  total_cost    = 2;
+  repeated ConsumeDirectProductResultLine lines         = 3;
+  string                                  error_message = 4; // ← nuevo
 }
 
 message ReverseConsumeProductLine {
@@ -41,6 +42,9 @@ message ReverseConsumeProductLine {
   double unit_cost  = 3;
 }
 
+// Si lines viene VACÍO, se revierte exactamente lo que se consumió con
+// reference_id + reference_type (todos sus movimientos de venta y consumo).
+// Es idempotente: si ya se revirtió, responde success = true sin hacer nada.
 message ReverseConsumeProductRequest {
   uint64                             warehouse_id   = 1;
   uint64                             user_id        = 2;
@@ -50,6 +54,8 @@ message ReverseConsumeProductRequest {
 }
 
 message ReverseConsumeProductResponse {
-  bool   success = 1;
-  string message = 2;
+  bool   success          = 1;
+  string message          = 2;
+  int32  lines_restored   = 3; // ← nuevo
+  bool   already_reversed = 4; // ← nuevo
 }

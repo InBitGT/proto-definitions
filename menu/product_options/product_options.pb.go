@@ -90,15 +90,16 @@ func (x *VariantInput) GetAdjustmentType() string {
 }
 
 type IngredientInput struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	IngredientId  uint64                 `protobuf:"varint,1,opt,name=ingredient_id,json=ingredientId,proto3" json:"ingredient_id,omitempty"`
-	Quantity      float64                `protobuf:"fixed64,2,opt,name=quantity,proto3" json:"quantity,omitempty"`
-	Unit          string                 `protobuf:"bytes,3,opt,name=unit,proto3" json:"unit,omitempty"`
-	WasteFactor   float64                `protobuf:"fixed64,4,opt,name=waste_factor,json=wasteFactor,proto3" json:"waste_factor,omitempty"`
-	VariantId     uint64                 `protobuf:"varint,5,opt,name=variant_id,json=variantId,proto3" json:"variant_id,omitempty"`      // amarre por ID (variante existente)
-	VariantName   string                 `protobuf:"bytes,6,opt,name=variant_name,json=variantName,proto3" json:"variant_name,omitempty"` // amarre por nombre (variante del mismo request)
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	IngredientId    uint64                 `protobuf:"varint,1,opt,name=ingredient_id,json=ingredientId,proto3" json:"ingredient_id,omitempty"`
+	Quantity        float64                `protobuf:"fixed64,2,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	Unit            string                 `protobuf:"bytes,3,opt,name=unit,proto3" json:"unit,omitempty"`
+	WasteFactor     float64                `protobuf:"fixed64,4,opt,name=waste_factor,json=wasteFactor,proto3" json:"waste_factor,omitempty"`
+	VariantId       uint64                 `protobuf:"varint,5,opt,name=variant_id,json=variantId,proto3" json:"variant_id,omitempty"`                       // amarre por ID (variante existente)
+	VariantName     string                 `protobuf:"bytes,6,opt,name=variant_name,json=variantName,proto3" json:"variant_name,omitempty"`                  // amarre por nombre (variante del mismo request)
+	UnitOfMeasureId uint64                 `protobuf:"varint,7,opt,name=unit_of_measure_id,json=unitOfMeasureId,proto3" json:"unit_of_measure_id,omitempty"` // ← nuevo
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *IngredientInput) Reset() {
@@ -171,6 +172,13 @@ func (x *IngredientInput) GetVariantName() string {
 		return x.VariantName
 	}
 	return ""
+}
+
+func (x *IngredientInput) GetUnitOfMeasureId() uint64 {
+	if x != nil {
+		return x.UnitOfMeasureId
+	}
+	return 0
 }
 
 type RecipeInput struct {
@@ -532,15 +540,16 @@ func (x *GetProductOptionsRequest) GetProductId() uint64 {
 }
 
 type IngredientOutput struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            uint64                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	IngredientId  uint64                 `protobuf:"varint,2,opt,name=ingredient_id,json=ingredientId,proto3" json:"ingredient_id,omitempty"`
-	Quantity      float64                `protobuf:"fixed64,3,opt,name=quantity,proto3" json:"quantity,omitempty"`
-	Unit          string                 `protobuf:"bytes,4,opt,name=unit,proto3" json:"unit,omitempty"`
-	WasteFactor   float64                `protobuf:"fixed64,5,opt,name=waste_factor,json=wasteFactor,proto3" json:"waste_factor,omitempty"`
-	VariantId     uint64                 `protobuf:"varint,6,opt,name=variant_id,json=variantId,proto3" json:"variant_id,omitempty"` // 0 = se consume siempre
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Id              uint64                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	IngredientId    uint64                 `protobuf:"varint,2,opt,name=ingredient_id,json=ingredientId,proto3" json:"ingredient_id,omitempty"`
+	Quantity        float64                `protobuf:"fixed64,3,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	Unit            string                 `protobuf:"bytes,4,opt,name=unit,proto3" json:"unit,omitempty"`
+	WasteFactor     float64                `protobuf:"fixed64,5,opt,name=waste_factor,json=wasteFactor,proto3" json:"waste_factor,omitempty"`
+	VariantId       uint64                 `protobuf:"varint,6,opt,name=variant_id,json=variantId,proto3" json:"variant_id,omitempty"`                       // 0 = se consume siempre
+	UnitOfMeasureId uint64                 `protobuf:"varint,7,opt,name=unit_of_measure_id,json=unitOfMeasureId,proto3" json:"unit_of_measure_id,omitempty"` // ← nuevo
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *IngredientOutput) Reset() {
@@ -611,6 +620,13 @@ func (x *IngredientOutput) GetWasteFactor() float64 {
 func (x *IngredientOutput) GetVariantId() uint64 {
 	if x != nil {
 		return x.VariantId
+	}
+	return 0
+}
+
+func (x *IngredientOutput) GetUnitOfMeasureId() uint64 {
+	if x != nil {
+		return x.UnitOfMeasureId
 	}
 	return 0
 }
@@ -1032,7 +1048,7 @@ const file_proto_menu_product_options_product_options_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12)\n" +
 	"\x10price_adjustment\x18\x03 \x01(\x01R\x0fpriceAdjustment\x12'\n" +
-	"\x0fadjustment_type\x18\x04 \x01(\tR\x0eadjustmentType\"\xcb\x01\n" +
+	"\x0fadjustment_type\x18\x04 \x01(\tR\x0eadjustmentType\"\xf8\x01\n" +
 	"\x0fIngredientInput\x12#\n" +
 	"\ringredient_id\x18\x01 \x01(\x04R\fingredientId\x12\x1a\n" +
 	"\bquantity\x18\x02 \x01(\x01R\bquantity\x12\x12\n" +
@@ -1040,7 +1056,8 @@ const file_proto_menu_product_options_product_options_proto_rawDesc = "" +
 	"\fwaste_factor\x18\x04 \x01(\x01R\vwasteFactor\x12\x1d\n" +
 	"\n" +
 	"variant_id\x18\x05 \x01(\x04R\tvariantId\x12!\n" +
-	"\fvariant_name\x18\x06 \x01(\tR\vvariantName\"\x84\x01\n" +
+	"\fvariant_name\x18\x06 \x01(\tR\vvariantName\x12+\n" +
+	"\x12unit_of_measure_id\x18\a \x01(\x04R\x0funitOfMeasureId\"\x84\x01\n" +
 	"\vRecipeInput\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x18\n" +
 	"\aversion\x18\x02 \x01(\x05R\aversion\x12G\n" +
@@ -1070,7 +1087,7 @@ const file_proto_menu_product_options_product_options_proto_rawDesc = "" +
 	"\x0fmodifiers_count\x18\x06 \x01(\x05R\x0emodifiersCount\"9\n" +
 	"\x18GetProductOptionsRequest\x12\x1d\n" +
 	"\n" +
-	"product_id\x18\x01 \x01(\x04R\tproductId\"\xb9\x01\n" +
+	"product_id\x18\x01 \x01(\x04R\tproductId\"\xe6\x01\n" +
 	"\x10IngredientOutput\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x04R\x02id\x12#\n" +
 	"\ringredient_id\x18\x02 \x01(\x04R\fingredientId\x12\x1a\n" +
@@ -1078,7 +1095,8 @@ const file_proto_menu_product_options_product_options_proto_rawDesc = "" +
 	"\x04unit\x18\x04 \x01(\tR\x04unit\x12!\n" +
 	"\fwaste_factor\x18\x05 \x01(\x01R\vwasteFactor\x12\x1d\n" +
 	"\n" +
-	"variant_id\x18\x06 \x01(\x04R\tvariantId\"\x96\x01\n" +
+	"variant_id\x18\x06 \x01(\x04R\tvariantId\x12+\n" +
+	"\x12unit_of_measure_id\x18\a \x01(\x04R\x0funitOfMeasureId\"\x96\x01\n" +
 	"\fRecipeOutput\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x18\n" +
