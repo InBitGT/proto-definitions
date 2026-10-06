@@ -412,6 +412,83 @@ func (x *POSModifier) GetModifierType() string {
 	return ""
 }
 
+// ── Línea de receta (nuevo): para calcular cuántas se pueden preparar ──
+type POSRecipeLine struct {
+	state               protoimpl.MessageState `protogen:"open.v1"`
+	IngredientProductId uint64                 `protobuf:"varint,1,opt,name=ingredient_product_id,json=ingredientProductId,proto3" json:"ingredient_product_id,omitempty"`
+	Quantity            float64                `protobuf:"fixed64,2,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	WasteFactor         float64                `protobuf:"fixed64,3,opt,name=waste_factor,json=wasteFactor,proto3" json:"waste_factor,omitempty"`
+	VariantId           uint64                 `protobuf:"varint,4,opt,name=variant_id,json=variantId,proto3" json:"variant_id,omitempty"`                       // 0 = se consume siempre
+	UnitOfMeasureId     uint64                 `protobuf:"varint,5,opt,name=unit_of_measure_id,json=unitOfMeasureId,proto3" json:"unit_of_measure_id,omitempty"` // 0 = unidad de inventario del ingrediente
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
+}
+
+func (x *POSRecipeLine) Reset() {
+	*x = POSRecipeLine{}
+	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *POSRecipeLine) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*POSRecipeLine) ProtoMessage() {}
+
+func (x *POSRecipeLine) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use POSRecipeLine.ProtoReflect.Descriptor instead.
+func (*POSRecipeLine) Descriptor() ([]byte, []int) {
+	return file_proto_menu_pos_context_pos_context_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *POSRecipeLine) GetIngredientProductId() uint64 {
+	if x != nil {
+		return x.IngredientProductId
+	}
+	return 0
+}
+
+func (x *POSRecipeLine) GetQuantity() float64 {
+	if x != nil {
+		return x.Quantity
+	}
+	return 0
+}
+
+func (x *POSRecipeLine) GetWasteFactor() float64 {
+	if x != nil {
+		return x.WasteFactor
+	}
+	return 0
+}
+
+func (x *POSRecipeLine) GetVariantId() uint64 {
+	if x != nil {
+		return x.VariantId
+	}
+	return 0
+}
+
+func (x *POSRecipeLine) GetUnitOfMeasureId() uint64 {
+	if x != nil {
+		return x.UnitOfMeasureId
+	}
+	return 0
+}
+
 type POSProductContext struct {
 	state                 protoimpl.MessageState  `protogen:"open.v1"`
 	ProductId             uint64                  `protobuf:"varint,1,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
@@ -429,15 +506,16 @@ type POSProductContext struct {
 	WholesaleDiscountPct  float64                 `protobuf:"fixed64,13,opt,name=wholesale_discount_pct,json=wholesaleDiscountPct,proto3" json:"wholesale_discount_pct,omitempty"`
 	PricePerUom           []*POSPricePerUom       `protobuf:"bytes,14,rep,name=price_per_uom,json=pricePerUom,proto3" json:"price_per_uom,omitempty"`
 	CustomerTypePrices    []*POSCustomerTypePrice `protobuf:"bytes,15,rep,name=customer_type_prices,json=customerTypePrices,proto3" json:"customer_type_prices,omitempty"`
-	Variants              []*POSVariant           `protobuf:"bytes,16,rep,name=variants,proto3" json:"variants,omitempty"`   // ← nuevo
-	Modifiers             []*POSModifier          `protobuf:"bytes,17,rep,name=modifiers,proto3" json:"modifiers,omitempty"` // ← nuevo
+	Variants              []*POSVariant           `protobuf:"bytes,16,rep,name=variants,proto3" json:"variants,omitempty"`                          // ← nuevo
+	Modifiers             []*POSModifier          `protobuf:"bytes,17,rep,name=modifiers,proto3" json:"modifiers,omitempty"`                        // ← nuevo
+	RecipeLines           []*POSRecipeLine        `protobuf:"bytes,18,rep,name=recipe_lines,json=recipeLines,proto3" json:"recipe_lines,omitempty"` // ← nuevo
 	unknownFields         protoimpl.UnknownFields
 	sizeCache             protoimpl.SizeCache
 }
 
 func (x *POSProductContext) Reset() {
 	*x = POSProductContext{}
-	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[5]
+	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -449,7 +527,7 @@ func (x *POSProductContext) String() string {
 func (*POSProductContext) ProtoMessage() {}
 
 func (x *POSProductContext) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[5]
+	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -462,7 +540,7 @@ func (x *POSProductContext) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use POSProductContext.ProtoReflect.Descriptor instead.
 func (*POSProductContext) Descriptor() ([]byte, []int) {
-	return file_proto_menu_pos_context_pos_context_proto_rawDescGZIP(), []int{5}
+	return file_proto_menu_pos_context_pos_context_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *POSProductContext) GetProductId() uint64 {
@@ -584,6 +662,13 @@ func (x *POSProductContext) GetModifiers() []*POSModifier {
 	return nil
 }
 
+func (x *POSProductContext) GetRecipeLines() []*POSRecipeLine {
+	if x != nil {
+		return x.RecipeLines
+	}
+	return nil
+}
+
 type GetPOSContextResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
@@ -594,7 +679,7 @@ type GetPOSContextResponse struct {
 
 func (x *GetPOSContextResponse) Reset() {
 	*x = GetPOSContextResponse{}
-	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[6]
+	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -606,7 +691,7 @@ func (x *GetPOSContextResponse) String() string {
 func (*GetPOSContextResponse) ProtoMessage() {}
 
 func (x *GetPOSContextResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[6]
+	mi := &file_proto_menu_pos_context_pos_context_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -619,7 +704,7 @@ func (x *GetPOSContextResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPOSContextResponse.ProtoReflect.Descriptor instead.
 func (*GetPOSContextResponse) Descriptor() ([]byte, []int) {
-	return file_proto_menu_pos_context_pos_context_proto_rawDescGZIP(), []int{6}
+	return file_proto_menu_pos_context_pos_context_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GetPOSContextResponse) GetSuccess() bool {
@@ -674,7 +759,14 @@ const file_proto_menu_pos_context_pos_context_proto_rawDesc = "" +
 	"\x10price_adjustment\x18\x06 \x01(\x01R\x0fpriceAdjustment\x12\x1d\n" +
 	"\n" +
 	"is_default\x18\a \x01(\bR\tisDefault\x12#\n" +
-	"\rmodifier_type\x18\b \x01(\tR\fmodifierType\"\xc2\x06\n" +
+	"\rmodifier_type\x18\b \x01(\tR\fmodifierType\"\xce\x01\n" +
+	"\rPOSRecipeLine\x122\n" +
+	"\x15ingredient_product_id\x18\x01 \x01(\x04R\x13ingredientProductId\x12\x1a\n" +
+	"\bquantity\x18\x02 \x01(\x01R\bquantity\x12!\n" +
+	"\fwaste_factor\x18\x03 \x01(\x01R\vwasteFactor\x12\x1d\n" +
+	"\n" +
+	"variant_id\x18\x04 \x01(\x04R\tvariantId\x12+\n" +
+	"\x12unit_of_measure_id\x18\x05 \x01(\x04R\x0funitOfMeasureId\"\x86\a\n" +
 	"\x11POSProductContext\x12\x1d\n" +
 	"\n" +
 	"product_id\x18\x01 \x01(\x04R\tproductId\x12\x1d\n" +
@@ -695,7 +787,8 @@ const file_proto_menu_pos_context_pos_context_proto_rawDesc = "" +
 	"\rprice_per_uom\x18\x0e \x03(\v2 .menu.pos_context.POSPricePerUomR\vpricePerUom\x12X\n" +
 	"\x14customer_type_prices\x18\x0f \x03(\v2&.menu.pos_context.POSCustomerTypePriceR\x12customerTypePrices\x128\n" +
 	"\bvariants\x18\x10 \x03(\v2\x1c.menu.pos_context.POSVariantR\bvariants\x12;\n" +
-	"\tmodifiers\x18\x11 \x03(\v2\x1d.menu.pos_context.POSModifierR\tmodifiers\"r\n" +
+	"\tmodifiers\x18\x11 \x03(\v2\x1d.menu.pos_context.POSModifierR\tmodifiers\x12B\n" +
+	"\frecipe_lines\x18\x12 \x03(\v2\x1f.menu.pos_context.POSRecipeLineR\vrecipeLines\"r\n" +
 	"\x15GetPOSContextResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12?\n" +
 	"\bproducts\x18\x02 \x03(\v2#.menu.pos_context.POSProductContextR\bproducts2u\n" +
@@ -714,29 +807,31 @@ func file_proto_menu_pos_context_pos_context_proto_rawDescGZIP() []byte {
 	return file_proto_menu_pos_context_pos_context_proto_rawDescData
 }
 
-var file_proto_menu_pos_context_pos_context_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_proto_menu_pos_context_pos_context_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_proto_menu_pos_context_pos_context_proto_goTypes = []any{
 	(*GetPOSContextRequest)(nil),  // 0: menu.pos_context.GetPOSContextRequest
 	(*POSPricePerUom)(nil),        // 1: menu.pos_context.POSPricePerUom
 	(*POSCustomerTypePrice)(nil),  // 2: menu.pos_context.POSCustomerTypePrice
 	(*POSVariant)(nil),            // 3: menu.pos_context.POSVariant
 	(*POSModifier)(nil),           // 4: menu.pos_context.POSModifier
-	(*POSProductContext)(nil),     // 5: menu.pos_context.POSProductContext
-	(*GetPOSContextResponse)(nil), // 6: menu.pos_context.GetPOSContextResponse
+	(*POSRecipeLine)(nil),         // 5: menu.pos_context.POSRecipeLine
+	(*POSProductContext)(nil),     // 6: menu.pos_context.POSProductContext
+	(*GetPOSContextResponse)(nil), // 7: menu.pos_context.GetPOSContextResponse
 }
 var file_proto_menu_pos_context_pos_context_proto_depIdxs = []int32{
 	1, // 0: menu.pos_context.POSProductContext.price_per_uom:type_name -> menu.pos_context.POSPricePerUom
 	2, // 1: menu.pos_context.POSProductContext.customer_type_prices:type_name -> menu.pos_context.POSCustomerTypePrice
 	3, // 2: menu.pos_context.POSProductContext.variants:type_name -> menu.pos_context.POSVariant
 	4, // 3: menu.pos_context.POSProductContext.modifiers:type_name -> menu.pos_context.POSModifier
-	5, // 4: menu.pos_context.GetPOSContextResponse.products:type_name -> menu.pos_context.POSProductContext
-	0, // 5: menu.pos_context.POSContextService.GetPOSContext:input_type -> menu.pos_context.GetPOSContextRequest
-	6, // 6: menu.pos_context.POSContextService.GetPOSContext:output_type -> menu.pos_context.GetPOSContextResponse
-	6, // [6:7] is the sub-list for method output_type
-	5, // [5:6] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	5, // 4: menu.pos_context.POSProductContext.recipe_lines:type_name -> menu.pos_context.POSRecipeLine
+	6, // 5: menu.pos_context.GetPOSContextResponse.products:type_name -> menu.pos_context.POSProductContext
+	0, // 6: menu.pos_context.POSContextService.GetPOSContext:input_type -> menu.pos_context.GetPOSContextRequest
+	7, // 7: menu.pos_context.POSContextService.GetPOSContext:output_type -> menu.pos_context.GetPOSContextResponse
+	7, // [7:8] is the sub-list for method output_type
+	6, // [6:7] is the sub-list for method input_type
+	6, // [6:6] is the sub-list for extension type_name
+	6, // [6:6] is the sub-list for extension extendee
+	0, // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_proto_menu_pos_context_pos_context_proto_init() }
@@ -750,7 +845,7 @@ func file_proto_menu_pos_context_pos_context_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_menu_pos_context_pos_context_proto_rawDesc), len(file_proto_menu_pos_context_pos_context_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

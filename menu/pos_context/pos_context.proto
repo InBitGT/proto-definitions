@@ -52,6 +52,15 @@ message POSModifier {
   string modifier_type       = 8;
 }
 
+// ── Línea de receta (nuevo): para calcular cuántas se pueden preparar ──
+message POSRecipeLine {
+  uint64 ingredient_product_id = 1;
+  double quantity              = 2;
+  double waste_factor          = 3;
+  uint64 variant_id            = 4; // 0 = se consume siempre
+  uint64 unit_of_measure_id    = 5; // 0 = unidad de inventario del ingrediente
+}
+
 message POSProductContext {
   uint64 product_id              = 1;
   double base_price              = 2;
@@ -76,6 +85,7 @@ message POSProductContext {
 
   repeated POSVariant  variants  = 16; // ← nuevo
   repeated POSModifier modifiers = 17; // ← nuevo
+  repeated POSRecipeLine recipe_lines = 18; // ← nuevo
 }
 
 message GetPOSContextResponse {
