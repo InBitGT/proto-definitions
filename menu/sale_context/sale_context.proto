@@ -12,6 +12,7 @@ message GetSaleContextRequest {
   uint64 product_id = 1;
   uint64 product_variant_id = 2;
   repeated uint64 modifier_product_ids = 3;
+  uint64 customer_type_id = 4; // ← nuevo: si viene y el producto tiene precio para ese tipo, se usa ese precio
 }
 
 message ModifierSaleContext {
@@ -46,4 +47,6 @@ message GetSaleContextResponse {
   bool   has_variants  = 12; // ← nuevo: el producto tiene variantes activas
   string error_message = 13; // ← nuevo: motivo cuando success = false
   bool   has_recipe    = 14; // ← nuevo: consumption_lines incluye receta (si es false, solo trae modificadores)
+  double list_price    = 15; // ← nuevo: precio de partida (tipo de cliente si aplica, si no el base)
+  bool   customer_type_price_applied = 16; // ← nuevo
 }

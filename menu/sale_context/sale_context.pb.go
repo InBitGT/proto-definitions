@@ -26,6 +26,7 @@ type GetSaleContextRequest struct {
 	ProductId          uint64                 `protobuf:"varint,1,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
 	ProductVariantId   uint64                 `protobuf:"varint,2,opt,name=product_variant_id,json=productVariantId,proto3" json:"product_variant_id,omitempty"`
 	ModifierProductIds []uint64               `protobuf:"varint,3,rep,packed,name=modifier_product_ids,json=modifierProductIds,proto3" json:"modifier_product_ids,omitempty"`
+	CustomerTypeId     uint64                 `protobuf:"varint,4,opt,name=customer_type_id,json=customerTypeId,proto3" json:"customer_type_id,omitempty"` // ← nuevo: si viene y el producto tiene precio para ese tipo, se usa ese precio
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -79,6 +80,13 @@ func (x *GetSaleContextRequest) GetModifierProductIds() []uint64 {
 		return x.ModifierProductIds
 	}
 	return nil
+}
+
+func (x *GetSaleContextRequest) GetCustomerTypeId() uint64 {
+	if x != nil {
+		return x.CustomerTypeId
+	}
+	return 0
 }
 
 type ModifierSaleContext struct {
@@ -218,23 +226,25 @@ func (x *ConsumptionLine) GetUnitOfMeasureId() uint64 {
 }
 
 type GetSaleContextResponse struct {
-	state                  protoimpl.MessageState `protogen:"open.v1"`
-	Success                bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
-	ProductId              uint64                 `protobuf:"varint,2,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
-	ProductName            string                 `protobuf:"bytes,3,opt,name=product_name,json=productName,proto3" json:"product_name,omitempty"`
-	CategoryId             uint64                 `protobuf:"varint,4,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
-	CategoryName           string                 `protobuf:"bytes,5,opt,name=category_name,json=categoryName,proto3" json:"category_name,omitempty"`
-	BasePrice              float64                `protobuf:"fixed64,6,opt,name=base_price,json=basePrice,proto3" json:"base_price,omitempty"`
-	ProductVariantId       uint64                 `protobuf:"varint,7,opt,name=product_variant_id,json=productVariantId,proto3" json:"product_variant_id,omitempty"`
-	VariantName            string                 `protobuf:"bytes,8,opt,name=variant_name,json=variantName,proto3" json:"variant_name,omitempty"`
-	VariantPriceAdjustment float64                `protobuf:"fixed64,9,opt,name=variant_price_adjustment,json=variantPriceAdjustment,proto3" json:"variant_price_adjustment,omitempty"`
-	Modifiers              []*ModifierSaleContext `protobuf:"bytes,10,rep,name=modifiers,proto3" json:"modifiers,omitempty"`
-	ConsumptionLines       []*ConsumptionLine     `protobuf:"bytes,11,rep,name=consumption_lines,json=consumptionLines,proto3" json:"consumption_lines,omitempty"`
-	HasVariants            bool                   `protobuf:"varint,12,opt,name=has_variants,json=hasVariants,proto3" json:"has_variants,omitempty"`   // ← nuevo: el producto tiene variantes activas
-	ErrorMessage           string                 `protobuf:"bytes,13,opt,name=error_message,json=errorMessage,proto3" json:"error_message,omitempty"` // ← nuevo: motivo cuando success = false
-	HasRecipe              bool                   `protobuf:"varint,14,opt,name=has_recipe,json=hasRecipe,proto3" json:"has_recipe,omitempty"`         // ← nuevo: consumption_lines incluye receta (si es false, solo trae modificadores)
-	unknownFields          protoimpl.UnknownFields
-	sizeCache              protoimpl.SizeCache
+	state                    protoimpl.MessageState `protogen:"open.v1"`
+	Success                  bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	ProductId                uint64                 `protobuf:"varint,2,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
+	ProductName              string                 `protobuf:"bytes,3,opt,name=product_name,json=productName,proto3" json:"product_name,omitempty"`
+	CategoryId               uint64                 `protobuf:"varint,4,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	CategoryName             string                 `protobuf:"bytes,5,opt,name=category_name,json=categoryName,proto3" json:"category_name,omitempty"`
+	BasePrice                float64                `protobuf:"fixed64,6,opt,name=base_price,json=basePrice,proto3" json:"base_price,omitempty"`
+	ProductVariantId         uint64                 `protobuf:"varint,7,opt,name=product_variant_id,json=productVariantId,proto3" json:"product_variant_id,omitempty"`
+	VariantName              string                 `protobuf:"bytes,8,opt,name=variant_name,json=variantName,proto3" json:"variant_name,omitempty"`
+	VariantPriceAdjustment   float64                `protobuf:"fixed64,9,opt,name=variant_price_adjustment,json=variantPriceAdjustment,proto3" json:"variant_price_adjustment,omitempty"`
+	Modifiers                []*ModifierSaleContext `protobuf:"bytes,10,rep,name=modifiers,proto3" json:"modifiers,omitempty"`
+	ConsumptionLines         []*ConsumptionLine     `protobuf:"bytes,11,rep,name=consumption_lines,json=consumptionLines,proto3" json:"consumption_lines,omitempty"`
+	HasVariants              bool                   `protobuf:"varint,12,opt,name=has_variants,json=hasVariants,proto3" json:"has_variants,omitempty"`                                            // ← nuevo: el producto tiene variantes activas
+	ErrorMessage             string                 `protobuf:"bytes,13,opt,name=error_message,json=errorMessage,proto3" json:"error_message,omitempty"`                                          // ← nuevo: motivo cuando success = false
+	HasRecipe                bool                   `protobuf:"varint,14,opt,name=has_recipe,json=hasRecipe,proto3" json:"has_recipe,omitempty"`                                                  // ← nuevo: consumption_lines incluye receta (si es false, solo trae modificadores)
+	ListPrice                float64                `protobuf:"fixed64,15,opt,name=list_price,json=listPrice,proto3" json:"list_price,omitempty"`                                                 // ← nuevo: precio de partida (tipo de cliente si aplica, si no el base)
+	CustomerTypePriceApplied bool                   `protobuf:"varint,16,opt,name=customer_type_price_applied,json=customerTypePriceApplied,proto3" json:"customer_type_price_applied,omitempty"` // ← nuevo
+	unknownFields            protoimpl.UnknownFields
+	sizeCache                protoimpl.SizeCache
 }
 
 func (x *GetSaleContextResponse) Reset() {
@@ -365,16 +375,31 @@ func (x *GetSaleContextResponse) GetHasRecipe() bool {
 	return false
 }
 
+func (x *GetSaleContextResponse) GetListPrice() float64 {
+	if x != nil {
+		return x.ListPrice
+	}
+	return 0
+}
+
+func (x *GetSaleContextResponse) GetCustomerTypePriceApplied() bool {
+	if x != nil {
+		return x.CustomerTypePriceApplied
+	}
+	return false
+}
+
 var File_proto_menu_sale_context_sale_context_proto protoreflect.FileDescriptor
 
 const file_proto_menu_sale_context_sale_context_proto_rawDesc = "" +
 	"\n" +
-	"*proto/menu/sale_context/sale_context.proto\x12\x11menu.sale_context\"\x96\x01\n" +
+	"*proto/menu/sale_context/sale_context.proto\x12\x11menu.sale_context\"\xc0\x01\n" +
 	"\x15GetSaleContextRequest\x12\x1d\n" +
 	"\n" +
 	"product_id\x18\x01 \x01(\x04R\tproductId\x12,\n" +
 	"\x12product_variant_id\x18\x02 \x01(\x04R\x10productVariantId\x120\n" +
-	"\x14modifier_product_ids\x18\x03 \x03(\x04R\x12modifierProductIds\"\xb1\x01\n" +
+	"\x14modifier_product_ids\x18\x03 \x03(\x04R\x12modifierProductIds\x12(\n" +
+	"\x10customer_type_id\x18\x04 \x01(\x04R\x0ecustomerTypeId\"\xb1\x01\n" +
 	"\x13ModifierSaleContext\x12.\n" +
 	"\x13modifier_product_id\x18\x01 \x01(\x04R\x11modifierProductId\x12#\n" +
 	"\rmodifier_name\x18\x02 \x01(\tR\fmodifierName\x12)\n" +
@@ -384,7 +409,7 @@ const file_proto_menu_sale_context_sale_context_proto_rawDesc = "" +
 	"\x15ingredient_product_id\x18\x01 \x01(\x04R\x13ingredientProductId\x12\x1a\n" +
 	"\bquantity\x18\x02 \x01(\x01R\bquantity\x12\x12\n" +
 	"\x04unit\x18\x03 \x01(\tR\x04unit\x12+\n" +
-	"\x12unit_of_measure_id\x18\x04 \x01(\x04R\x0funitOfMeasureId\"\xe2\x04\n" +
+	"\x12unit_of_measure_id\x18\x04 \x01(\x04R\x0funitOfMeasureId\"\xc0\x05\n" +
 	"\x16GetSaleContextResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x1d\n" +
 	"\n" +
@@ -404,7 +429,10 @@ const file_proto_menu_sale_context_sale_context_proto_rawDesc = "" +
 	"\fhas_variants\x18\f \x01(\bR\vhasVariants\x12#\n" +
 	"\rerror_message\x18\r \x01(\tR\ferrorMessage\x12\x1d\n" +
 	"\n" +
-	"has_recipe\x18\x0e \x01(\bR\thasRecipe2{\n" +
+	"has_recipe\x18\x0e \x01(\bR\thasRecipe\x12\x1d\n" +
+	"\n" +
+	"list_price\x18\x0f \x01(\x01R\tlistPrice\x12=\n" +
+	"\x1bcustomer_type_price_applied\x18\x10 \x01(\bR\x18customerTypePriceApplied2{\n" +
 	"\x12SaleContextService\x12e\n" +
 	"\x0eGetSaleContext\x12(.menu.sale_context.GetSaleContextRequest\x1a).menu.sale_context.GetSaleContextResponseBBZ@github.com/InBitGT/proto-definitions/menu/sale_context;salectxpbb\x06proto3"
 
