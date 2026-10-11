@@ -10,6 +10,7 @@ service ProductService {
   rpc DeactivateProduct (DeactivateProductRequest) returns (DeactivateProductResponse);
   rpc ListProducts      (ListProductsRequest)      returns (ListProductsResponse);
   rpc UpdateProduct     (UpdateProductRequest)     returns (UpdateProductResponse);
+  rpc GetProductsByIDs  (GetProductsByIDsRequest)  returns (GetProductsByIDsResponse); // ← nuevo
 }
 
 // ── Requests ────────────────────────────────────────────────────────
@@ -109,4 +110,27 @@ message ProductResponse {
 
 message ListProductsResponse {
   repeated ProductResponse products = 1;
+}
+
+// ── GetProductsByIDs (nuevo) ────────────────────────────────────────
+// Datos básicos de varios productos en una sola llamada (nombre, categoría).
+// Incluye productos inactivos para poder mostrar su nombre en configuraciones.
+
+message GetProductsByIDsRequest {
+  repeated uint64 product_ids = 1;
+}
+
+message ProductBasicInfo {
+  uint64 id            = 1;
+  uint64 tenant_id     = 2;
+  string name          = 3;
+  string sku           = 4;
+  uint64 category_id   = 5;
+  string category_name = 6;
+  bool   status        = 7;
+}
+
+message GetProductsByIDsResponse {
+  bool                      success  = 1;
+  repeated ProductBasicInfo products = 2;
 }

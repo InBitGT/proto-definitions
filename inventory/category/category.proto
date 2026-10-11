@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package inventory.category;
+
+option go_package = "github.com/InBitGT/proto-definitions/inventory/category;categorypb";
+
+service CategoryService {
+  // Categorías por ID con el nombre de su categoría padre.
+  // Lo usa payment-client-service para resolver la estación de preparación
+  // (categoría → categoría padre) y para devolver nombres en la configuración.
+  rpc GetCategoriesByIDs (GetCategoriesByIDsRequest) returns (GetCategoriesByIDsResponse);
+}
+
+message GetCategoriesByIDsRequest {
+  repeated uint64 category_ids = 1;
+}
+
+message CategoryInfo {
+  uint64 id          = 1;
+  uint64 tenant_id   = 2;
+  string name        = 3;
+  uint64 parent_id   = 4; // 0 = sin padre
+  string parent_name = 5;
+}
+
+message GetCategoriesByIDsResponse {
+  bool                  success    = 1;
+  repeated CategoryInfo categories = 2;
+}
