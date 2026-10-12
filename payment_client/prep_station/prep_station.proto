@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package payment_client.prep_station;
+
+option go_package = "github.com/InBitGT/proto-definitions/payment_client/prep_station;prepstationpb";
+
+// Estaciones de preparación (payment-client-service).
+// Lo usa inventory-service en POST/PUT/GET /category/full para asignar la
+// estación de una categoría sin que el front tenga que llamar a dos servicios.
+service PrepStationService {
+  rpc GetPrepStation           (GetPrepStationRequest)           returns (GetPrepStationResponse);
+  rpc SetCategoryStation       (SetCategoryStationRequest)       returns (SetCategoryStationResponse);
+  rpc GetStationsByCategoryIDs (GetStationsByCategoryIDsRequest) returns (GetStationsByCategoryIDsResponse);
+}
+
+message PrepStationInfo {
+  uint64 id        = 1;
+  uint64 tenant_id = 2;
+  string name      = 3;
+  string code      = 4;
+  bool   status    = 5;
+}
+
+message GetPrepStationRequest {
+  uint64 id = 1;
+}
+
+message GetPrepStationResponse {
+  bool            success       = 1;
+  PrepStationInfo station       = 2;
+  string          error_message = 3;
+}
+
+// Asigna la categoría a la estación. Si estaba en otra, la mueve.
+// prep_station_id = 0 la quita de cualquier estación.
+message SetCategoryStationRequest {
+  uint64 category_id     = 1;
+  uint64 prep_station_id = 2;
+  uint64 tenant_id       = 3; // tenant de la categoría, para validar
+}
+
+message SetCategoryStationResponse {
+  bool            success       = 1;
+  PrepStationInfo station       = 2; // vacío si se quitó
+  string          error_message = 3;
+}
+
+message GetStationsByCategoryIDsRequest {
+  repeated uint64 category_ids = 1;
+}
+
+message CategoryStation {
+  uint64          category_id = 1;
+  PrepStationInfo station     = 2;
+}
+
+message GetStationsByCategoryIDsResponse {
+  bool                     success = 1;
+  repeated CategoryStation items   = 2; // solo las categorías que tienen estación activa
+}
