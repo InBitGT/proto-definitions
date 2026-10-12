@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	POSConsumeService_ConsumeDirectProduct_FullMethodName  = "/inventory.pos_consume.POSConsumeService/ConsumeDirectProduct"
-	POSConsumeService_ReverseConsumeProduct_FullMethodName = "/inventory.pos_consume.POSConsumeService/ReverseConsumeProduct"
+	POSConsumeService_ConsumeDirectProduct_FullMethodName     = "/inventory.pos_consume.POSConsumeService/ConsumeDirectProduct"
+	POSConsumeService_ReverseConsumeProduct_FullMethodName    = "/inventory.pos_consume.POSConsumeService/ReverseConsumeProduct"
+	POSConsumeService_ConsumeCheckoutPackaging_FullMethodName = "/inventory.pos_consume.POSConsumeService/ConsumeCheckoutPackaging"
 )
 
 // POSConsumeServiceClient is the client API for POSConsumeService service.
@@ -29,6 +30,7 @@ const (
 type POSConsumeServiceClient interface {
 	ConsumeDirectProduct(ctx context.Context, in *ConsumeDirectProductRequest, opts ...grpc.CallOption) (*ConsumeDirectProductResponse, error)
 	ReverseConsumeProduct(ctx context.Context, in *ReverseConsumeProductRequest, opts ...grpc.CallOption) (*ReverseConsumeProductResponse, error)
+	ConsumeCheckoutPackaging(ctx context.Context, in *ConsumeCheckoutPackagingRequest, opts ...grpc.CallOption) (*ConsumeCheckoutPackagingResponse, error)
 }
 
 type pOSConsumeServiceClient struct {
@@ -59,12 +61,23 @@ func (c *pOSConsumeServiceClient) ReverseConsumeProduct(ctx context.Context, in 
 	return out, nil
 }
 
+func (c *pOSConsumeServiceClient) ConsumeCheckoutPackaging(ctx context.Context, in *ConsumeCheckoutPackagingRequest, opts ...grpc.CallOption) (*ConsumeCheckoutPackagingResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ConsumeCheckoutPackagingResponse)
+	err := c.cc.Invoke(ctx, POSConsumeService_ConsumeCheckoutPackaging_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // POSConsumeServiceServer is the server API for POSConsumeService service.
 // All implementations must embed UnimplementedPOSConsumeServiceServer
 // for forward compatibility.
 type POSConsumeServiceServer interface {
 	ConsumeDirectProduct(context.Context, *ConsumeDirectProductRequest) (*ConsumeDirectProductResponse, error)
 	ReverseConsumeProduct(context.Context, *ReverseConsumeProductRequest) (*ReverseConsumeProductResponse, error)
+	ConsumeCheckoutPackaging(context.Context, *ConsumeCheckoutPackagingRequest) (*ConsumeCheckoutPackagingResponse, error)
 	mustEmbedUnimplementedPOSConsumeServiceServer()
 }
 
@@ -80,6 +93,9 @@ func (UnimplementedPOSConsumeServiceServer) ConsumeDirectProduct(context.Context
 }
 func (UnimplementedPOSConsumeServiceServer) ReverseConsumeProduct(context.Context, *ReverseConsumeProductRequest) (*ReverseConsumeProductResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ReverseConsumeProduct not implemented")
+}
+func (UnimplementedPOSConsumeServiceServer) ConsumeCheckoutPackaging(context.Context, *ConsumeCheckoutPackagingRequest) (*ConsumeCheckoutPackagingResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ConsumeCheckoutPackaging not implemented")
 }
 func (UnimplementedPOSConsumeServiceServer) mustEmbedUnimplementedPOSConsumeServiceServer() {}
 func (UnimplementedPOSConsumeServiceServer) testEmbeddedByValue()                           {}
@@ -138,6 +154,24 @@ func _POSConsumeService_ReverseConsumeProduct_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _POSConsumeService_ConsumeCheckoutPackaging_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ConsumeCheckoutPackagingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(POSConsumeServiceServer).ConsumeCheckoutPackaging(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: POSConsumeService_ConsumeCheckoutPackaging_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(POSConsumeServiceServer).ConsumeCheckoutPackaging(ctx, req.(*ConsumeCheckoutPackagingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // POSConsumeService_ServiceDesc is the grpc.ServiceDesc for POSConsumeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -152,6 +186,10 @@ var POSConsumeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ReverseConsumeProduct",
 			Handler:    _POSConsumeService_ReverseConsumeProduct_Handler,
+		},
+		{
+			MethodName: "ConsumeCheckoutPackaging",
+			Handler:    _POSConsumeService_ConsumeCheckoutPackaging_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

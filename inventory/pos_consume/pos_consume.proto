@@ -7,6 +7,7 @@ option go_package = "github.com/InBitGT/proto-definitions/inventory/pos_consume;
 service POSConsumeService {
   rpc ConsumeDirectProduct  (ConsumeDirectProductRequest)  returns (ConsumeDirectProductResponse);
   rpc ReverseConsumeProduct (ReverseConsumeProductRequest) returns (ReverseConsumeProductResponse);
+  rpc ConsumeCheckoutPackaging (ConsumeCheckoutPackagingRequest) returns (ConsumeCheckoutPackagingResponse); // ← nuevo
 }
 
 message ConsumeDirectProductLine {
@@ -58,4 +59,37 @@ message ReverseConsumeProductResponse {
   string message          = 2;
   int32  lines_restored   = 3; // ← nuevo
   bool   already_reversed = 4; // ← nuevo
+}
+
+// ── Empaque de la pantalla de venta (available_at_checkout) ─────────────
+// Valida que cada producto tenga available_at_checkout = true y descuenta
+// todo o nada. Queda como movimiento "sale" con la referencia de la orden,
+// así la anulación lo devuelve junto con lo demás.
+message ConsumeCheckoutPackagingLine {
+  uint64 product_id = 1;
+  int32  quantity   = 2;
+}
+
+message ConsumeCheckoutPackagingRequest {
+  uint64                                warehouse_id   = 1;
+  uint64                                user_id        = 2;
+  uint64                                reference_id   = 3;
+  string                                reference_type = 4;
+  repeated ConsumeCheckoutPackagingLine lines          = 5;
+}
+
+message ConsumeCheckoutPackagingResultLine {
+  uint64 product_id    = 1;
+  string product_name  = 2;
+  string sku           = 3;
+  int32  quantity      = 4;
+  double unit_cost     = 5;
+  double subtotal_cost = 6;
+}
+
+message ConsumeCheckoutPackagingResponse {
+  bool                                        success       = 1;
+  double                                      total_cost    = 2;
+  repeated ConsumeCheckoutPackagingResultLine lines         = 3;
+  string                                      error_message = 4;
 }
