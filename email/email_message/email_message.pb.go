@@ -99,8 +99,14 @@ type SendEmailRequest struct {
 	ReferenceType  string                 `protobuf:"bytes,14,opt,name=reference_type,json=referenceType,proto3" json:"reference_type,omitempty"`    // opcional, ej. "report"
 	ReferenceId    uint64                 `protobuf:"varint,15,opt,name=reference_id,json=referenceId,proto3" json:"reference_id,omitempty"`         // opcional
 	IdempotencyKey string                 `protobuf:"bytes,16,opt,name=idempotency_key,json=idempotencyKey,proto3" json:"idempotency_key,omitempty"` // opcional: si se repite, devuelve el mismo correo sin crear otro
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	// Nombres al momento del envío (los manda quien pide el correo; email-service
+	// no lee otros schemas). Se guardan como foto para el historial.
+	TenantName    string `protobuf:"bytes,17,opt,name=tenant_name,json=tenantName,proto3" json:"tenant_name,omitempty"`
+	Username      string `protobuf:"bytes,18,opt,name=username,proto3" json:"username,omitempty"`
+	FirstName     string `protobuf:"bytes,19,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
+	LastName      string `protobuf:"bytes,20,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *SendEmailRequest) Reset() {
@@ -241,6 +247,34 @@ func (x *SendEmailRequest) GetReferenceId() uint64 {
 func (x *SendEmailRequest) GetIdempotencyKey() string {
 	if x != nil {
 		return x.IdempotencyKey
+	}
+	return ""
+}
+
+func (x *SendEmailRequest) GetTenantName() string {
+	if x != nil {
+		return x.TenantName
+	}
+	return ""
+}
+
+func (x *SendEmailRequest) GetUsername() string {
+	if x != nil {
+		return x.Username
+	}
+	return ""
+}
+
+func (x *SendEmailRequest) GetFirstName() string {
+	if x != nil {
+		return x.FirstName
+	}
+	return ""
+}
+
+func (x *SendEmailRequest) GetLastName() string {
+	if x != nil {
+		return x.LastName
 	}
 	return ""
 }
@@ -473,7 +507,7 @@ const file_email_email_message_email_message_proto_rawDesc = "" +
 	"\x0fEmailAttachment\x12\x1b\n" +
 	"\tfile_name\x18\x01 \x01(\tR\bfileName\x12!\n" +
 	"\fcontent_type\x18\x02 \x01(\tR\vcontentType\x12\x18\n" +
-	"\acontent\x18\x03 \x01(\fR\acontent\"\x8d\x04\n" +
+	"\acontent\x18\x03 \x01(\fR\acontent\"\x86\x05\n" +
 	"\x10SendEmailRequest\x12\x1b\n" +
 	"\ttenant_id\x18\x01 \x01(\x04R\btenantId\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\x04R\x06userId\x12%\n" +
@@ -491,7 +525,13 @@ const file_email_email_message_email_message_proto_rawDesc = "" +
 	"\vattachments\x18\r \x03(\v2$.email.email_message.EmailAttachmentR\vattachments\x12%\n" +
 	"\x0ereference_type\x18\x0e \x01(\tR\rreferenceType\x12!\n" +
 	"\freference_id\x18\x0f \x01(\x04R\vreferenceId\x12'\n" +
-	"\x0fidempotency_key\x18\x10 \x01(\tR\x0eidempotencyKey\"\xa5\x01\n" +
+	"\x0fidempotency_key\x18\x10 \x01(\tR\x0eidempotencyKey\x12\x1f\n" +
+	"\vtenant_name\x18\x11 \x01(\tR\n" +
+	"tenantName\x12\x1a\n" +
+	"\busername\x18\x12 \x01(\tR\busername\x12\x1d\n" +
+	"\n" +
+	"first_name\x18\x13 \x01(\tR\tfirstName\x12\x1b\n" +
+	"\tlast_name\x18\x14 \x01(\tR\blastName\"\xa5\x01\n" +
 	"\x11SendEmailResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x19\n" +
 	"\bemail_id\x18\x02 \x01(\x04R\aemailId\x12\x16\n" +

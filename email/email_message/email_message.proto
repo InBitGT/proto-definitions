@@ -34,6 +34,12 @@ message SendEmailRequest {
   string reference_type = 14;       // opcional, ej. "report"
   uint64 reference_id = 15;         // opcional
   string idempotency_key = 16;      // opcional: si se repite, devuelve el mismo correo sin crear otro
+  // Nombres al momento del envío (los manda quien pide el correo; email-service
+  // no lee otros schemas). Se guardan como foto para el historial.
+  string tenant_name = 17;
+  string username = 18;
+  string first_name = 19;
+  string last_name = 20;
 }
 
 message SendEmailResponse {
