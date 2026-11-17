@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package email.email_message;
+
+option go_package = "github.com/InBitGT/proto-definitions/email/email_message;emailmessagepb";
+
+// EmailMessageService — envío de correos por email-service (Amazon SES).
+// Solo para uso interno entre microservicios (el puerto gRPC no se publica).
+service EmailMessageService {
+  rpc SendEmail (SendEmailRequest) returns (SendEmailResponse);
+  rpc GetEmailStatus (GetEmailStatusRequest) returns (GetEmailStatusResponse);
+}
+
+message EmailAttachment {
+  string file_name = 1;      // ej. "reporte-ventas.xlsx"
+  string content_type = 2;   // ej. "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  bytes content = 3;
+}
+
+message SendEmailRequest {
+  uint64 tenant_id = 1;
+  uint64 user_id = 2;               // quién lo pidió (auditoría)
+  string source_service = 3;        // ej. "report-service" (debe estar en EMAIL_ALLOWED_SOURCES)
+  string source_action = 4;         // ej. "sales_detail_export"
+  string from_name = 5;             // nombre visible; vacío = EMAIL_FROM_NAME (InbitGT)
+  repeated string to = 6;
+  repeated string cc = 7;
+  repeated string bcc = 8;
+  string reply_to = 9;              // vacío = EMAIL_REPLY_TO
+  string subject = 10;
+  string body_text = 11;            // body_text o body_html, al menos uno
+  string body_html = 12;
+  repeated EmailAttachment attachments = 13;
+  string reference_type = 14;       // opcional, ej. "report"
+  uint64 reference_id = 15;         // opcional
+  string idempotency_key = 16;      // opcional: si se repite, devuelve el mismo correo sin crear otro
+}
+
+message SendEmailResponse {
+  bool success = 1;
+  uint64 email_id = 2;
+  string status = 3;                // queued | sending | sent | retrying | failed
+  bool duplicated = 4;              // true si ya existía por idempotency_key
+  string error_message = 5;         // motivo cuando success = false
+}
+
+message GetEmailStatusRequest {
+  uint64 email_id = 1;
+  uint64 tenant_id = 2;
+}
+
+message GetEmailStatusResponse {
+  bool success = 1;
+  uint64 email_id = 2;
+  string status = 3;
+  int32 attempts = 4;
+  string last_error = 5;
+  string sent_at = 6;               // RFC3339, vacío si no se ha enviado
+  string error_message = 7;
+}
