@@ -40,6 +40,24 @@ message SendEmailRequest {
   string username = 18;
   string first_name = 19;
   string last_name = 20;
+  // Contenido por bloques: email-service arma el HTML con el diseño de Senti
+  // (layout, logo, pie) y la versión en texto. Si van bloques, body_html va vacío.
+  string preheader = 21;            // texto que se ve en la bandeja antes de abrir el correo
+  repeated EmailBlock blocks = 22;
+}
+
+// EmailBlock — un bloque del correo. type: heading | text | box | attachment_notice |
+// button | details | divider | spacer. Los campos de cada tipo están en
+// email-service (internal/services/email_template_service.go). Un bloque nuevo
+// no requiere cambiar este proto.
+message EmailBlock {
+  string type = 1;
+  map<string, string> fields = 2;   // ej. title, text, label, url, icon, style
+  repeated EmailBlockRow rows = 3;  // bloques con filas (details)
+}
+
+message EmailBlockRow {
+  repeated string cells = 1;
 }
 
 message SendEmailResponse {
