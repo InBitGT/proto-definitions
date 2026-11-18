@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package catalog;
+
+option go_package = "github.com/InBitGT/proto-definitions/module/catalog";
+
+service ModuleCatalogService {
+  rpc GetPlanModules               (GetPlanModulesRequest)  returns (ModuleIDsResponse);
+  rpc FilterModulesForBusinessType (FilterModulesRequest)   returns (FilterModulesResponse);
+}
+
+message GetPlanModulesRequest {
+  uint64 plan_id = 1;
+}
+
+message ModuleIDsResponse {
+  bool            success    = 1;
+  repeated uint64 module_ids = 2;
+}
+
+message FilterModulesRequest {
+  uint64          business_type_id = 1;
+  repeated uint64 module_ids       = 2;
+}
+
+message FilterModulesResponse {
+  bool            success                = 1;
+  repeated uint64 allowed_module_ids     = 2;
+  repeated uint64 recommended_module_ids = 3;
+}

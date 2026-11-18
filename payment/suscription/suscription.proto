@@ -8,6 +8,14 @@ import "proto/payment/plan/plan.proto";
 service SuscriptionService {
   rpc GetSuscription    (GetSuscriptionRequest)    returns (SuscriptionResponse) {}
   rpc CreateSuscription (CreateSuscriptionRequest) returns (SuscriptionResponse) {}
+
+  // Lo llama transaction-service después de procesar cada webhook de Recurrente.
+  // Idempotente por event_id; escribe subscription_history.
+  rpc ApplySubscriptionEvent (ApplySubscriptionEventRequest) returns (SuscriptionResponse) {}
+
+  // Plan, add-ons y límites vigentes del tenant. Lo usan module-service (menú),
+  // auth-service (permisos), user-service e inventory-service (límites).
+  rpc GetActiveSubscription (GetActiveSubscriptionRequest) returns (ActiveSubscriptionResponse) {}
 }
 
 message GetSuscriptionRequest {
@@ -24,4 +32,49 @@ message CreateSuscriptionRequest {
 
 message SuscriptionResponse {
   bool success = 1;
+}
+
+// ── Eventos de la pasarela ────────────────────────────────────────────
+
+message SubscriptionEventItem {
+  string price_type   = 1; // plan | addon
+  uint64 price_ref_id = 2; // id_plan_price o id_addon_price
+  int32  quantity     = 3;
+}
+
+message ApplySubscriptionEventRequest {
+  uint64 subscription_id         = 1;
+  uint64 event_id                = 2; // id_webhook_event de transaction-service
+  string event_type              = 3; // subscription.create, subscription.past_due, ...
+  string subscription_status     = 4; // incomplete | active | past_due | paused | canceled | expired
+  uint64 plan_price_id           = 5;
+  repeated SubscriptionEventItem items = 6;
+  string period_start            = 7; // RFC 3339
+  string period_end              = 8;
+  string next_payment_attempt_at = 9;
+  bool   cancel_at_period_end    = 10;
+}
+
+// ── Suscripción activa ────────────────────────────────────────────────
+
+message GetActiveSubscriptionRequest {
+  uint64 tenant_id = 1;
+}
+
+message SubscriptionLimit {
+  string limit_key = 1; // users | branches | warehouses
+  int64  max_value = 2; // -1 = ilimitado
+}
+
+message ActiveSubscriptionResponse {
+  bool     success             = 1;
+  uint64   subscription_id     = 2;
+  uint64   plan_id             = 3;
+  string   plan_code           = 4;
+  string   subscription_status = 5;
+  string   renew_at            = 6; // RFC 3339
+  repeated uint64 addon_module_ids = 7;
+  repeated SubscriptionLimit limits = 8; // límite efectivo: plan + capacidad comprada
+  bool     in_grace            = 9;
+  string   grace_ends_at       = 10;
 }

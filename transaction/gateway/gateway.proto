@@ -1,0 +1,198 @@
+syntax = "proto3";
+
+package gateway;
+option go_package = "github.com/InBitGT/proto-definitions/transaction/gateway";
+
+// GatewayService lo expone transaction-service y lo consume payment-service.
+// Es el único camino hacia Recurrente. Ningún mensaje lleva datos de tarjeta:
+// solo IDs de Recurrente, marca y últimos 4 dígitos.
+//
+// Errores: argumento faltante → InvalidArgument; Recurrente caído → Unavailable;
+// regla de negocio o rechazo de Recurrente → success=false + error_code/message.
+service GatewayService {
+  // Catálogo (fase 2)
+  rpc SyncPrice    (SyncPriceRequest)    returns (SyncPriceResponse) {}
+  rpc ArchivePrice (ArchivePriceRequest) returns (GatewayResult) {}
+
+  // Alta y tarjeta (fase 3)
+  rpc CreateCheckout     (CreateCheckoutRequest)     returns (CheckoutResponse) {}
+  rpc CreateCardCheckout (CreateCardCheckoutRequest) returns (CheckoutResponse) {}
+
+  // Cambios sobre una suscripción activa (fases 4 y 5)
+  rpc PreviewSubscriptionChange (SubscriptionChangeRequest) returns (PreviewResponse) {}
+  rpc ChangePlan                (ChangePlanRequest)         returns (GatewayResult) {}
+  rpc AddSubscriptionItem       (SubscriptionItemRequest)   returns (GatewayResult) {}
+  rpc UpdateSubscriptionItem    (SubscriptionItemRequest)   returns (GatewayResult) {}
+  rpc RemoveSubscriptionItem    (SubscriptionItemRequest)   returns (GatewayResult) {}
+  rpc PauseSubscription         (PauseSubscriptionRequest)  returns (GatewayResult) {}
+  rpc ResumeSubscription        (SubscriptionRef)           returns (GatewayResult) {}
+  rpc CancelSubscription        (CancelSubscriptionRequest) returns (GatewayResult) {}
+
+  // Consulta y reconciliación
+  rpc GetGatewaySubscription (SubscriptionRef) returns (GatewaySubscriptionResponse) {}
+  rpc SyncSubscription       (SubscriptionRef) returns (GatewaySubscriptionResponse) {}
+}
+
+// ── Comunes ───────────────────────────────────────────────────────────
+
+enum PriceType {
+  PRICE_TYPE_UNSPECIFIED = 0;
+  PRICE_TYPE_PLAN        = 1;
+  PRICE_TYPE_ADDON       = 2;
+}
+
+enum ChangeMode {
+  CHANGE_MODE_UNSPECIFIED    = 0;
+  CHANGE_MODE_NEXT_CYCLE     = 1; // aplica en la próxima renovación
+  CHANGE_MODE_NOW            = 2; // aplica ya, sin cobrar
+  CHANGE_MODE_NOW_AND_CHARGE = 3; // aplica ya y cobra el prorrateo
+}
+
+message GatewayResult {
+  bool   success       = 1;
+  string error_code    = 2;
+  string error_message = 3;
+}
+
+// subscription_id = id_suscription de payment-service.
+message SubscriptionRef {
+  uint64 subscription_id = 1;
+}
+
+message PriceRef {
+  PriceType price_type   = 1;
+  uint64    price_ref_id = 2; // id_plan_price o id_addon_price
+  int32     quantity     = 3; // 0 = 1
+}
+
+// ── Catálogo ──────────────────────────────────────────────────────────
+
+message SyncPriceRequest {
+  PriceType price_type             = 1;
+  uint64    price_ref_id           = 2;
+  string    name                   = 3;
+  string    description            = 4;
+  int64     amount_in_cents        = 5;
+  string    currency               = 6;  // "USD"
+  string    billing_interval       = 7;  // week | month | year
+  int32     billing_interval_count = 8;
+  string    free_trial_interval    = 9;  // vacío = sin prueba
+  int32     free_trial_interval_count = 10;
+
+  // Opciones de suscripción (solo mensual)
+  int32  billing_cycle_anchor_day = 11; // 0 = sin día fijo
+  string first_charge_mode        = 12; // prorate | full | defer
+  int32  periods_before_allowed_to_cancel      = 13; // solo al crear el producto
+  int32  periods_before_automatic_cancellation = 14; // solo al crear el producto
+}
+
+message SyncPriceResponse {
+  bool   success                = 1;
+  string error_code             = 2;
+  string error_message          = 3;
+  string recurrente_product_id  = 4;
+  string recurrente_price_id    = 5;
+  // true si Recurrente no permitía editar el producto y se creó uno nuevo.
+  bool   recreated              = 6;
+}
+
+message ArchivePriceRequest {
+  PriceType price_type   = 1;
+  uint64    price_ref_id = 2;
+}
+
+// ── Checkout ──────────────────────────────────────────────────────────
+
+message CreateCheckoutRequest {
+  uint64 tenant_id       = 1;
+  uint64 subscription_id = 2;
+  uint64 plan_price_id   = 3;
+  uint64 owner_user_id   = 4; // dueño de la tarjeta (billing_customer)
+  string email           = 5;
+  string full_name       = 6;
+  string nit             = 7;
+  string success_url     = 8;
+  string cancel_url      = 9;
+}
+
+message CreateCardCheckoutRequest {
+  uint64 owner_user_id = 1;
+  string success_url   = 2;
+  string cancel_url    = 3;
+}
+
+message CheckoutResponse {
+  bool   success                = 1;
+  string error_code             = 2;
+  string error_message          = 3;
+  uint64 checkout_session_id    = 4;
+  string recurrente_checkout_id = 5;
+  string checkout_url           = 6;
+  string expires_at             = 7; // RFC 3339
+}
+
+// ── Cambios ───────────────────────────────────────────────────────────
+
+message SubscriptionChangeRequest {
+  uint64            subscription_id = 1;
+  repeated PriceRef add             = 2;
+  repeated PriceRef remove          = 3;
+  ChangeMode        mode            = 4;
+}
+
+message PreviewResponse {
+  bool   success                  = 1;
+  string error_code               = 2;
+  string error_message            = 3;
+  int64  amount_due_now_in_cents  = 4;
+  int64  next_invoice_in_cents    = 5;
+  string currency                 = 6;
+  string next_payment_at          = 7; // RFC 3339
+}
+
+message ChangePlanRequest {
+  uint64            subscription_id   = 1;
+  uint64            new_plan_price_id = 2;
+  repeated PriceRef remove_addons     = 3;
+  ChangeMode        mode              = 4;
+}
+
+message SubscriptionItemRequest {
+  uint64     subscription_id = 1;
+  PriceRef   item            = 2;
+  ChangeMode mode            = 3;
+}
+
+message PauseSubscriptionRequest {
+  uint64 subscription_id = 1;
+  string resumes_on      = 2; // RFC 3339; vacío = indefinido
+}
+
+message CancelSubscriptionRequest {
+  uint64 subscription_id      = 1;
+  bool   at_period_end        = 2;
+  string reason               = 3;
+}
+
+// ── Consulta ──────────────────────────────────────────────────────────
+
+message GatewaySubscriptionItem {
+  PriceRef price          = 1;
+  string   recurrente_price_id = 2;
+}
+
+message GatewaySubscriptionResponse {
+  bool     success                    = 1;
+  string   error_code                 = 2;
+  string   error_message              = 3;
+  string   recurrente_subscription_id = 4;
+  string   gateway_status             = 5;
+  string   current_period_start       = 6; // RFC 3339
+  string   current_period_end         = 7;
+  string   next_payment_attempt_at    = 8;
+  bool     cancel_at_period_end       = 9;
+  string   card_brand                 = 10;
+  string   card_last4                 = 11;
+  repeated GatewaySubscriptionItem items = 12;
+  int32    successful_payments        = 13;
+}

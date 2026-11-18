@@ -8,6 +8,16 @@ service WarehouseService {
   rpc GetDefaultWarehouseByBranch (GetDefaultWarehouseByBranchRequest) returns (GetDefaultWarehouseByBranchResponse);
   rpc ListWarehousesByBranches    (ListWarehousesByBranchesRequest)    returns (ListWarehousesByBranchesResponse);
   rpc GetWarehousesByIDs          (GetWarehousesByIDsRequest)          returns (GetWarehousesByIDsResponse); // ← nuevo
+  rpc CountWarehousesByTenant     (CountWarehousesByTenantRequest)     returns (CountWarehousesByTenantResponse);
+}
+
+message CountWarehousesByTenantRequest {
+  uint64 tenant_id = 1;
+}
+
+message CountWarehousesByTenantResponse {
+  bool  success = 1;
+  int64 count   = 2;
 }
 
 message GetDefaultWarehouseByBranchRequest {

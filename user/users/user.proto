@@ -8,14 +8,39 @@ service UserService {
   rpc GetUserByEmail      (GetUserByEmailRequest)      returns (UserAuthResponse);
   rpc GetUserByID         (GetUserByIDRequest)         returns (UserAuthResponse);
   rpc GetUsersByTenantID  (GetUsersByTenantIDRequest)  returns (GetUsersByTenantIDResponse);
+  rpc GetTenant           (GetTenantRequest)           returns (TenantResponse);
+  rpc GetTenantUsage      (GetTenantRequest)           returns (TenantUsageResponse);
+}
+
+message TenantUsageResponse {
+  bool   success  = 1;
+  int64  users    = 2;
+  int64  branches = 3;
 }
 
 message GetUserByEmailRequest {
-  string email = 1;
+  string email     = 1;
+  uint64 tenant_id = 2;
 }
 
 message GetUserByIDRequest {
+  uint64 id        = 1;
+  uint64 tenant_id = 2;
+}
+
+message GetTenantRequest {
   uint64 id = 1;
+}
+
+message TenantResponse {
+  bool   success          = 1;
+  uint64 id               = 2;
+  string name             = 3;
+  uint64 business_type_id = 4;
+  bool   status           = 5;
+  uint64 owner_user_id    = 6;
+  string nit              = 7;
+  string email            = 8;
 }
 
 message GetUsersByTenantIDRequest {
@@ -62,4 +87,5 @@ message UserAuthResponse {
   string tenant_name   = 12;
   reserved 13, 14;
   repeated Branch branches = 15;
+  bool   is_owner      = 16;
 }
