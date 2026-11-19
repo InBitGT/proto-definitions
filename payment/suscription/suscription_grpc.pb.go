@@ -23,6 +23,7 @@ const (
 	SuscriptionService_CreateSuscription_FullMethodName      = "/suscription.SuscriptionService/CreateSuscription"
 	SuscriptionService_ApplySubscriptionEvent_FullMethodName = "/suscription.SuscriptionService/ApplySubscriptionEvent"
 	SuscriptionService_GetActiveSubscription_FullMethodName  = "/suscription.SuscriptionService/GetActiveSubscription"
+	SuscriptionService_StartCheckout_FullMethodName          = "/suscription.SuscriptionService/StartCheckout"
 )
 
 // SuscriptionServiceClient is the client API for SuscriptionService service.
@@ -37,6 +38,7 @@ type SuscriptionServiceClient interface {
 	// Plan, add-ons y límites vigentes del tenant. Lo usan module-service (menú),
 	// auth-service (permisos), user-service e inventory-service (límites).
 	GetActiveSubscription(ctx context.Context, in *GetActiveSubscriptionRequest, opts ...grpc.CallOption) (*ActiveSubscriptionResponse, error)
+	StartCheckout(ctx context.Context, in *StartCheckoutRequest, opts ...grpc.CallOption) (*StartCheckoutResponse, error)
 }
 
 type suscriptionServiceClient struct {
@@ -87,6 +89,16 @@ func (c *suscriptionServiceClient) GetActiveSubscription(ctx context.Context, in
 	return out, nil
 }
 
+func (c *suscriptionServiceClient) StartCheckout(ctx context.Context, in *StartCheckoutRequest, opts ...grpc.CallOption) (*StartCheckoutResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(StartCheckoutResponse)
+	err := c.cc.Invoke(ctx, SuscriptionService_StartCheckout_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SuscriptionServiceServer is the server API for SuscriptionService service.
 // All implementations must embed UnimplementedSuscriptionServiceServer
 // for forward compatibility.
@@ -99,6 +111,7 @@ type SuscriptionServiceServer interface {
 	// Plan, add-ons y límites vigentes del tenant. Lo usan module-service (menú),
 	// auth-service (permisos), user-service e inventory-service (límites).
 	GetActiveSubscription(context.Context, *GetActiveSubscriptionRequest) (*ActiveSubscriptionResponse, error)
+	StartCheckout(context.Context, *StartCheckoutRequest) (*StartCheckoutResponse, error)
 	mustEmbedUnimplementedSuscriptionServiceServer()
 }
 
@@ -120,6 +133,9 @@ func (UnimplementedSuscriptionServiceServer) ApplySubscriptionEvent(context.Cont
 }
 func (UnimplementedSuscriptionServiceServer) GetActiveSubscription(context.Context, *GetActiveSubscriptionRequest) (*ActiveSubscriptionResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetActiveSubscription not implemented")
+}
+func (UnimplementedSuscriptionServiceServer) StartCheckout(context.Context, *StartCheckoutRequest) (*StartCheckoutResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method StartCheckout not implemented")
 }
 func (UnimplementedSuscriptionServiceServer) mustEmbedUnimplementedSuscriptionServiceServer() {}
 func (UnimplementedSuscriptionServiceServer) testEmbeddedByValue()                            {}
@@ -214,6 +230,24 @@ func _SuscriptionService_GetActiveSubscription_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SuscriptionService_StartCheckout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StartCheckoutRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SuscriptionServiceServer).StartCheckout(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SuscriptionService_StartCheckout_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SuscriptionServiceServer).StartCheckout(ctx, req.(*StartCheckoutRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SuscriptionService_ServiceDesc is the grpc.ServiceDesc for SuscriptionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -236,6 +270,10 @@ var SuscriptionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetActiveSubscription",
 			Handler:    _SuscriptionService_GetActiveSubscription_Handler,
+		},
+		{
+			MethodName: "StartCheckout",
+			Handler:    _SuscriptionService_StartCheckout_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

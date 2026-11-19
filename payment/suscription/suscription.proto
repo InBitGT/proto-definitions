@@ -16,6 +16,29 @@ service SuscriptionService {
   // Plan, add-ons y límites vigentes del tenant. Lo usan module-service (menú),
   // auth-service (permisos), user-service e inventory-service (límites).
   rpc GetActiveSubscription (GetActiveSubscriptionRequest) returns (ActiveSubscriptionResponse) {}
+
+  rpc StartCheckout (StartCheckoutRequest) returns (StartCheckoutResponse) {}
+}
+
+message StartCheckoutRequest {
+  uint64 tenant_id        = 1;
+  uint64 plan_price_id    = 2;
+  uint64 owner_user_id    = 3;
+  string email            = 4;
+  string full_name        = 5;
+  string nit              = 6;
+  uint64 business_type_id = 7;
+  string success_url      = 8;
+  string cancel_url       = 9;
+}
+
+message StartCheckoutResponse {
+  bool   success         = 1;
+  string error_code      = 2;
+  string error_message   = 3;
+  uint64 subscription_id = 4;
+  string checkout_url    = 5;
+  string expires_at      = 6;
 }
 
 message GetSuscriptionRequest {
