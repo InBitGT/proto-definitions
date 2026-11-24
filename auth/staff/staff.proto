@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package staffauth;
+
+option go_package = "github.com/InBitGT/proto-definitions/auth/staff";
+
+service StaffDirectoryService {
+  rpc GetStaffByEmail (GetStaffByEmailRequest) returns (StaffRecord);
+  rpc GetStaffByID (GetStaffByIDRequest) returns (StaffRecord);
+  rpc MarkStaffLogin (MarkStaffLoginRequest) returns (MarkStaffLoginResponse);
+}
+
+message GetStaffByEmailRequest {
+  string email = 1;
+}
+
+message GetStaffByIDRequest {
+  uint64 staff_id = 1;
+}
+
+message StaffRecord {
+  uint64 staff_id      = 1;
+  string email         = 2;
+  string full_name     = 3;
+  string role          = 4;
+  bool   is_active     = 5;
+  string password_hash = 6;
+}
+
+message MarkStaffLoginRequest {
+  uint64 staff_id = 1;
+}
+
+message MarkStaffLoginResponse {
+  bool ok = 1;
+}
